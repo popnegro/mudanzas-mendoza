@@ -1,0 +1,27 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: Googlebot
+Allow: /
+
+# *
+User-agent: *
+Allow: /mudanzas-locales/
+
+# *
+User-agent: Googlebot
+Allow: /mudanzas-locales/
+
+# *
+User-agent: *
+Allow: /mudanzas-nacionales/
+
+# *
+User-agent: Googlebot
+Allow: /mudanzas-nacionales/
+
+# Sitemaps
+Sitemap: https://mudanzasmendoza.com.ar/sitemap.xml
+
