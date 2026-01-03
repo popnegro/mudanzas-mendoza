@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+
+  <title>{{TITLE}}</title>
+
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta itemprop="keywords" content="{{KEYWORDS}}">
+
+  <!-- FAQ Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "{{FAQ_Q1}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{FAQ_A1}}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{{FAQ_Q2}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{FAQ_A2}}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{{FAQ_Q3}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{FAQ_A3}}"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>{{H1}}</h1>
+  <p>{{HERO_TEXT}}</p>
+  <a href="#contacto" class="btn-primary">{{CTA_HERO}}</a>
+</header>
+
+<!-- BENEFICIOS -->
+<section class="beneficios">
+  <h2>{{BENEFITS_TITLE}}</h2>
+  <ul>
+    <li>{{BENEFIT_1}}</li>
+    <li>{{BENEFIT_2}}</li>
+    <li>{{BENEFIT_3}}</li>
+    <li>{{BENEFIT_4}}</li>
+  </ul>
+</section>
+
+<!-- SERVICIO -->
+<section class="servicio">
+  <h2>{{SERVICE_TITLE}}</h2>
+  <p>{{SERVICE_TEXT}}</p>
+</section>
+
+<!-- FAQ VISIBLE -->
+<section class="faqs">
+  <h2>{{FAQ_TITLE}}</h2>
+
+  <article>
+    <h3>{{FAQ_Q1}}</h3>
+    <p>{{FAQ_A1}}</p>
+  </article>
+
+  <article>
+    <h3>{{FAQ_Q2}}</h3>
+    <p>{{FAQ_A2}}</p>
+  </article>
+
+  <article>
+    <h3>{{FAQ_Q3}}</h3>
+    <p>{{FAQ_A3}}</p>
+  </article>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contacto" class="cta">
+  <h2>{{CTA_TITLE}}</h2>
+  <p>{{CTA_TEXT}}</p>
+  <a href="{{CTA_LINK}}" class="btn-secondary">{{CTA_BUTTON}}</a>
+</section>
+
+<footer>
+  <p>© Mudanzas Miranda – {{FOOTER_TEXT}}</p>
+</footer>
+
+</body>
+</html>
