@@ -2,7 +2,7 @@
   name: Upload artifact
   uses: actions/upload-pages-artifact@v3
   with:
-    path: './public'
+    path: './dist'
 on:
   # Runs on pushes targeting the default branch
   push:
