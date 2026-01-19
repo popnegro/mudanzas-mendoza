@@ -9,10 +9,6 @@
        <changefreq>daily</changefreq>
        <priority>0.9</priority>
    </url>
-    <url>
-       <loc>https://mudanzasmendoza.com.ar/mudanzas-nacionales/mudanzas-argentina.html</loc>
-       <changefreq>daily</changefreq>
-   </url>
       <url>
        <loc>https://mudanzasmendoza.com.ar/mudanzas-locales/mudanzas-guaymallen.html</loc>
        <changefreq>daily</changefreq>
@@ -85,15 +81,5 @@
        <loc>https://mudanzasmendoza.com.ar/mudanzas-en-mendoza.html</loc>
        <changefreq>daily</changefreq>
        <priority>0.9</priority>
-   </url>
-     <url>
-       <loc>https://mudanzasmendoza.com.ar/mudanzas-precios.html</loc>
-       <changefreq>daily</changefreq>
-       <priority>0.9</priority>
-   </url>
-   <url>
-       <loc>https://mudanzasmendoza.com.ar/sitemap.html</loc>
-       <changefreq>daily</changefreq>
-       <priority>0.9</priority>
-   </url>
+   </url>   
 </urlset>

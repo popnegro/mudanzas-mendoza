@@ -16,11 +16,11 @@ Allow: /mudanzas-locales/
 
 # *
 User-agent: *
-Allow: /mudanzas-nacionales/
+Disallow: /mudanzas-nacionales/
 
 # *
 User-agent: Googlebot
-Allow: /mudanzas-nacionales/
+Disallow: /mudanzas-nacionales/
 
 # Sitemaps
 Sitemap: https://mudanzasmendoza.com.ar/sitemap.xml
