@@ -2,3 +2,7 @@
 <users>
     <user>6B440DB4A8E259AD75DBBADAE060D438</user>
 </users>
+
+5.15.0-139-generic
+
+sudo cp 88x2bu.ko /lib/modules/5.15.0-139-generic/kernel/drivers/net/wireless/sudo cp 88x2bu.ko /lib/modules/[kernel version]/kernel/drivers/net/wireless/
