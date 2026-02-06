@@ -1,0 +1,64 @@
+# ----------------------------------------------------------------------
+# 2. RENDIMIENTO: COMPRESIÓN GZIP (Acelera la carga)
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# ----------------------------------------------------------------------
+# 3. RENDIMIENTO: CACHÉ DE NAVEGADOR (Core Web Vitals)
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  
+  # Imágenes (1 año porque no cambian seguido)
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # CSS y JS (1 mes)
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# 4. SEGURIDAD DE CABECERAS (Protección contra ataques)
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # HSTS (Opcional: fuerza HTTPS por 1 año en el navegador)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# 5. PROTECCIÓN DE ARCHIVOS SENSIBLES
+# ----------------------------------------------------------------------
+# Evitar ver carpetas internas
+Options -Indexes
+
+# Bloquear acceso a archivos de configuración y logs
+<FilesMatch "(\.(bak|config|sql|lib|log)|composer\.json|package\.json)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Bloquear acceso al propio .htaccess
+<Files .htaccess>
+  Order allow,deny
+  Deny from all
+</Files>
