@@ -1,0 +1,6 @@
+{
+  "name": "Mudanzas Mendoza 2026",
+  "description": "La mejor empresa de fletes y mudanzas en Mendoza. Cotizaciones en el acto, atención local y mudanzas interprovinciales seguras con asistente de planificación de IA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
