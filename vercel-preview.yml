@@ -1,0 +1,28 @@
+name: Vercel Staging Deployment
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+jobs:
+  deploy_staging:
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: ${{ steps.deploy-vercel-step.outputs.url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        id: deploy-vercel-step
+        uses: amondnet/vercel-action@v2.0.2
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod" # Use --prod for a stable URL on a specific branch
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: ./
