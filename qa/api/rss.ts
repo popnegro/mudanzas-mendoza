@@ -1,4 +1,5 @@
 import { SitemapService } from '../src/services/sitemapService';
+import { BLOG_ARTICLES } from '../src/data';
 
 export default function handler(req: any, res: any) {
   res.setHeader('Content-Type', 'application/xml');
@@ -13,7 +14,6 @@ export default function handler(req: any, res: any) {
   xml += `    <language>es-AR</language>\n`;
   xml += `    <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
 
-  const BLOG_ARTICLES = require('../src/data').BLOG_ARTICLES;
   BLOG_ARTICLES.forEach((art: any) => {
     xml += `    <item>\n`;
     xml += `      <title>${art.title}</title>\n`;
