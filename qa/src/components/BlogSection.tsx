@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BlogArticle } from '../types';
 import { BLOG_ARTICLES } from '../data';
 import { Calendar, User, Clock, ArrowLeft, ArrowRight, BookOpen, Share2, CheckSquare } from 'lucide-react';
-import { useSchema } from '../hooks/useSchema';
+import { useBlogArticleSchema } from '../hooks/useBlogArticleSchema';
 
 // Import official Mudanzas Miranda images for co-branding across blog pages
 import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
@@ -23,38 +23,8 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
     }
   }, [selectedArticle, onArticleSelect]);
 
-  // Construir el schema de BlogArticle y usar el hook genérico
-  const articleSchema = useMemo(() => {
-    if (!selectedArticle) return null;
-    return {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": `https://mudanzasmendoza.com.ar/blog/${selectedArticle.slug}`
-      },
-      "headline": selectedArticle.title,
-      "description": selectedArticle.summary,
-      "image": selectedArticle.image,
-      "author": {
-        "@type": "Organization",
-        "name": "Mudanzas Mendoza 2026"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Mudanzas Mendoza 2026",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png"
-        }
-      },
-      "datePublished": selectedArticle.date,
-      "dateModified": selectedArticle.date
-    };
-  }, [selectedArticle]);
-
-  // Inyectar dinámicamente JSON-LD de artículo para SEO
-  useSchema(articleSchema, `blog-article-schema-${selectedArticle?.id || ''}`);
+  // Inyectar dinámicamente JSON-LD de artículo y breadcrumbs para SEO
+  useBlogArticleSchema(selectedArticle);
 
   const handleShare = (article: BlogArticle) => {
     if (navigator.share) {

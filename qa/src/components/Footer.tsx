@@ -103,29 +103,29 @@ export default function Footer({
   }, []);
 
   return (
-    <footer className="bg-slate-950 text-slate-300 font-sans border-t border-slate-900">
+    <footer id="footer-section" className="bg-slate-950 text-slate-300 font-sans border-t border-slate-900">
       
       {/* High Trust Value Props Footer Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-b border-slate-900 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-center sm:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-900 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-center sm:text-left">
         <div className="flex items-center gap-3 justify-center sm:justify-start">
-          <ShieldCheck className="w-8 h-8 text-amber-500 shrink-0" />
+          <ShieldCheck className="w-7 h-7 text-amber-500 shrink-0" />
           <div>
             <h4 className="font-bold text-white text-xs uppercase tracking-wider">Carga Asegurada</h4>
-            <p className="text-slate-500 text-xs mt-0.5">Seguro de tránsito civil bonificado.</p>
+            <p className="text-slate-500 text-xs mt-0.5">Seguro de tránsito Sancor Seguros.</p>
           </div>
         </div>
         <div className="flex items-center gap-3 justify-center sm:justify-start">
-          <Phone className="w-8 h-8 text-amber-500 shrink-0" />
+          <Phone className="w-7 h-7 text-amber-500 shrink-0" />
           <div>
             <h4 className="font-bold text-white text-xs uppercase tracking-wider">Atención de Guardia</h4>
-            <p className="text-slate-500 text-xs mt-0.5">Sábados, domingos y feriados activos.</p>
+            <p className="text-slate-500 text-xs mt-0.5">Operamos sábados, domingos y feriados.</p>
           </div>
         </div>
         <div className="flex items-center gap-3 justify-center sm:justify-start">
-          <MapPin className="w-8 h-8 text-amber-500 shrink-0" />
+          <MapPin className="w-7 h-7 text-amber-500 shrink-0" />
           <div>
-            <h4 className="font-bold text-white text-xs uppercase tracking-wider">Flota en Todo Mendoza</h4>
-            <p className="text-slate-500 text-xs mt-0.5">Autorizados por el Municipio.</p>
+            <h4 className="font-bold text-white text-xs uppercase tracking-wider">Flota Autorizada</h4>
+            <p className="text-slate-500 text-xs mt-0.5">Habilitaciones CNRT en todo Mendoza.</p>
           </div>
         </div>
       </div>
@@ -138,35 +138,31 @@ export default function Footer({
             onClick={onNavigateHome}
             className="text-lg font-extrabold text-white flex items-center justify-center sm:justify-start gap-2 hover:text-amber-400 transition-colors cursor-pointer"
           >
-            🚚 Mudanzas Mendoza 2026
+            🚚 Mendoza 2026
           </button>
           <p className="text-slate-500 text-xs leading-relaxed max-w-sm">
-            La flota de confianza de los mendocinos. Llevamos tus pertenencias por todo el Gran Mendoza, San Rafael y el Valle de Uco con total cuidado.
+            La flota de confianza para mudanzas y fletes en todo Mendoza. Traslados seguros con el respaldo técnico que necesitás.
           </p>
-          <div className="bg-slate-900/60 p-3.5 rounded-xl border border-slate-900 text-[11px] leading-relaxed text-slate-400">
-            <span className="text-white font-bold block mb-1">🔗 Respaldo Oficial:</span>
-            <strong>Mudanzas Mendoza 2026</strong> es un producto oficial de <a href="https://www.mudanzasmiranda.com.ar/" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Mudanzas Miranda</a>. Llevamos más de 50 años brindando solidez logística, camiones habilitados y personal calificado en Mendoza.
+          <div className="bg-slate-900/40 p-3.5 rounded-xl border border-slate-900 text-[11px] leading-relaxed text-slate-400">
+            <span className="text-white font-bold block mb-1">🔗 Respaldo Miranda:</span>
+            Un producto oficial de <a href="https://www.mudanzasmiranda.com.ar/" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Mudanzas Miranda</a>, con más de 50 años de liderazgo logístico en Cuyo.
           </div>
-          <div className="space-y-2.5 text-xs text-slate-400 pt-2">
+          <div className="space-y-1.5 text-xs text-slate-400 pt-1">
             <p className="flex items-center justify-center sm:justify-start gap-2">
-              <Phone className="w-4 h-4 text-amber-500" />
-              <span>WhatsApp: 261 2345678 (Guardia)</span>
+              <Phone className="w-3.5 h-3.5 text-amber-500" />
+              <span>Guardia: 261 2345678</span>
             </p>
             <p className="flex items-center justify-center sm:justify-start gap-2">
-              <Mail className="w-4 h-4 text-amber-500" />
+              <Mail className="w-3.5 h-3.5 text-amber-500" />
               <span>contacto@mudanzasmendoza.com.ar</span>
-            </p>
-            <p className="flex items-center justify-center sm:justify-start gap-2">
-              <MapPin className="w-4 h-4 text-amber-500" />
-              <span>Avenida Arístides Villanueva 123, Ciudad</span>
             </p>
           </div>
         </div>
 
         {/* Col 2: Services List */}
         <div className="lg:col-span-3 text-center sm:text-left">
-          <h4 className="font-extrabold text-white text-xs uppercase tracking-wider mb-4 border-l-2 border-amber-500 pl-2">Servicios Especializados</h4>
-          <ul className="space-y-2.5 text-xs">
+          <h4 className="font-extrabold text-white text-xs uppercase tracking-wider mb-4 border-l-2 border-amber-500 pl-2">Servicios</h4>
+          <ul className="space-y-2 text-xs">
             {SERVICES.map(svc => (
               <li key={svc.id}>
                 <button
@@ -183,7 +179,7 @@ export default function Footer({
         {/* Col 3: Departments list */}
         <div className="lg:col-span-3 text-center sm:text-left">
           <h4 className="font-extrabold text-white text-xs uppercase tracking-wider mb-4 border-l-2 border-amber-500 pl-2">Zonas de Cobertura</h4>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
+          <ul className="grid grid-cols-2 gap-x-2 gap-y-2 text-xs">
             {DEPARTMENTS.map(dept => (
               <li key={dept.id}>
                 <button
@@ -200,7 +196,7 @@ export default function Footer({
         {/* Col 4: Quick Links */}
         <div className="lg:col-span-2 text-center sm:text-left">
           <h4 className="font-extrabold text-white text-xs uppercase tracking-wider mb-4 border-l-2 border-amber-500 pl-2">Secciones</h4>
-          <ul className="space-y-2.5 text-xs">
+          <ul className="space-y-2 text-xs">
             <li>
               <button
                 onClick={onNavigateCobertura}
@@ -225,12 +221,12 @@ export default function Footer({
                 Blog y Consejos
               </button>
             </li>
-            <li>
+            <li className="pt-2 border-t border-slate-900">
               <a 
                 href="/sitemap.xml" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-slate-400 hover:text-amber-400 transition-colors block"
+                className="text-slate-500 hover:text-amber-450 transition-colors block text-[10px]"
               >
                 Sitemap XML
               </a>
@@ -240,19 +236,9 @@ export default function Footer({
                 href="/robots.txt" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-slate-400 hover:text-amber-400 transition-colors block"
+                className="text-slate-500 hover:text-amber-450 transition-colors block text-[10px]"
               >
                 Robots.txt
-              </a>
-            </li>
-            <li>
-              <a 
-                href="/manifest.json" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="text-slate-400 hover:text-amber-400 transition-colors"
-              >
-                Web Manifest PWA
               </a>
             </li>
           </ul>
@@ -263,9 +249,9 @@ export default function Footer({
       {/* Under footer: Copyright & details */}
       <div className="bg-slate-950 border-t border-slate-900/60 py-6 text-center text-[10px] sm:text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© 2026 Mudanzas Mendoza. Todos los derechos reservados. Optimizado para SEO Técnico y Core Web Vitals.</p>
+          <p>© 2026 Mendoza 2026. Todos los derechos reservados. Respaldado por Mudanzas Miranda.</p>
           <p className="flex items-center gap-1">
-            Hecho con <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> en Mendoza, Argentina
+            Hecho con <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> en Mendoza
           </p>
         </div>
       </div>

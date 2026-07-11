@@ -19,14 +19,14 @@ export function useServiceSchema(service: ServiceInfo, basePrice: number) {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Service",
-      "id": `https://mudanzasmendoza.com.ar/servicios/${service.slug}`,
+      "id": `https://mudanzasmendoza2026.com.ar/servicios/${service.slug}`,
       "name": service.name,
       "serviceType": "Moving & Freight Transport",
       "description": service.description,
       "provider": {
         "@type": "Organization",
         "name": "Mudanzas Mendoza 2026",
-        "url": "https://mudanzasmendoza.com.ar",
+        "url": "https://mudanzasmendoza2026.com.ar",
         "logo": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png",
         "telephone": "+542612345678",
         "priceRange": `$${minPrice.toLocaleString('es-AR')} - $${maxPrice.toLocaleString('es-AR')} ARS`

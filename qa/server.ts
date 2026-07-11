@@ -37,7 +37,7 @@ function getGeminiClient() {
 // 1. DYNAMIC SEO SITEMAP
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml');
-  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza.com.ar';
+  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza2026.com.ar';
   const xml = SitemapService.generateSitemapXml(baseUrl);
   res.send(xml);
 });
@@ -45,7 +45,7 @@ app.get('/sitemap.xml', (req, res) => {
 // 2. SEO ROBOTS
 app.get('/robots.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
-  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza.com.ar';
+  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza2026.com.ar';
   const robots = SitemapService.generateRobotsTxt(baseUrl);
   res.send(robots);
 });
@@ -144,23 +144,21 @@ Hacélo en formato Markdown claro con títulos descriptivos.`;
     console.warn("Gemini is not initialized or errored. Returning elegant local fallback:", error.message);
     
     // Elegant local fallback content customized per details
-    const { name, origin, destination, specialItems } = req.body;
+    const { origin, destination, specialItems } = req.body;
     const hasSpecial = specialItems && specialItems.length > 0;
-    const greetings = ["¡Hola!", "¡Buenas!", "¡Qué bueno que estés acá!"];
-    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
     
-    const fallbackText = `### ${randomGreeting} ${name || 'vecino/a'}, ¡qué alegría que planifiques tu mudanza con nosotros!
+    const fallbackText = `### ¡Hola! Qué alegría que estés planificando tu mudanza con nosotros.
 
-Como la IA se tomó un descanso para unos mates, acá te armamos el **Plan de Mudanza Experto de Mendoza 2026** para tu traslado de **${origin || 'origen'}** a **${destination || 'destino'}**:
+Como andamos con mucha demanda o la IA está tomando un media tarde, acá te armamos el **Plan de Mudanza Experto de Mendoza 2026** para tu traslado de **${origin || 'origen'}** a **${destination || 'destino'}**:
 
 #### 📅 Checklist de Oro para vos:
 1. **7 días antes:** Empezá a embalar lo que no usás a diario. Conseguí cajas resistentes y rotulalas en el lateral indicando a qué habitación van.
 2. **2 días antes:** Descongelá y secá la heladera por completo. Guardá toda la vajilla envuelta en papel.
 3. **El día previo:** Prepará tu "Mochila de Supervivencia" con el termo, mate, cargador de celular y una muda de ropa.
-4. **El Gran Día:** ¡Relajate! Nuestro equipo llega puntual, carga todo de forma profesional y nos encargamos de que no te rompás la cabeza.
+4. **El Gran Día:** ¡Relajate! Nuestro equipo llega puntual en el camión, carga todo de forma profesional y nos encargamos de que no te rompás la cabeza cargando muebles pesados.
 
-${hasSpecial ? `#### ⚠️ Cuidado de objetos especiales:
-${specialItems.map((item: string) => `* **Para tu ${item.toLowerCase()}**: Usaremos mantas de algodón gruesas y fajas de amarre para que viaje como en una nube, ¡cero estrés!`).join('\n')}` : ''}
+${hasSpecial ? `#### ⚠️ Cuidado de objetos especiales (${specialItems.join(', ')}):
+* Nos encargamos de sujetar con fajas de amarre tu ${specialItems[0]} y envolverlo en mantas protectoras gruesas de algodón para que viaje como en una nube.` : ''}
 
 #### 🍷 Tip Mendocino:
 * Si te mudás en época de **Viento Zonda**, avisanos. Coordinamos al toque para resguardar la carga y que todo se haga con total seguridad.
@@ -203,36 +201,22 @@ app.post('/api/gemini/chat', async (req, res) => {
   } catch (error: any) {
     console.warn("Gemini chat error or uninitialized. Returning elegant local rule-based response:", error.message);
     
-    const fallbackRules = [
-      {
-        keywords: ['quien sos', 'quién sos', 'empresa', 'miranda', 'quienes somos', 'quiénes somos', 'respald'],
-        reply: "¡Qué buena pregunta, che! Mudanzas Mendoza 2026 es el producto digital estrella y la división tecnológica premium de **Mudanzas Miranda** (www.mudanzasmiranda.com.ar). Llevamos más de 50 años como la empresa líder de transporte y mudanzas en Mendoza. Con esta unión tenés la tranquilidad de la mayor trayectoria de la provincia respaldando cada furgón, operario y póliza de Sancor Seguros, combinada con herramientas automáticas inteligentes asistidas por IA."
-      },
-      {
-        keywords: ['heladera'],
-        reply: "¡Mudar la heladera tiene su ciencia! Recordá desenchufarla unas 24 horas antes para que se descongele completa, limpiala bien, sacale los estantes de vidrio y recordá: **debe viajar siempre de pie**. Cuando llegue al destino, esperá al menos 4 horas antes de volver a enchufarla para que se asiente el aceite."
-      },
-      {
-        keywords: ['precio', 'cuanto cuesta', 'tarifa', 'costo'],
-        reply: "Las tarifas de los fletes dependen del tamaño del camión y los kilómetros. Son súper baratas y transparentes. Podés calcular la tuya al instante usando el **Cotizador Inteligente** de nuestra web."
-      },
-      {
-        keywords: ['caja', 'embalar', 'vaso', 'plato'],
-        reply: "Para platos y copas, usá cajas chicas de cartón grueso para que no queden pesadas. Poné bollos de papel de diario abajo de todo como colchón, envolvé cada vajilla por separado y rellená todos los espacios vacíos con papel arrugado para que nada baile en el camión."
-      },
-      {
-        keywords: ['zonda', 'viento', 'clima'],
-        reply: "Si sopla **Viento Zonda** fuerte, ¡mucha precaución! Por la seguridad de tus cosas y de nuestros operarios, coordinamos de inmediato para reprogramar la mudanza al día siguiente o al toque que calme, sin cobrarte ningún extra."
-      },
-      {
-        keywords: ['chacras', 'lujan', 'barrio privado'],
-        reply: "Trabajamos muchísimo en Luján, Chacras de Coria y Maipú. Presentamos toda la documentation de nuestro personal y vehículos (seguros, ART) a la administración del barrio privado de antemano para que entremos sin demoras el día de la mudanza."
-      }
-    ];
-
     const msgLower = message.toLowerCase();
-    const matchedRule = fallbackRules.find(rule => rule.keywords.some(kw => msgLower.includes(kw)));
-    const reply = matchedRule ? matchedRule.reply : "¡Hola, che! Qué buena consulta. Mirá, para darte una respuesta bien certera, te sugiero usar nuestro **Cotizador de 8 pasos** o mandarnos un **WhatsApp** directo. ¡Te contestamos al toque!";
+    let reply = "¡Hola, che! Qué buena consulta. Mirá, para darte una respuesta bien certera para tu caso, te sugiero usar nuestro **Cotizador de 8 pasos** de la Home o mandarnos un **WhatsApp** directo. ¡Te contestamos al toque!";
+    
+    if (msgLower.includes('quien sos') || msgLower.includes('quién sos') || msgLower.includes('empresa') || msgLower.includes('miranda') || msgLower.includes('quienes somos') || msgLower.includes('quiénes somos') || msgLower.includes('respald')) {
+      reply = "¡Qué buena pregunta, che! Mudanzas Mendoza 2026 es el producto digital estrella y la división tecnológica premium de **Mudanzas Miranda** (www.mudanzasmiranda.com.ar). Llevamos más de 50 años como la empresa líder de transporte y mudanzas en Mendoza. Con esta unión tenés la tranquilidad de la mayor trayectoria de la provincia respaldando cada furgón, operario y póliza de Sancor Seguros, combinada con herramientas automáticas inteligentes asistidas por IA.";
+    } else if (msgLower.includes('heladera')) {
+      reply = "¡Mudar la heladera tiene su ciencia! Recordá desenchufarla unas 24 horas antes para que se descongele completa, limpiala bien, sacale los estantes de vidrio y recordá: **debe viajar siempre de pie**. Cuando llegue al destino, esperá al menos 4 horas antes de volver a enchufarla para que se asiente el aceite.";
+    } else if (msgLower.includes('precio') || msgLower.includes('cuanto cuesta') || msgLower.includes('tarifa') || msgLower.includes('costo')) {
+      reply = "Las tarifas de los fletes dependen del tamaño del camión y los kilómetros. Son súper baratas y transparentes. Podés calcular la tuya al instante usando el **Cotizador Inteligente** de nuestra web.";
+    } else if (msgLower.includes('caja') || msgLower.includes('embalar') || msgLower.includes('vaso') || msgLower.includes('plato')) {
+      reply = "Para platos y copas, usá cajas chicas de cartón grueso para que no queden pesadas. Poné bollos de papel de diario abajo de todo como colchón, envolvé cada vajilla por separado y rellená todos los espacios vacíos con papel arrugado para que nada baile en el camión.";
+    } else if (msgLower.includes('zonda') || msgLower.includes('viento') || msgLower.includes('clima')) {
+      reply = "Si sopla **Viento Zonda** fuerte, ¡mucha precaución! Por la seguridad de tus cosas y de nuestros operarios, coordinamos de inmediato para reprogramar la mudanza al día siguiente o al toque que calme, sin cobrarte ningún extra.";
+    } else if (msgLower.includes('chacras') || msgLower.includes('lujan') || msgLower.includes('barrio privado')) {
+      reply = "Trabajamos muchísimo en Luján, Chacras de Coria y Maipú. Presentamos toda la documentación de nuestro personal y vehículos (seguros, ART) a la administración del barrio privado de antemano para que entremos sin demoras el día de la mudanza.";
+    }
     
     res.json({ success: true, text: reply });
   }
@@ -244,27 +228,26 @@ app.get('/api/health', (req, res) => {
 });
 
 // Vite Middleware integration for development / production
-if (process.env.NODE_ENV !== "production") {
-  // Development mode: Use Vite middleware and start a local server
-  (async () => {
-      console.log("Starting server in DEVELOPMENT mode with Vite Middleware...");
-      const vite = await createViteServer({
-        server: { middlewareMode: true },
-        appType: "spa",
-      });
-      app.use(vite.middlewares);
+async function startServer() {
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Starting server in DEVELOPMENT mode with Vite Middleware...");
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: "spa",
+    });
+    app.use(vite.middlewares);
+  } else {
+    console.log("Starting server in PRODUCTION mode with built assets...");
+    const distPath = path.join(process.cwd(), 'dist');
+    app.use(express.static(distPath));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
 
-      app.listen(PORT, "0.0.0.0", () => {
-        console.log(`Server running on http://0.0.0.0:${PORT}`);
-      });
-  })();
-} else {
-  // Production mode (for Vercel): Serve static files and export the app
-  const distPath = path.join(process.cwd(), 'dist');
-  app.use(express.static(distPath));
-  // SPA fallback: all other routes are handled by the frontend
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
   });
 }
-export default app;
+
+startServer();

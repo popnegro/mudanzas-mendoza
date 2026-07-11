@@ -294,6 +294,21 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950 transition-colors duration-300">
       
+      {/* BRAND ANNOUNCEMENT TOP BAR */}
+      <div className="bg-amber-500 text-slate-950 text-center py-2 px-4 text-[11px] sm:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-6 gap-y-1 border-b border-amber-600">
+        <span className="flex items-center gap-1.5">
+          🏆 Respaldado oficial por <strong className="font-extrabold">Mudanzas Miranda</strong> (50 años de trayectoria)
+        </span>
+        <span className="hidden md:inline text-slate-950/40">|</span>
+        <span className="flex items-center gap-1.5">
+          🛡️ Seguro de carga con <strong className="font-extrabold">Sancor Seguros</strong>
+        </span>
+        <span className="hidden md:inline text-slate-950/40">|</span>
+        <span className="flex items-center gap-1">
+          🟢 Guardia Activa 24hs
+        </span>
+      </div>
+
       {/* HEADER NAVIGATION */}
       <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-900 text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -315,7 +330,10 @@ export default function App() {
             
             {/* Services Dropdown link */}
             <div className="relative group">
-              <span className="hover:text-amber-400 transition-colors cursor-default py-4">Servicios</span>
+              <button className="hover:text-amber-400 transition-colors cursor-pointer py-4 flex items-center gap-1">
+                <span>Servicios</span>
+                <span className="text-[10px] opacity-60">▼</span>
+              </button>
               <div className="absolute top-full -left-4 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 hidden group-hover:block animate-fade-in mt-1">
                 {SERVICES.map(svc => (
                   <button
@@ -329,28 +347,31 @@ export default function App() {
               </div>
             </div>
 
-            {/* Departments Dropdown link */}
+            {/* Streamlined Cobertura Dropdown link (Combines Nuestra Cobertura map and Zonas list) */}
             <div className="relative group">
-              <span className="hover:text-amber-400 transition-colors cursor-default py-4">Zonas</span>
-              <div className="absolute top-full -left-4 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 hidden group-hover:block animate-fade-in mt-1">
+              <button className="hover:text-amber-400 transition-colors cursor-pointer py-4 flex items-center gap-1">
+                <span>Cobertura</span>
+                <span className="text-[10px] opacity-60">▼</span>
+              </button>
+              <div className="absolute top-full -left-4 w-60 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 hidden group-hover:block animate-fade-in mt-1">
+                <button
+                  onClick={handleNavigateCobertura}
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-xs bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-all cursor-pointer font-bold flex items-center gap-1.5 mb-1"
+                >
+                  🌐 Ver Mapa Completo
+                </button>
+                <div className="border-t border-slate-800/80 my-1"></div>
                 {DEPARTMENTS.map(dept => (
                   <button
                     key={dept.id}
                     onClick={() => handleNavigateDept(dept.slug)}
-                    className="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-slate-800 hover:text-amber-400 transition-all cursor-pointer font-medium"
+                    className="w-full text-left px-3 py-1.5 rounded-lg text-[11px] hover:bg-slate-800 hover:text-amber-400 transition-all cursor-pointer font-medium text-slate-300"
                   >
-                    {dept.name}
+                    🍇 {dept.name}
                   </button>
                 ))}
               </div>
             </div>
-
-            <button onClick={handleNavigateBlog} className="hover:text-amber-400 transition-colors cursor-pointer font-medium">Blog</button>
-            <button onClick={handleNavigateCobertura} className="hover:text-amber-400 transition-colors cursor-pointer font-medium">Nuestra Cobertura</button>
-            <button onClick={handleNavigatePlanificador} className="hover:text-amber-400 transition-colors cursor-pointer font-semibold flex items-center gap-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1.5 rounded-xl text-xs hover:bg-amber-500/20 transition-all">
-              <Brain className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              Planificador IA
-            </button>
           </nav>
 
           {/* Desktop CTA actions */}
@@ -409,27 +430,24 @@ export default function App() {
             >
               <div className="flex flex-col gap-3 text-sm font-semibold">
                 <button onClick={handleNavigateHome} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Inicio</button>
-                <button onClick={handleNavigateCobertura} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Nuestra Cobertura</button>
-                <button onClick={handleNavigatePlanificador} className="text-left text-amber-400 py-1.5 flex items-center gap-1.5 border-b border-slate-850">
-                  <Brain className="w-4 h-4 text-amber-500" />
-                  Planificador IA
+                <button onClick={handleNavigateCobertura} className="text-left text-slate-200 py-1.5 border-b border-slate-850 flex items-center gap-1.5 text-amber-400">
+                  <span>🌐 Ver Cobertura Completa</span>
                 </button>
-                <button onClick={handleNavigateBlog} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Blog y Consejos</button>
                 
                 <div className="border-t border-slate-800 pt-3">
-                  <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Servicios</span>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-wider block mb-2">Nuestros Servicios</span>
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
                     {SERVICES.map(svc => (
-                      <button key={svc.id} onClick={() => handleNavigateService(svc.slug)} className="text-left text-slate-300 py-1">{svc.name}</button>
+                      <button key={svc.id} onClick={() => handleNavigateService(svc.slug)} className="text-left text-slate-300 py-1 hover:text-amber-400">⚡ {svc.name}</button>
                     ))}
                   </div>
                 </div>
 
                 <div className="border-t border-slate-800 pt-3">
-                  <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Departamentos</span>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-wider block mb-2">Zonas de Atención</span>
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
                     {DEPARTMENTS.map(dept => (
-                      <button key={dept.id} onClick={() => handleNavigateDept(dept.slug)} className="text-left text-slate-300 py-1">{dept.name}</button>
+                      <button key={dept.id} onClick={() => handleNavigateDept(dept.slug)} className="text-left text-slate-300 py-1 hover:text-amber-400">🍇 {dept.name}</button>
                     ))}
                   </div>
                 </div>

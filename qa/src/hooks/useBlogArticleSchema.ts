@@ -20,7 +20,7 @@ export function useBlogArticleSchema(article: BlogArticle | null) {
       "@type": "Article",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://mudanzasmendoza.com.ar/blog/${article.slug}`
+        "@id": `https://mudanzasmendoza2026.com.ar/blog/${article.slug}`
       },
       "headline": article.title,
       "description": article.summary,
@@ -52,19 +52,19 @@ export function useBlogArticleSchema(article: BlogArticle | null) {
           "@type": "ListItem",
           "position": 1,
           "name": "Inicio",
-          "item": "https://mudanzasmendoza.com.ar"
+          "item": "https://mudanzasmendoza2026.com.ar"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Blog",
-          "item": "https://mudanzasmendoza.com.ar/#blog"
+          "item": "https://mudanzasmendoza2026.com.ar/#blog"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": article.title,
-          "item": `https://mudanzasmendoza.com.ar/blog/${article.slug}`
+          "item": `https://mudanzasmendoza2026.com.ar/blog/${article.slug}`
         }
       ]
     };

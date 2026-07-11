@@ -14,7 +14,7 @@ export default function ConfidenceIndicators() {
     {
       name: "Mariela S.",
       location: "Chacras de Coria",
-      text: "Excelente servicio. Mudamos una casa completa el mes pasado. Teníamos miedo por la vajilla fina y un aparador de roble antiguo muy pesado. Envolvieron todo con unas mantas espectaculares y subieron todo al camión con un cuidado de locos. Llegó todo impecable. Súper puntuales y re amigables.",
+      text: "Excelente servicio. Mudamos una casa completa el mes pasado con la seguridad de la flota de Mudanzas Miranda. Teníamos miedo por la vajilla fina y un aparador de roble antiguo muy pesado. Envolvieron todo con unas mantas espectaculares y subieron todo al camión con un cuidado de locos. Llegó todo impecable. Súper puntuales y re amigables.",
       rating: 5,
       date: "Hace 2 semanas"
     },
@@ -28,7 +28,7 @@ export default function ConfidenceIndicators() {
     {
       name: "Estudio Contable & Asociados",
       location: "Mendoza Capital (Microcentro)",
-      text: "Mudamos todas nuestras oficinas administrativas en un fin de semana. Cajas rotuladas, escritorios protegidos y computadoras embaladas con film antiestático. El lunes a primera mañana estábamos listos para facturar sin perder un solo día de trabajo. Súper recomendables para empresas.",
+      text: "Mudamos todas nuestras oficinas administrativas en un fin de semana con camiones pesados Miranda de última generación. Cajas rotuladas, escritorios protegidos y computadoras embaladas con film antiestático. El lunes a primera mañana estábamos listos para facturar sin perder un solo día de trabajo. Súper recomendables para empresas.",
       rating: 5,
       date: "Hace 3 semanas"
     }
@@ -102,18 +102,18 @@ export default function ConfidenceIndicators() {
         {activeTab === 'trust' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in">
             <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-bold text-amber-500 uppercase tracking-widest">¿Por qué Mendoza 2026?</span>
-              <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight">
-                Construyendo confianza real sobre cimientos locales.
+              <span className="text-xs font-bold text-amber-500 uppercase tracking-widest font-mono">Respaldo Miranda & Sancor Seguros</span>
+              <h3 className="text-3xl sm:text-4xl font-display font-black text-slate-950 dark:text-white tracking-tight leading-tight">
+                Construyendo confianza real sobre cimientos de verdad.
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-                Nacimos como una pequeña empresa familiar y hoy nos consolidamos como la flota de mudanzas más equipada y recomendada de la provincia. No improvisamos: entrenamos a nuestro personal, registramos todos nuestros vehículos en la CNRT y poseemos seguros de carga integrales.
+                Operamos de manera directa bajo la tutela logística y con la inmensa flota pesada de <strong className="text-slate-900 dark:text-white font-bold">Mudanzas Miranda</strong> (más de 50 años liderando Cuyo). Esto nos permite brindarte la máxima infraestructura tradicional combinada con nuestra innovadora plataforma digital de cotización.
               </p>
-              <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl flex items-center gap-5 border border-slate-800">
+              <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl flex items-center gap-5 border border-slate-800 shadow-xl">
                 <ShieldCheck className="w-12 h-12 text-amber-400 shrink-0" />
                 <div className="space-y-1">
-                  <h4 className="font-extrabold text-base">Garantía Escrita de Rotura Cero</h4>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Si algún objeto sufre algún daño por mala manipulación, nos hacemos cargo de reponerlo o repararlo de inmediato.</p>
+                  <h4 className="font-extrabold text-base text-amber-400">Póliza Sancor Seguros Activa</h4>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">Cada traslado cuenta con cobertura integral ante cualquier siniestro o rotura imprevista. Tu patrimonio está respaldado bajo contrato oficial.</p>
                 </div>
               </div>
             </div>
@@ -122,26 +122,26 @@ export default function ConfidenceIndicators() {
               {[
                 {
                   icon: <Award className="w-6 h-6 text-amber-500" />,
-                  title: "Personal Habilitado y Confiable",
-                  desc: "Cada ayudante de carga es contratado de forma directa. No subcontratamos fleteros desconocidos."
+                  title: "Tutela de Mudanzas Miranda",
+                  desc: "Acceso ilimitado a grúas de altura, camiones semirremolques de gran porte y operarios calificados con legajo intachable."
                 },
                 {
                   icon: <Clock className="w-6 h-6 text-amber-500" />,
-                  title: "Puntualidad Extrema",
-                  desc: "Coordinamos el horario exacto. Si surge algún retraso por tránsito céntrico, te informamos con antelación."
+                  title: "Puntualidad de Guardia 24hs",
+                  desc: "Coordinamos el horario exacto. Contamos con vehículos de relevo y atención de emergencia permanente."
                 },
                 {
                   icon: <Map className="w-6 h-6 text-amber-500" />,
-                  title: "Cobertura Completa",
-                  desc: "Llegamos a cada rincón del Gran Mendoza, Valle de Uco, San Rafael, y realizamos rutas de larga distancia."
+                  title: "Habilitación CNRT Nacional",
+                  desc: "Toda nuestra flota de camiones pesados y utilitarios medianos cumple con la normativa nacional de cargas y tránsito interprovincial."
                 },
                 {
                   icon: <ShieldCheck className="w-6 h-6 text-amber-500" />,
-                  title: "Flota Registrada",
-                  desc: "Camiones furgones cerrados, limpios y desinfectados a diario. Equipados con rastreo satelital."
+                  title: "Inventario Digital & Seguro",
+                  desc: "Generamos un inventario precintado en el sistema para que realices un seguimiento claro y transparente de tus bienes."
                 }
               ].map((item, idx) => (
-                <div key={idx} className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-150 dark:border-slate-850 space-y-4 hover:shadow-md transition-all">
+                <div key={idx} className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-150 dark:border-slate-850 space-y-4 hover:shadow-md transition-all card-hover-lift">
                   <div className="p-3 bg-amber-500/10 rounded-xl inline-block">{item.icon}</div>
                   <h4 className="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base">{item.title}</h4>
                   <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</p>

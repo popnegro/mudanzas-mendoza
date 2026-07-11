@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { DepartmentInfo } from '../types';
 import { MapPin, PhoneCall, CheckCircle, ArrowLeft, HelpCircle, CheckSquare } from 'lucide-react';
 import { useBreadcrumbSchema } from '../hooks/useBreadcrumbSchema';
-import { useSchema } from '../hooks/useSchema';
 import Breadcrumbs from './Breadcrumbs';
 
 // Import official Mudanzas Miranda images for co-branding and SEO
@@ -19,40 +18,59 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
   
   // Dynamically inject BreadcrumbList Schema.org JSON-LD for departments
   useBreadcrumbSchema([
-    { name: 'Inicio', item: 'https://mudanzasmendoza.com.ar' },
-    { name: 'Cobertura', item: 'https://mudanzasmendoza.com.ar/#cobertura' },
-    { name: dept.name, item: `https://mudanzasmendoza.com.ar/departamentos/${dept.slug}` }
+    { name: 'Inicio', item: 'https://mudanzasmendoza2026.com.ar' },
+    { name: 'Cobertura', item: 'https://mudanzasmendoza2026.com.ar/#cobertura' },
+    { name: dept.name, item: `https://mudanzasmendoza2026.com.ar/departamentos/${dept.slug}` }
   ], `dept-${dept.id}`);
   
-  // Construir el schema de MovingCompany y usar el hook genérico
-  const movingCompanySchema = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "MovingCompany",
-    "id": `https://mudanzasmendoza.com.ar/departamentos/${dept.slug}`,
-    "name": `Mudanzas Mendoza 2026 - Cobertura Especial en ${dept.name}`,
-    "description": dept.description,
-    "telephone": "+542612345678",
-    "priceRange": "$$",
-    "image": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": dept.name,
-      "addressRegion": "Mendoza",
-      "addressCountry": "AR"
-    },
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": dept.name,
-      "sameAs": `https://es.wikipedia.org/wiki/Departamento_${encodeURIComponent(dept.name.replace(' ', '_'))}`
-    },
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Mudanzas Mendoza 2026",
-      "telephone": "+542612345678"
+  useEffect(() => {
+    // Generate valid Schema.org MovingCompany JSON-LD specialized for this department
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "id": `https://mudanzasmendoza2026.com.ar/departamentos/${dept.slug}`,
+      "name": `Mudanzas Mendoza 2026 - Cobertura Especial en ${dept.name}`,
+      "description": dept.description,
+      "telephone": "+542612345678",
+      "priceRange": "$$",
+      "image": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": dept.name,
+        "addressRegion": "Mendoza",
+        "addressCountry": "AR"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": dept.name,
+        "sameAs": `https://es.wikipedia.org/wiki/Departamento_${encodeURIComponent(dept.name.replace(' ', '_'))}`
+      },
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Mudanzas Mendoza 2026",
+        "telephone": "+542612345678"
+      }
+    };
+
+    const scriptId = `dept-schema-${dept.id}`;
+    let script = document.getElementById(scriptId) as HTMLScriptElement;
+
+    if (!script) {
+      script = document.createElement('script');
+      script.id = scriptId;
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
     }
-  }), [dept]);
-  
-  useSchema(movingCompanySchema, `dept-schema-${dept.id}`);
+
+    script.textContent = JSON.stringify(jsonLd, null, 2);
+
+    return () => {
+      const existing = document.getElementById(scriptId);
+      if (existing) {
+        existing.remove();
+      }
+    };
+  }, [dept]);
 
   const breadcrumbSteps = [
     { label: 'Inicio', onClick: onBack },
