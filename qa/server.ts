@@ -37,7 +37,7 @@ function getGeminiClient() {
 // 1. DYNAMIC SEO SITEMAP
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml');
-  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza2026.com.ar';
+  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza.com.ar';
   const xml = SitemapService.generateSitemapXml(baseUrl);
   res.send(xml);
 });
@@ -45,7 +45,7 @@ app.get('/sitemap.xml', (req, res) => {
 // 2. SEO ROBOTS
 app.get('/robots.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
-  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza2026.com.ar';
+  const baseUrl = process.env.APP_URL || 'https://mudanzasmendoza.com.ar';
   const robots = SitemapService.generateRobotsTxt(baseUrl);
   res.send(robots);
 });

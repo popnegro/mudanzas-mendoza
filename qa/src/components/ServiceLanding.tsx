@@ -50,7 +50,7 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
   const serviceSchema = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": service.name,
+    "serviceType": service.name, // This was already correct, but for context
     "name": service.seo.h1,
     "description": service.description,
     "provider": {
@@ -72,9 +72,9 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
 
   // Dynamically inject BreadcrumbList Schema.org JSON-LD
   useBreadcrumbSchema([
-    { name: 'Inicio', item: 'https://mudanzasmendoza2026.com.ar' },
-    { name: 'Servicios', item: 'https://mudanzasmendoza2026.com.ar/#servicios' },
-    { name: service.name, item: `https://mudanzasmendoza2026.com.ar/servicios/${service.slug}` }
+    { name: 'Inicio', item: 'https://mudanzasmendoza.com.ar' },
+    { name: 'Servicios', item: 'https://mudanzasmendoza.com.ar/#servicios' },
+    { name: service.name, item: `https://mudanzasmendoza.com.ar/servicios/${service.slug}` }
   ], `service-${service.id}`);
 
   const breadcrumbSteps = [

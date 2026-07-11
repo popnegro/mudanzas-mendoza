@@ -19,16 +19,16 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
   
   // Dynamically inject BreadcrumbList Schema.org JSON-LD for departments
   useBreadcrumbSchema([
-    { name: 'Inicio', item: 'https://mudanzasmendoza2026.com.ar' },
-    { name: 'Cobertura', item: 'https://mudanzasmendoza2026.com.ar/#cobertura' },
-    { name: dept.name, item: `https://mudanzasmendoza2026.com.ar/departamentos/${dept.slug}` }
+    { name: 'Inicio', item: 'https://mudanzasmendoza.com.ar' },
+    { name: 'Cobertura', item: 'https://mudanzasmendoza.com.ar/#cobertura' },
+    { name: dept.name, item: `https://mudanzasmendoza.com.ar/departamentos/${dept.slug}` }
   ], `dept-${dept.id}`);
   
   // Construir el schema de MovingCompany y usar el hook genérico
   const movingCompanySchema = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "MovingCompany",
-    "id": `https://mudanzasmendoza2026.com.ar/departamentos/${dept.slug}`,
+    "id": `https://mudanzasmendoza.com.ar/departamentos/${dept.slug}`,
     "name": `Mudanzas Mendoza 2026 - Cobertura Especial en ${dept.name}`,
     "description": dept.description,
     "telephone": "+542612345678",

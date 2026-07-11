@@ -31,7 +31,7 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
       "@type": "BlogPosting",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://mudanzasmendoza2026.com.ar/blog/${selectedArticle.slug}`
+        "@id": `https://mudanzasmendoza.com.ar/blog/${selectedArticle.slug}`
       },
       "headline": selectedArticle.title,
       "description": selectedArticle.summary,
