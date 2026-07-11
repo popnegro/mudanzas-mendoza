@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import Breadcrumbs from './Breadcrumbs';
 import { 
   Brain, 
@@ -24,6 +25,9 @@ import {
   Share2,
   Copy
 } from 'lucide-react';
+
+// Import official Mudanzas Miranda image for co-branding
+import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
 
 interface PlannerLandingProps {
   onBack: () => void;
@@ -188,6 +192,14 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
 
   const stressInfo = getStressText(state.stressLevel);
 
+  const totalCompleted = checklist.filter(c => c.checked).length;
+  const totalTasks = checklist.length;
+  const overallPercentage = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) : 0;
+
+  const currentTabCompleted = checklist.filter(c => c.category === activeTab && c.checked).length;
+  const currentTabTasks = checklist.filter(c => c.category === activeTab).length;
+  const currentTabPercentage = currentTabTasks > 0 ? Math.round((currentTabCompleted / currentTabTasks) * 100) : 0;
+
   const breadcrumbSteps = [
     { label: 'Inicio', onClick: onBack },
     { label: 'Planificador IA', isCurrent: true }
@@ -199,12 +211,6 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
       {/* Breadcrumbs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Breadcrumbs steps={breadcrumbSteps} />
-        
-        {/* Verification badge */}
-        <div className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 font-mono self-start sm:self-auto">
-          <Brain className="w-3.5 h-3.5 text-amber-500" />
-          <span>Algoritmo IA Operativo v2.6 • Mendoza</span>
-        </div>
       </div>
 
       {/* Hero Intro */}
@@ -381,6 +387,24 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
               )}
             </button>
           </form>
+
+          {/* Branded Trust Card under the form */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3.5">
+            <div className="w-full h-32 rounded-xl overflow-hidden relative border border-slate-800">
+              <img
+                src={mudanzaMirandaTruck}
+                alt="Flota de fletes y camiones de Mudanzas Miranda en Mendoza"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="space-y-1">
+              <span className="text-[9px] font-black uppercase text-amber-400 tracking-wider block">Garantía Miranda</span>
+              <p className="text-[10px] text-slate-300 leading-relaxed">
+                Todo plan generado cuenta con el soporte operativo de la flota física de <strong>Mudanzas Miranda</strong>, garantizando que el transporte se adecue rigurosamente a las normativas de Cuyo.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Right Side: AI generated results */}
@@ -466,6 +490,81 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
               )}
             </button>
           </div>
+        </div>
+
+        {/* Animated Progress Section with Micro-copy */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-slate-950 p-5 sm:p-6 rounded-2xl border border-slate-150 dark:border-slate-850 shadow-sm transition-all duration-300">
+          
+          {/* Global Progress */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 uppercase tracking-wide">
+                🎯 Progreso General
+              </span>
+              <span className="text-xs font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-md">
+                {overallPercentage}%
+              </span>
+            </div>
+            
+            <div className="w-full h-3.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800/80 p-0.5">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-full relative"
+                initial={{ width: 0 }}
+                animate={{ width: `${overallPercentage}%` }}
+                transition={{ type: "spring", stiffness: 70, damping: 15 }}
+              >
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.15)_50%,rgba(255,255,255,0.15)_75%,transparent_75%,transparent)] bg-[length:16px_16px] animate-[pulse_2s_infinite]" />
+              </motion.div>
+            </div>
+            
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              {overallPercentage === 100 ? (
+                <span className="text-emerald-500 font-bold flex items-center gap-1">
+                  🎉 ¡Increíble! Planificación 100% lista. ¡Tu mudanza está garantizada!
+                </span>
+              ) : overallPercentage > 60 ? (
+                <span>¡Excelente ritmo! El camión de <strong>Mudanzas Miranda</strong> ya se visualiza listo.</span>
+              ) : overallPercentage > 30 ? (
+                <span>Buen avance. Continuá tachando pendientes para un día clave libre de estrés.</span>
+              ) : (
+                <span>Comenzando el proceso. Un paso a la vez simplifica tu mudanza mendocina.</span>
+              )}
+            </p>
+          </div>
+
+          {/* Current Tab Progress */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 uppercase tracking-wide">
+                ⚡ Fase Actual: {activeTab === '30_days' ? '30 Días antes' : activeTab === '15_days' ? '15 Días antes' : activeTab === 'moving_day' ? 'El Día Clave' : 'Al Llegar'}
+              </span>
+              <span className="text-xs font-black text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                {currentTabPercentage}%
+              </span>
+            </div>
+            
+            <div className="w-full h-3.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800/80 p-0.5">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full relative"
+                initial={{ width: 0 }}
+                animate={{ width: `${currentTabPercentage}%` }}
+                transition={{ type: "spring", stiffness: 70, damping: 15 }}
+              >
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,0.1)_75%,transparent_75%,transparent)] bg-[length:16px_16px]" />
+              </motion.div>
+            </div>
+            
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              {currentTabPercentage === 100 ? (
+                <span className="text-emerald-500 font-bold flex items-center gap-1">
+                  🏆 ¡Etapa completamente al día! Listo para dar el siguiente paso.
+                </span>
+              ) : (
+                <span>Faltan <strong>{currentTabTasks - currentTabCompleted}</strong> de <strong>{currentTabTasks}</strong> tareas clave para completar este período.</span>
+              )}
+            </p>
+          </div>
+
         </div>
 
         {/* Checklist timeline tabs */}

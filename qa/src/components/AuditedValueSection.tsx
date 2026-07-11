@@ -14,6 +14,7 @@ import {
   HelpCircle,
   ArrowRight
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface PillarData {
   id: string;
@@ -53,7 +54,7 @@ export default function AuditedValueSection() {
       subtitle: 'Bauleras individuales secas para transiciones sin prisa',
       icon: <Warehouse className="w-5.5 h-5.5" />,
       content: 'Cuando se vence un contrato de alquiler o se retrasa la entrega de una nueva casa en Luján de Cuyo, Maipú o Godoy Cruz, surge la pregunta de dónde dejar los muebles. La mayoría de los competidores locales tercerizan este servicio o no ofrecen control de plagas adecuado para el clima seco de Mendoza.',
-      competitorsLacking: ['Fletes express locales', 'Mudanzas Miranda (no posee guardamuebles propios certificados)'],
+      competitorsLacking: ['Fletes express locales', 'Agencias informales de acarreo de fin de semana'],
       whyWeAreBetter: 'Ofrecemos bauleras individuales y cerradas desde 6m³ hasta 40m³, completamente herméticas para evitar el ingreso del polvo mendocino. Nuestras instalaciones cuentan con control continuo de temperatura y humedad, fumigación periódica, alarmas contra incendios, monitoreo por cámaras IP 24hs y seguro contra robo.',
       items: [
         'Bauleras individuales con candado propio del cliente',
@@ -98,7 +99,7 @@ export default function AuditedValueSection() {
       subtitle: 'Traslado seguro de tus mascotas y plantas de jardín',
       icon: <HeartHandshake className="w-5.5 h-5.5" />,
       content: 'Las mascotas sufren niveles de estrés altísimos durante el desarme y traslado de un hogar, mientras que las queridas plantas del jardín mendocino sufren deshidratación extrema si viajan expuestas al calor, viento Zonda o en camiones abiertos.',
-      competitorsLacking: ['Mudanzas Miranda', 'Mudanzas Stocco (servicios tradicionales sin protocolo ecológico/mascotas)'],
+      competitorsLacking: ['Servicios informales de fletes', 'Mudanzas Stocco (servicios tradicionales sin protocolo ecológico/mascotas)'],
       whyWeAreBetter: 'Diseñamos un protocolo especial para mudanzas familiares de Mendoza. Te brindamos caniles portátiles sanitizados sin cargo adicional, recomendaciones de veterinarios locales para reducir la ansiedad de tus perros y gatos, y furgones climatizados especiales para trasladar macetas y plantas delicadas de manera que no sientan el shock del viaje.',
       items: [
         'Caniles transportadores rígidos medianos y grandes de cortesía',
@@ -150,7 +151,7 @@ export default function AuditedValueSection() {
             <div className="space-y-1.5">
               <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">Conclusión del Análisis en Mendoza (2026):</h4>
               <p className="text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400 max-w-3xl">
-                La mayoría de las empresas tradicionales como <em>Mudanzas Stocco</em>, <em>Mudanzas Miranda</em>, o <em>El Mendocino</em> destacan en trayectos largos y camiones grandes, pero descuidan aspectos críticos como la cotización transparente digital, el cuidado de mascotas/plantas, el embalaje especializado con canastos rígidos, o el izamiento certificado en altura.
+                La mayoría de las empresas tradicionales en Mendoza destacan en trayectos largos y camiones grandes, pero descuidan aspectos críticos como la cotización digital, el cuidado de mascotas, el embalaje especializado o el izamiento en altura. Por eso, nuestra empresa madre <strong>Mudanzas Miranda</strong> (con 50 años de experiencia de primer nivel) creó <strong>Mudanzas Mendoza 2026</strong>: una división digital premium para unificar la máxima infraestructura y solidez de trayectoria con la mejor tecnología de vanguardia y servicios certificados.
               </p>
             </div>
           </div>
@@ -281,97 +282,118 @@ export default function AuditedValueSection() {
       </div>
 
       {/* Audit Detail Modal */}
-      {showAuditModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 relative shadow-2xl animate-fade-in text-left space-y-6">
-            <button
+      <AnimatePresence>
+        {showAuditModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setShowAuditModal(false)}
-              className="absolute top-4.5 right-4.5 text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-slate-850 cursor-pointer"
-              aria-label="Cerrar modal"
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 relative shadow-2xl text-left space-y-6 z-10"
             >
-              <span className="text-lg">✕</span>
-            </button>
-
-            <div className="space-y-1.5">
-              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2.5 py-1 rounded-full inline-block">
-                Reporte de Campo 2026
-              </span>
-              <h3 className="text-2xl font-extrabold tracking-tight">Reporte de Auditoría: Mercado de Mudanzas en Mendoza</h3>
-              <p className="text-slate-400 text-xs">
-                Análisis de las 5 primeras posiciones en búsquedas locales (Google / Directorios de Mendoza).
-              </p>
-            </div>
-
-            <div className="space-y-4 text-xs leading-relaxed text-slate-300">
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
-                <h4 className="font-bold text-amber-400 text-sm">1. Mudanzas Miranda (Mendoza Capital)</h4>
-                <p>
-                  <strong>Fuerte:</strong> Excelente posicionamiento y respuestas rápidas para traslados chicos o mudanzas económicas interprovinciales.
-                </p>
-                <p className="text-rose-400">
-                  <strong>Contenido Faltante / Debilidad:</strong> Carecen de embalaje ecológico (siguen exigiendo cajas tradicionales de cartón que el usuario debe comprar), no disponen de percheros móviles ni un cotizador web inteligente interactivo.
-                </p>
-              </div>
-
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
-                <h4 className="font-bold text-amber-400 text-sm">2. Mudanzas Stocco (Juan Carlos Stocco e Hijos)</h4>
-                <p>
-                  <strong>Fuerte:</strong> Una de las firmas con más tradición familiar. Poseen instalaciones de guardamuebles propias y grúas para levantar objetos ultra pesados (como pianos y cajas fuertes de bancos).
-                </p>
-                <p className="text-rose-400">
-                  <strong>Contenido Faltante / Debilidad:</strong> Su sitio web es extremadamente antiguo y estático. No disponen de cotizador digital instantáneo, ni planificación inteligente con IA, ni pautas pet-friendly detalladas para mudanzas libres de estrés.
-                </p>
-              </div>
-
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
-                <h4 className="font-bold text-amber-400 text-sm">3. Mudanzas El Mendocino</h4>
-                <p>
-                  <strong>Fuerte:</strong> Excelente disposición para desarme y armado básico de mobiliario y embalaje de vajilla con plástico burbuja.
-                </p>
-                <p className="text-rose-400">
-                  <strong>Contenido Faltante / Debilidad:</strong> No brindan servicio de izamiento por soga/balcón para edificios altos del centro, y carecen de una política transparente de seguro de carga integral que resguarde los bienes durante la carga y descarga física de los peones.
-                </p>
-              </div>
-
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
-                <h4 className="font-bold text-amber-400 text-sm">4. Mudanzas Morillas</h4>
-                <p>
-                  <strong>Fuerte:</strong> Son altamente eficientes en el izamiento de grandes bultos por el balcón exterior de edificios.
-                </p>
-                <p className="text-rose-400">
-                  <strong>Contenido Faltante / Debilidad:</strong> Están muy enfocados en el microcentro de Mendoza y no asisten adecuadamente a barrios cerrados de Maipú/Luján con reglamentaciones de ingreso complejas. Tampoco disponen de canastos plásticos herméticos para vajilla.
-                </p>
-              </div>
-
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
-                <h4 className="font-bold text-amber-400 text-sm">5. Mudanzas García</h4>
-                <p>
-                  <strong>Fuerte:</strong> Utilizan de manera adecuada canastos plásticos rígidos y percheros de tela para la ropa.
-                </p>
-                <p className="text-rose-400">
-                  <strong>Contenido Faltante / Debilidad:</strong> Su cobertura geográfica es limitada y no cuentan con protocolos de resguardo ecológico de plantas de jardín (clave para el clima árido y caluroso mendocino) ni de cuidado animal.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 text-xs text-amber-400 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 shrink-0" />
-              <span>
-                <strong>Nuestra Solución Integral:</strong> En Mudanzas Mendoza 2026 reunimos todas estas fortalezas y solventamos cada carencia del mercado local para brindarte la experiencia más segura y moderna de la provincia.
-              </span>
-            </div>
-
-            <div className="pt-2">
               <button
                 onClick={() => setShowAuditModal(false)}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl text-xs transition-colors cursor-pointer"
+                className="absolute top-4.5 right-4.5 text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-slate-850 cursor-pointer"
+                aria-label="Cerrar modal"
               >
-                Cerrar Reporte de Auditoría
+                <span className="text-lg">✕</span>
               </button>
-            </div>
+
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2.5 py-1 rounded-full inline-block">
+                  Reporte de Campo 2026
+                </span>
+                <h3 className="text-2xl font-extrabold tracking-tight">Reporte de Auditoría: Mercado de Mudanzas en Mendoza</h3>
+                <p className="text-slate-400 text-xs">
+                  Análisis de las 5 primeras posiciones en búsquedas locales (Google / Directorios de Mendoza).
+                </p>
+              </div>
+
+              <div className="space-y-4 text-xs leading-relaxed text-slate-300">
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2 ring-1 ring-amber-500/30">
+                  <h4 className="font-bold text-amber-400 text-sm flex items-center justify-between">
+                    <span>1. Mudanzas Miranda — Empresa Madre</span>
+                    <span className="text-[9px] bg-amber-500 text-slate-950 px-2 py-0.5 rounded font-black uppercase">Respaldo Oficial</span>
+                  </h4>
+                  <p>
+                    <strong>Nuestra Trayectoria:</strong> Con más de 50 años liderando el transporte en la región de Cuyo, Mudanzas Miranda provee los camiones furgonados de gran porte, la base operativa central y las pólizas integrales de Sancor Seguros.
+                  </p>
+                  <p className="text-emerald-400">
+                    <strong>Nuestra Innovación 2026:</strong> Para solucionar las debilidades del sector, creamos esta división 100% digital que incorpora cotización automatizada, checklists interactivos con IA, embalaje Eco-Premium con canastos plásticos rígidos y protocolo Pet-Friendly de resguardo.
+                  </p>
+                </div>
+
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
+                  <h4 className="font-bold text-amber-400 text-sm">2. Mudanzas Stocco (Juan Carlos Stocco e Hijos)</h4>
+                  <p>
+                    <strong>Fuerte:</strong> Una de las firmas con más tradición familiar. Poseen instalaciones de guardamuebles propias y grúas para levantar objetos ultra pesados (como pianos y cajas fuertes de bancos).
+                  </p>
+                  <p className="text-rose-400">
+                    <strong>Contenido Faltante / Debilidad:</strong> Su sitio web es extremadamente antiguo y estático. No disponen de cotizador digital instantáneo, ni planificación inteligente con IA, ni pautas pet-friendly detalladas para mudanzas libres de estrés.
+                  </p>
+                </div>
+
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
+                  <h4 className="font-bold text-amber-400 text-sm">3. Mudanzas El Mendocino</h4>
+                  <p>
+                    <strong>Fuerte:</strong> Excelente disposición para desarme y armado básico de mobiliario y embalaje de vajilla con plástico burbuja.
+                  </p>
+                  <p className="text-rose-400">
+                    <strong>Contenido Faltante / Debilidad:</strong> No brindan servicio de izamiento por soga/balcón para edificios altos del centro, y carecen de una política transparente de seguro de carga integral que resguarde los bienes durante la carga y descarga física de los peones.
+                  </p>
+                </div>
+
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
+                  <h4 className="font-bold text-amber-400 text-sm">4. Mudanzas Morillas</h4>
+                  <p>
+                    <strong>Fuerte:</strong> Son altamente eficientes en el izamiento de grandes bultos por el balcón exterior de edificios.
+                  </p>
+                  <p className="text-rose-400">
+                    <strong>Contenido Faltante / Debilidad:</strong> Están muy enfocados en el microcentro de Mendoza y no asisten adecuadamente a barrios cerrados de Maipú/Luján con reglamentaciones de ingreso complejas. Tampoco disponen de canastos plásticos herméticos para vajilla.
+                  </p>
+                </div>
+
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-850 space-y-2">
+                  <h4 className="font-bold text-amber-400 text-sm">5. Mudanzas García</h4>
+                  <p>
+                    <strong>Fuerte:</strong> Utilizan de manera adecuada canastos plásticos rígidos y percheros de tela para la ropa.
+                  </p>
+                  <p className="text-rose-400">
+                    <strong>Contenido Faltante / Debilidad:</strong> Su cobertura geográfica es limitada y no cuentan con protocolos de resguardo ecológico de plantas de jardín (clave para el clima árido y caluroso mendocino) ni de cuidado animal.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 text-xs text-amber-400 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 shrink-0" />
+                <span>
+                  <strong>Unión de Fuerzas Perfecta:</strong> Mudanzas Mendoza 2026 representa la evolución digital de Mudanzas Miranda. Tenés la tranquilidad de 50 años de experiencia de una marca líder combinada con las herramientas interactivas más veloces y sustentables de Mendoza.
+                </span>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowAuditModal(false)}
+                  className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  Cerrar Reporte de Auditoría
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 }

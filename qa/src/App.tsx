@@ -15,6 +15,7 @@ import PlannerLanding from './components/PlannerLanding';
 
 import { DEPARTMENTS, SERVICES, GENERAL_FAQS } from './data';
 import { CotizacionState, BlogArticle } from './types';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   PhoneCall, 
   MapPin, 
@@ -397,54 +398,69 @@ export default function App() {
         </div>
 
         {/* Mobile menu panel */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-slate-900 border-t border-slate-800 p-4 space-y-4 animate-fade-in">
-            <div className="flex flex-col gap-3 text-sm font-semibold">
-              <button onClick={handleNavigateHome} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Inicio</button>
-              <button onClick={handleNavigateCobertura} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Nuestra Cobertura</button>
-              <button onClick={handleNavigatePlanificador} className="text-left text-amber-400 py-1.5 flex items-center gap-1.5 border-b border-slate-850">
-                <Brain className="w-4 h-4 text-amber-500" />
-                Planificador IA
-              </button>
-              <button onClick={handleNavigateBlog} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Blog y Consejos</button>
-              
-              <div className="border-t border-slate-800 pt-3">
-                <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Servicios</span>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  {SERVICES.map(svc => (
-                    <button key={svc.id} onClick={() => handleNavigateService(svc.slug)} className="text-left text-slate-300 py-1">{svc.name}</button>
-                  ))}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="lg:hidden bg-slate-900 border-t border-slate-800 p-4 space-y-4 overflow-hidden"
+            >
+              <div className="flex flex-col gap-3 text-sm font-semibold">
+                <button onClick={handleNavigateHome} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Inicio</button>
+                <button onClick={handleNavigateCobertura} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Nuestra Cobertura</button>
+                <button onClick={handleNavigatePlanificador} className="text-left text-amber-400 py-1.5 flex items-center gap-1.5 border-b border-slate-850">
+                  <Brain className="w-4 h-4 text-amber-500" />
+                  Planificador IA
+                </button>
+                <button onClick={handleNavigateBlog} className="text-left text-slate-200 py-1.5 border-b border-slate-850">Blog y Consejos</button>
+                
+                <div className="border-t border-slate-800 pt-3">
+                  <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Servicios</span>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {SERVICES.map(svc => (
+                      <button key={svc.id} onClick={() => handleNavigateService(svc.slug)} className="text-left text-slate-300 py-1">{svc.name}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-slate-800 pt-3">
+                  <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Departamentos</span>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {DEPARTMENTS.map(dept => (
+                      <button key={dept.id} onClick={() => handleNavigateDept(dept.slug)} className="text-left text-slate-300 py-1">{dept.name}</button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="border-t border-slate-800 pt-3">
-                <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Departamentos</span>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  {DEPARTMENTS.map(dept => (
-                    <button key={dept.id} onClick={() => handleNavigateDept(dept.slug)} className="text-left text-slate-300 py-1">{dept.name}</button>
-                  ))}
-                </div>
+              <div className="border-t border-slate-800 pt-4 flex flex-col gap-3">
+                <a href="tel:+5492612345678" className="text-slate-300 text-xs font-semibold text-center">📞 WhatsApp de Guardia: 261 2345678</a>
+                <button
+                  onClick={handleStartQuote}
+                  className="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-xl text-sm"
+                >
+                  Cotizar Mudanza
+                </button>
               </div>
-            </div>
-
-            <div className="border-t border-slate-800 pt-4 flex flex-col gap-3">
-              <a href="tel:+5492612345678" className="text-slate-300 text-xs font-semibold text-center">📞 WhatsApp de Guardia: 261 2345678</a>
-              <button
-                onClick={handleStartQuote}
-                className="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-xl text-sm"
-              >
-                Cotizar Mudanza
-              </button>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* CORE ROUTING RENDERER */}
       <main className="flex-1">
-        
-        {view === 'home' && (
-          <div className="space-y-16 sm:space-y-24">
+        <AnimatePresence mode="wait">
+          {view === 'home' && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="space-y-16 sm:space-y-24"
+            >
             
             {/* HERO MODULE */}
             <Hero onStartQuote={handleStartQuote} onOpenChat={() => setChatOpen(true)} />
@@ -465,9 +481,13 @@ export default function App() {
                   >
                     <div className="space-y-4">
                       <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl font-bold">
+                        {svc.id === 'mudanzas-residenciales' && '🏠'}
                         {svc.id === 'fletes-economicos' && '🚚'}
                         {svc.id === 'transporte-de-muebles' && '📦'}
                         {svc.id === 'traslado-de-offices' && '💼'}
+                        {svc.id === 'guardamuebles-mendoza' && '🔒'}
+                        {svc.id === 'embalaje-y-desarme' && '🛠️'}
+                        {svc.id === 'izamientos-y-altura' && '🧗'}
                         {svc.id === 'mudanzas-urgentes' && '⚡'}
                         {svc.id === 'mudanzas-24-horas' && '🕒'}
                       </div>
@@ -590,45 +610,86 @@ export default function App() {
             {/* CONFIDENCE & SEO INDICATORS */}
             <ConfidenceIndicators />
 
-          </div>
+          </motion.div>
         )}
 
         {/* DYNAMIC LANDING VIEWS */}
         {view === 'departamento' && (
-          <DepartmentLanding
-            dept={DEPARTMENTS.find(d => d.slug === activeSlug)!}
-            onBack={handleNavigateHome}
-            onStartQuote={handleStartQuote}
-          />
+          <motion.div
+            key={`departamento-${activeSlug}`}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <DepartmentLanding
+              dept={DEPARTMENTS.find(d => d.slug === activeSlug)!}
+              onBack={handleNavigateHome}
+              onStartQuote={handleStartQuote}
+            />
+          </motion.div>
         )}
 
         {view === 'servicio' && (
-          <ServiceLanding
-            service={SERVICES.find(s => s.slug === activeSlug)!}
-            onBack={handleNavigateHome}
-            onStartQuote={handleStartQuote}
-          />
+          <motion.div
+            key={`servicio-${activeSlug}`}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ServiceLanding
+              service={SERVICES.find(s => s.slug === activeSlug)!}
+              onBack={handleNavigateHome}
+              onStartQuote={handleStartQuote}
+            />
+          </motion.div>
         )}
 
         {view === 'blog' && (
-          <BlogSection onBackToHome={handleStartQuote} onArticleSelect={setActiveBlogArticle} />
+          <motion.div
+            key="blog"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <BlogSection onBackToHome={handleStartQuote} onArticleSelect={setActiveBlogArticle} />
+          </motion.div>
         )}
 
         {view === 'cobertura' && (
-          <CoverageLanding
-            onBack={handleNavigateHome}
-            onNavigateDept={handleNavigateDept}
-            onStartQuote={handleStartQuote}
-          />
+          <motion.div
+            key="cobertura"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <CoverageLanding
+              onBack={handleNavigateHome}
+              onNavigateDept={handleNavigateDept}
+              onStartQuote={handleStartQuote}
+            />
+          </motion.div>
         )}
 
         {view === 'planificador' && (
-          <PlannerLanding
-            onBack={handleNavigateHome}
-            onStartQuote={handleStartQuote}
-          />
+          <motion.div
+            key="planificador"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <PlannerLanding
+              onBack={handleNavigateHome}
+              onStartQuote={handleStartQuote}
+            />
+          </motion.div>
         )}
 
+        </AnimatePresence>
       </main>
 
       {/* DYNAMIC FLOATING CHATBOT AI */}
@@ -678,53 +739,71 @@ export default function App() {
       )}
 
       {/* CRO EXIT INTENT POPUP MODAL */}
-      {showExitModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl animate-fade-in text-center space-y-6">
-            <button
+      <AnimatePresence>
+        {showExitModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setShowExitModal(false)}
-              className="absolute top-4.5 right-4.5 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800 cursor-pointer"
-              aria-label="Cerrar ventana"
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl text-center space-y-6 z-10"
             >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 text-xl font-bold border border-amber-500/30">
-              🍷
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-2xl font-extrabold tracking-tight">¡Pará un poquito, che!</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                No te vayas con dudas. Cotizá tu mudanza **hoy mismo** y te bonificamos el **Seguro de Tránsito Civil Total** en todo Mendoza.
-              </p>
-            </div>
-
-            <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-850 text-xs text-slate-400 flex items-center justify-center gap-2">
-              <Percent className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Promo de cortesía válida para reservas hechas esta semana.</span>
-            </div>
-
-            <div className="flex flex-col gap-2.5 pt-2">
-              <button
-                onClick={() => {
-                  setShowExitModal(false);
-                  handleStartQuote();
-                }}
-                className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 rounded-xl text-sm transition-all shadow"
-              >
-                Aprovechar Bonificación
-              </button>
               <button
                 onClick={() => setShowExitModal(false)}
-                className="w-full text-slate-500 hover:text-slate-300 transition-colors text-xs font-semibold py-1"
+                className="absolute top-4.5 right-4.5 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800 cursor-pointer"
+                aria-label="Cerrar ventana"
               >
-                No, prefiero pagar precio de lista
+                <X className="w-5 h-5" />
               </button>
-            </div>
+
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 text-xl font-bold border border-amber-500/30">
+                🍷
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-2xl font-extrabold tracking-tight">¡Pará un poquito, che!</h3>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  No te vayas con dudas. Cotizá tu mudanza **hoy mismo** y te bonificamos el **Seguro de Tránsito Civil Total** en todo Mendoza.
+                </p>
+              </div>
+
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-850 text-xs text-slate-400 flex items-center justify-center gap-2">
+                <Percent className="w-4 h-4 text-amber-400 shrink-0" />
+                <span>Promo de cortesía válida para reservas hechas esta semana.</span>
+              </div>
+
+              <div className="flex flex-col gap-2.5 pt-2">
+                <button
+                  onClick={() => {
+                    setShowExitModal(false);
+                    handleStartQuote();
+                  }}
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 rounded-xl text-sm transition-all shadow"
+                >
+                  Aprovechar Bonificación
+                </button>
+                <button
+                  onClick={() => setShowExitModal(false)}
+                  className="w-full text-slate-500 hover:text-slate-300 transition-colors text-xs font-semibold py-1"
+                >
+                  No, prefiero pagar precio de lista
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
     </div>
   );

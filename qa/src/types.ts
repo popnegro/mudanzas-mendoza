@@ -15,6 +15,7 @@ export interface DepartmentInfo {
   highlightItems: string[];
   faqs: { question: string; answer: string }[];
   localFrecuentes: string[];
+  image?: string;
 }
 
 export interface ServiceInfo {

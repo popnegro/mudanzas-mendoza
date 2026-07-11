@@ -143,6 +143,10 @@ export default function Footer({
           <p className="text-slate-500 text-xs leading-relaxed max-w-sm">
             La flota de confianza de los mendocinos. Llevamos tus pertenencias por todo el Gran Mendoza, San Rafael y el Valle de Uco con total cuidado.
           </p>
+          <div className="bg-slate-900/60 p-3.5 rounded-xl border border-slate-900 text-[11px] leading-relaxed text-slate-400">
+            <span className="text-white font-bold block mb-1">🔗 Respaldo Oficial:</span>
+            <strong>Mudanzas Mendoza 2026</strong> es un producto oficial de <a href="https://www.mudanzasmiranda.com.ar/" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Mudanzas Miranda</a>. Llevamos más de 50 años brindando solidez logística, camiones habilitados y personal calificado en Mendoza.
+          </div>
           <div className="space-y-2.5 text-xs text-slate-400 pt-2">
             <p className="flex items-center justify-center sm:justify-start gap-2">
               <Phone className="w-4 h-4 text-amber-500" />

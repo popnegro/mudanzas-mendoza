@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
-import { Truck, CheckCircle2, Star, Shield, PhoneCall, Compass, ArrowRight, Sparkles } from 'lucide-react';
+import React from 'react';
+import { Truck, CheckCircle2, Star, Shield, PhoneCall } from 'lucide-react';
+
+// Import official Mudanzas Miranda truck image for co-branding and visual richness
+import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
+import mudanzasMirandaHeroV2 from '../assets/images/mudanzas_miranda_hero_v2_1783677119158.jpg';
 
 interface HeroProps {
   onStartQuote: () => void;
   onOpenChat: () => void;
 }
 
-interface LocalRoute {
-  from: string;
-  to: string;
-  distance: number;
-  time: string;
-  difficulty: 'Fácil' | 'Media' | 'Compleja';
-  tip: string;
-}
-
-const SAMPLE_ROUTES: LocalRoute[] = [
-  { from: 'Mendoza Capital', to: 'Chacras de Coria', distance: 14, time: '20 min', difficulty: 'Fácil', tip: 'Callejón de adoquines, camiones medianos sugeridos.' },
-  { from: 'Mendoza Capital', to: 'Guaymallén', distance: 5, time: '12 min', difficulty: 'Fácil', tip: 'Acceso Este despejado. Apto grúas grandes.' },
-  { from: 'Mendoza Capital', to: 'Godoy Cruz', distance: 6, time: '15 min', difficulty: 'Fácil', tip: 'Cerca del Corredor del Oeste. Tránsito ágil.' },
-  { from: 'Mendoza Capital', to: 'Maipú', distance: 16, time: '25 min', difficulty: 'Fácil', tip: 'Zona de bodegas. Camiones climatizados de flora recomendados.' },
-  { from: 'Mendoza Capital', to: 'Luján de Cuyo', distance: 20, time: '25 min', difficulty: 'Fácil', tip: 'Ruta 40 fluida. Ideal mudanzas de fincas.' },
-  { from: 'Mendoza Capital', to: 'San Rafael', distance: 232, time: '3 hs', difficulty: 'Media', tip: 'Larga distancia. Requiere inventario precintado.' },
-  { from: 'Mendoza Capital', to: 'Tunuyán', distance: 83, time: '1h 10 min', difficulty: 'Fácil', tip: 'Valle de Uco. Ruta nacional en buen estado.' },
-];
-
 export default function Hero({ onStartQuote, onOpenChat }: HeroProps) {
-  const [selectedRouteIdx, setSelectedRouteIdx] = useState<number>(0);
-  const activeRoute = SAMPLE_ROUTES[selectedRouteIdx];
 
   return (
     <section className="relative overflow-hidden bg-slate-950 text-white py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
       
+      {/* Background Image of Mendoza with Andes and Mudanzas Miranda Truck */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img 
+          src={mudanzasMirandaHeroV2}
+          alt="Servicio de fletes y mudanzas en Mendoza operando bajo la firma oficial de Mudanzas Miranda con la cordillera de los Andes al fondo"
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover opacity-25 md:opacity-30 lg:opacity-35"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40" />
+      </div>
+
       {/* Decorative sophisticated ambient glows matching Malbec & Amber Sunset */}
       <div className="absolute top-0 right-0 -mt-16 -mr-16 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-[450px] h-[450px] bg-rose-900/15 rounded-full blur-[110px] pointer-events-none" />
@@ -44,10 +39,23 @@ export default function Hero({ onStartQuote, onOpenChat }: HeroProps) {
         {/* Left column: High-converting copy */}
         <div className="lg:col-span-7 space-y-8 lg:space-y-10 text-left">
           
-          {/* Availability Status Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/10 to-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-sm animate-pulse-subtle">
-            <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full inline-block" />
-            <span>Guardia Activa: Operando Hoy en Mendoza</span>
+          {/* Availability Status & Co-branding Badges */}
+          <div className="flex flex-wrap gap-3 items-center">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/10 to-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
+              <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full inline-block" />
+              <span>Guardia Activa: Operando Hoy en Mendoza</span>
+            </div>
+            <a 
+              href="https://www.mudanzasmiranda.com.ar/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 px-4 py-2 rounded-full text-xs font-bold shadow-sm transition-all"
+            >
+              <span>Un producto de</span>
+              <strong className="text-amber-400">Mudanzas Miranda</strong>
+              <span className="text-slate-500">|</span>
+              <span className="text-[10px] text-amber-500 font-extrabold uppercase tracking-wide">50 años</span>
+            </a>
           </div>
 
           {/* Heading with sophisticated custom typography */}
@@ -130,83 +138,36 @@ export default function Hero({ onStartQuote, onOpenChat }: HeroProps) {
           </div>
         </div>
 
-        {/* Right column: Interactive Distance Estimator Card */}
-        <div className="lg:col-span-5 relative w-full flex justify-center">
-          <div className="relative w-full max-w-md bg-slate-900/90 backdrop-blur-md rounded-3xl border border-slate-800/80 p-6.5 shadow-2xl text-left space-y-5">
-            
-            <div className="absolute -top-3.5 -right-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
-              Estimador en Tiempo Real
+        {/* Right column: Beautiful Branded Fleet Card - Mudanzas Miranda Showcase */}
+        <div className="lg:col-span-5 relative w-full flex flex-col items-center justify-center">
+          <div className="w-full max-w-md bg-slate-900/85 backdrop-blur-md rounded-3xl border border-slate-800/80 p-6 shadow-2xl text-left space-y-4">
+            <div className="w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-slate-800 shadow-inner group relative">
+              <img
+                src={mudanzaMirandaTruck}
+                alt="Flota oficial de camiones de Mudanzas Miranda operando en Mendoza con la cordillera al fondo"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+              <div className="absolute bottom-3 left-3 bg-slate-900/90 backdrop-blur-sm border border-slate-800/60 px-2.5 py-1 rounded-md text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                Unidad n° 42 • Habilitada CNRT
+              </div>
             </div>
-            
-            <div className="space-y-1.5">
-              <h3 className="text-lg font-display font-black text-white flex items-center gap-2">
-                <Compass className="w-5 h-5 text-amber-500" />
-                Simulador de Ruta Mendoza
-              </h3>
-              <p className="text-slate-400 text-xs">
-                Seleccioná una ruta frecuente para ver un estimador de distancias, tiempos y consejos logísticos locales al instante.
+            <div className="space-y-2">
+              <h4 className="text-sm font-extrabold text-white flex items-center gap-2">
+                <span className="text-amber-500 text-lg">🚚</span> Respaldo e Infraestructura Miranda
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                Nuestra división digital premium opera bajo la tutela y con la inmensa flota pesada de <strong className="text-white">Mudanzas Miranda</strong>, líderes indiscutidos del sector en Cuyo con más de 50 años de trayectoria intachable.
               </p>
-            </div>
-
-            {/* Route Selector Dropdown */}
-            <div className="space-y-1.5">
-              <label htmlFor="hero-route-selector" className="text-[10px] font-black text-slate-400 uppercase tracking-wider block pl-1">
-                Recorrido Habitual
-              </label>
-              <select
-                id="hero-route-selector"
-                value={selectedRouteIdx}
-                onChange={(e) => setSelectedRouteIdx(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-850 hover:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs text-slate-200 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 transition-all"
-              >
-                {SAMPLE_ROUTES.map((route, idx) => (
-                  <option key={idx} value={idx}>
-                    De {route.from} a {route.to}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Instant Metrics Panels */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="bg-slate-950 border border-slate-900 rounded-xl p-3 text-center space-y-0.5">
-                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Distancia</span>
-                <strong className="text-sm font-display text-white">{activeRoute.distance} km</strong>
-              </div>
-              <div className="bg-slate-950 border border-slate-900 rounded-xl p-3 text-center space-y-0.5">
-                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Tránsito</span>
-                <strong className="text-sm font-display text-emerald-400">{activeRoute.time}</strong>
-              </div>
-              <div className="bg-slate-950 border border-slate-900 rounded-xl p-3 text-center space-y-0.5">
-                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Complejidad</span>
-                <strong className="text-sm font-display text-amber-400">{activeRoute.difficulty}</strong>
+              <div className="pt-2 border-t border-slate-850 flex items-center justify-between text-[11px] text-slate-400">
+                <span>📍 Base Central: Mendoza</span>
+                <span className="text-emerald-400 font-bold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block animate-pulse" />
+                  Póliza Sancor Seguros
+                </span>
               </div>
             </div>
-
-            {/* Local street advice warning */}
-            <div className="bg-amber-500/5 rounded-xl p-3.5 border border-amber-500/10 text-[11px] leading-relaxed text-slate-300">
-              <span className="text-amber-400 font-bold block mb-0.5">📝 Consejo Profesional Mendoza:</span>
-              {activeRoute.tip}
-            </div>
-
-            {/* Continue button to quote */}
-            <div className="space-y-2 pt-1">
-              <button
-                onClick={onStartQuote}
-                className="w-full inline-flex items-center justify-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-5 py-3 rounded-xl text-xs transition-all cursor-pointer group shadow"
-              >
-                Pre-Cargar Ruta en el Cotizador
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5 transition-transform group-hover:translate-x-0.5" />
-              </button>
-              
-              <button
-                onClick={onOpenChat}
-                className="w-full text-center text-[10px] font-bold text-slate-400 hover:text-amber-400 transition-colors py-1 cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <Sparkles className="w-3 h-3 text-amber-500" /> Consultar normativas con el Planificador de IA
-              </button>
-            </div>
-
           </div>
         </div>
       </div>

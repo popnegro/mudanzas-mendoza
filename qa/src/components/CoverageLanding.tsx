@@ -20,6 +20,10 @@ import {
   ChevronRight
 } from 'lucide-react';
 
+// Import official Mudanzas Miranda images for cards and banners
+import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
+import mudanzasEquipoEmbalaje from '../assets/images/mudanzas_equipo_embalaje_1783676512881.jpg';
+
 interface CoverageLandingProps {
   onBack: () => void;
   onNavigateDept: (slug: string) => void;
@@ -93,12 +97,6 @@ export default function CoverageLanding({ onBack, onNavigateDept, onStartQuote }
       {/* Breadcrumb Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Breadcrumbs steps={breadcrumbSteps} />
-        
-        {/* Verification SEO badge */}
-        <div className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 font-mono self-start sm:self-auto">
-          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-          <span>SEO Geolocalizado Verificado • Mendoza 2026</span>
-        </div>
       </div>
 
       {/* Hero Header Section */}
@@ -216,33 +214,48 @@ export default function CoverageLanding({ onBack, onNavigateDept, onStartQuote }
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredDepartments.map((dept) => (
-              <div
-                key={dept.id}
-                className="bg-slate-50 dark:bg-slate-900 border border-slate-150 dark:border-slate-850 rounded-2xl p-5 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all text-left flex flex-col justify-between space-y-4 relative overflow-hidden group"
-              >
-                {/* Visual subtle card badge */}
-                <span className="text-2xl block">🍇</span>
+            {filteredDepartments.map((dept) => {
+              const isTruckImage = ['mendoza-capital', 'lujan-de-cuyo', 'godoy-cruz', 'maipu', 'san-martin', 'tunuyan'].includes(dept.id);
+              const cardImage = isTruckImage ? mudanzaMirandaTruck : mudanzasEquipoEmbalaje;
+              return (
+                <div
+                  key={dept.id}
+                  className="bg-slate-50 dark:bg-slate-900 border border-slate-150 dark:border-slate-850 rounded-2xl p-4.5 hover:border-amber-500/30 dark:hover:border-amber-500/30 hover:shadow-md transition-all text-left flex flex-col justify-between space-y-4 relative overflow-hidden group"
+                >
+                  {/* Co-branded Department Image Card with SEO rich alt tags */}
+                  <div className="w-full h-32 rounded-xl overflow-hidden relative border border-slate-200/60 dark:border-slate-800">
+                    <img
+                      src={cardImage}
+                      alt={`Fletes rápidos y mudanzas en ${dept.name} Mendoza - Servicio oficial y flota de Mudanzas Miranda`}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                    />
+                    <div className="absolute top-2 left-2 bg-slate-950/70 backdrop-blur-sm text-white px-2 py-0.5 rounded-md text-[9px] font-bold flex items-center gap-1">
+                      <span>🍇</span>
+                      <span>{dept.name}</span>
+                    </div>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="font-extrabold text-slate-950 dark:text-white text-sm">{dept.name}</h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                    {dept.description}
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="font-extrabold text-slate-950 dark:text-white text-sm">{dept.name}</h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                      {dept.description}
+                    </p>
+                  </div>
 
-                <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-[10px]">
-                  <span className="text-emerald-500 font-bold">Fletes Asignados</span>
-                  <button
-                    onClick={() => onNavigateDept(dept.slug)}
-                    className="inline-flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
-                  >
-                    Ver detalles de Zona
-                    <ChevronRight className="w-3 h-3" />
-                  </button>
+                  <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                    <span className="text-emerald-500 font-bold">Fletes Asignados</span>
+                    <button
+                      onClick={() => onNavigateDept(dept.slug)}
+                      className="inline-flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
+                    >
+                      Ver detalles de Zona
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

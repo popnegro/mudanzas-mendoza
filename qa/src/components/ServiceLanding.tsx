@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { ServiceInfo } from '../types';
-import { ArrowLeft, CheckCircle, PhoneCall, Truck, Briefcase, Package, Clock, Calendar, CheckSquare } from 'lucide-react';
+import { ArrowLeft, CheckCircle, PhoneCall, Truck, Briefcase, Package, Clock, Calendar, CheckSquare, Home, Warehouse, Shield, ArrowUpCircle } from 'lucide-react';
 import { DEPARTMENTS } from '../data';
 import { useServiceSchema } from '../hooks/useServiceSchema';
 import { useBreadcrumbSchema } from '../hooks/useBreadcrumbSchema';
 import Breadcrumbs from './Breadcrumbs';
+
+// Import official Mudanzas Miranda packing team image for co-branding
+import mudanzasEquipoEmbalaje from '../assets/images/mudanzas_equipo_embalaje_1783676512881.jpg';
 
 interface ServiceLandingProps {
   service: ServiceInfo;
@@ -18,7 +21,11 @@ const iconMap: { [key: string]: any } = {
   Package: Package,
   Briefcase: Briefcase,
   Clock: Clock,
-  Calendar: Calendar
+  Calendar: Calendar,
+  Home: Home,
+  Warehouse: Warehouse,
+  Shield: Shield,
+  ArrowUpCircle: ArrowUpCircle
 };
 
 export default function ServiceLanding({ service, onBack, onStartQuote }: ServiceLandingProps) {
@@ -26,11 +33,15 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
 
   // Dynamic Base Prices for 2026 Mendoza Moving Services
   const basePrices: { [key: string]: number } = {
+    'mudanzas-residenciales': 45000,
     'fletes-economicos': 15000,
     'transporte-de-muebles': 30000,
-    'traslado-de-offices': 45000,
-    'mudanzas-urgentes': 25000,
-    'mudanzas-24-horas': 28000
+    'traslado-de-offices': 60000,
+    'guardamuebles-mendoza': 25000,
+    'embalaje-y-desarme': 18000,
+    'izamientos-y-altura': 35000,
+    'mudanzas-urgentes': 32000,
+    'mudanzas-24-horas': 38000
   };
 
   const basePrice = basePrices[service.id] || 20000;
@@ -54,15 +65,9 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
   return (
     <article className="py-12 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-12 animate-fade-in">
       
-      {/* Visual Keyboard-Navigable Breadcrumb and Dynamic SEO Status */}
+      {/* Visual Keyboard-Navigable Breadcrumb */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Breadcrumbs steps={breadcrumbSteps} />
-
-        {/* Professional metadata visual indicator */}
-        <div className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 font-mono self-start sm:self-auto">
-          <CheckSquare className="w-3.5 h-3.5 text-emerald-500" />
-          <span>Service Schema JSON-LD Activado</span>
-        </div>
       </div>
 
       {/* Hero Header */}
@@ -81,6 +86,21 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
           {service.description}
         </p>
       </header>
+
+      {/* Official Mudanzas Miranda Service Banner (SEO Optimized) */}
+      <div className="w-full h-60 sm:h-72 rounded-2xl overflow-hidden relative border border-slate-250 dark:border-slate-800 shadow-md">
+        <img
+          src={mudanzasEquipoEmbalaje}
+          alt={`Servicio premium de ${service.name} en Mendoza - Garantía, envolturas seguras y seriedad de Mudanzas Miranda`}
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent flex items-end p-4">
+          <p className="text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5">
+            📦 Respaldado por el equipamiento de Mudanzas Miranda (50 años de experiencia)
+          </p>
+        </div>
+      </div>
 
       {/* Main Copy Block */}
       <section className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed space-y-6">

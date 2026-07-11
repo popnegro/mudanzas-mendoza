@@ -4,6 +4,10 @@ import { BLOG_ARTICLES } from '../data';
 import { Calendar, User, Clock, ArrowLeft, ArrowRight, BookOpen, Share2, CheckSquare } from 'lucide-react';
 import { useBlogArticleSchema } from '../hooks/useBlogArticleSchema';
 
+// Import official Mudanzas Miranda images for co-branding across blog pages
+import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
+import mudanzasEquipoEmbalaje from '../assets/images/mudanzas_equipo_embalaje_1783676512881.jpg';
+
 interface BlogSectionProps {
   onBackToHome: () => void;
   onArticleSelect?: (article: BlogArticle | null) => void;
@@ -39,7 +43,7 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
   if (selectedArticle) {
     return (
       <article className="py-12 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-8 animate-fade-in">
-        {/* Back navigation and dynamic SEO status */}
+        {/* Back navigation */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <button
             onClick={() => setSelectedArticle(null)}
@@ -48,12 +52,6 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Volver al Blog
           </button>
-
-          {/* Professional metadata visual indicator */}
-          <div className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 font-mono self-start sm:self-auto">
-            <CheckSquare className="w-3.5 h-3.5 text-emerald-500" />
-            <span>Article & Breadcrumb Schema Activos</span>
-          </div>
         </div>
 
         {/* Cover Image */}
@@ -129,15 +127,25 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
           })}
         </div>
 
-        {/* Footer info box */}
-        <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h4 className="font-extrabold text-slate-900 dark:text-white text-sm">¿Te sirvieron estos consejos?</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-xs">Ahorrate el estrés y dejá tu mudanza en manos profesionales de confianza.</p>
+        {/* Footer info box with co-branding image */}
+        <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 mt-12 flex flex-col md:flex-row items-center gap-6">
+          <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800">
+            <img
+              src={mudanzasEquipoEmbalaje}
+              alt="Equipo de empaque premium de Mudanzas Miranda"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex-1 space-y-1 text-left">
+            <h4 className="font-extrabold text-slate-900 dark:text-white text-sm">¿Te sirvieron estos consejos mendocinos?</h4>
+            <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+              Mudar tu hogar no tiene que ser una tortura. Poné tus muebles bajo el cuidado experto del personal oficial de <strong>Mudanzas Miranda</strong> y disfrutá de un servicio premium.
+            </p>
           </div>
           <button
             onClick={onBackToHome}
-            className="bg-slate-950 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer"
+            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-6 py-3 rounded-xl text-xs transition-all cursor-pointer shadow whitespace-nowrap"
           >
             Reservar Mudanza Ahora
           </button>
@@ -216,6 +224,26 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
               </div>
             </article>
           ))}
+        </div>
+
+        {/* Mudanzas Miranda co-branding banner at the bottom of the blog */}
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 text-white relative overflow-hidden mt-12">
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-transparent pointer-events-none" />
+          <div className="w-full md:w-1/3 h-40 rounded-2xl overflow-hidden border border-slate-800 shrink-0">
+            <img
+              src={mudanzaMirandaTruck}
+              alt="Camión de Mudanzas Miranda listo para transportar en las rutas de Mendoza"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="space-y-2 text-left flex-1 relative z-10">
+            <span className="text-[10px] font-black uppercase text-amber-400 tracking-wider">Un producto oficial de Mudanzas Miranda</span>
+            <h3 className="text-lg sm:text-xl font-bold">50 años de experiencia respaldan cada traslado</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Mendoza 2026 es el canal digital premium de <strong>Mudanzas Miranda</strong>. Combinamos la innovación de nuestra plataforma de estimación y planificación por IA con la inmensa capacidad de camiones pesados, grúas y la confianza de los fletistas más tradicionales de Cuyo.
+            </p>
+          </div>
         </div>
 
       </div>

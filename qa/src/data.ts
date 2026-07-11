@@ -463,6 +463,25 @@ export const DEPARTMENTS: DepartmentInfo[] = [
 
 export const SERVICES: ServiceInfo[] = [
   {
+    id: 'mudanzas-residenciales',
+    name: 'Mudanzas Residenciales',
+    slug: 'mudanzas-residenciales',
+    seo: {
+      title: 'Mudanzas Residenciales en Mendoza | Casas y Departamentos',
+      description: 'Traslados integrales de hogares en Mendoza. Servicio con ayudantes profesionales, embalaje, desarme de muebles y seguro total de carga. ¡Escribinos!',
+      keywords: ['mudanzas residenciales mendoza', 'mudanzas de casas mendoza', 'mudar departamento mendoza', 'empresa de mudanzas mendoza'],
+      h1: 'Mudanzas Residenciales y Familiares en Mendoza'
+    },
+    description: 'Servicios de mudanzas completas para casas, departamentos, dúplex y barrios privados. Equipos con peones expertos, estiba profesional y pólizas activas.',
+    longDescription: 'Una mudanza residencial es mucho más que mover cajas: es trasladar tu historia, tu esfuerzo y tus sueños. En Mudanzas Mendoza 2026 nos especializamos en hacer de esta transición un proceso cómodo, seguro y libre de estrés. Ofrecemos soluciones llave en mano adaptadas a la envergadura de tu hogar, ya sea una casa amplia, un departamento céntrico o una residencia en barrios privados. Nuestro personal experto se encarga del embalaje cuidadoso de vajilla y cristalería delicada, la envoltura de sillones en film protector, el desarme y armado de placares o camas, y la carga/descarga con estiba profesionalizada para que nada sufra rozaduras en tránsito. Operamos con camiones furgonados modernos y limpios, y cada servicio viaja respaldado por un seguro de carga integral suscrito con aseguradoras líderes del mercado.',
+    benefits: [
+      'Suministro gratuito de canastos plásticos rígidos sanitizados para proteger tu vajilla.',
+      'Personal propio y uniformado con ART activa, capacitado para ingresos a barrios cerrados exigentes.',
+      'Póliza de seguro civil de carga que cubre tus bienes desde la puerta de origen hasta el destino final.'
+    ],
+    iconName: 'Home'
+  },
+  {
     id: 'fletes-economicos',
     name: 'Fletes Económicos',
     slug: 'fletes-economicos',
@@ -503,7 +522,7 @@ export const SERVICES: ServiceInfo[] = [
   {
     id: 'traslado-de-offices',
     name: 'Traslado de Oficinas',
-    slug: 'traslado-de-oficinas',
+    slug: 'traslado-de-offices',
     seo: {
       title: 'Mudanza de Oficinas en Mendoza | Traslado Comercial Eficiente',
       description: 'Mudanzas corporativas y traslados de oficinas en Mendoza. Planificación logística rápida, traslado de computadoras y carpetas sin perder horas de trabajo.',
@@ -518,6 +537,63 @@ export const SERVICES: ServiceInfo[] = [
       'Operativos rápidos de fin de semana para no detener la productividad'
     ],
     iconName: 'Briefcase'
+  },
+  {
+    id: 'guardamuebles-mendoza',
+    name: 'Guardamuebles en Mendoza',
+    slug: 'guardamuebles-mendoza',
+    seo: {
+      title: 'Guardamuebles en Mendoza | Depósitos Seguros y Limpios',
+      description: 'Servicio de guardamuebles y bauleras privadas en Mendoza. Vigilancia las 24 hs, control de plagas, seguro contra incendio y humedad. ¡Cotizá hoy!',
+      keywords: ['guardamuebles mendoza', 'depositos de muebles mendoza', 'alquiler de bauleras mendoza', 'almacenamiento de muebles'],
+      h1: 'Guardamuebles y Bauleras Privadas en Mendoza'
+    },
+    description: 'Depósitos limpios, herméticos e independientes para resguardar tus muebles de forma temporal o prolongada. Monitoreo las 24 horas.',
+    longDescription: 'Ya sea que estés remodelando tu casa, esperando la entrega de tu nuevo departamento o de viaje por trabajo, nuestro servicio de guardamuebles en Mendoza te ofrece la solución perfecta. Disponemos de depósitos individuales, secos y completamente cerrados que previenen el ingreso de polvo, humedad o agentes nocivos. Todo el predio cuenta con monitoreo por cámaras de seguridad las 24 horas, alarmas perimetrales conectadas a central de policía, control periódico de plagas y seguro total de incendio y robo suscrito con Sancor Seguros. Vos guardás tus pertenencias y las retirás cuando quieras, con total flexibilidad de pago mensual o diario sin plazos forzosos.',
+    benefits: [
+      'Predio cerrado con vigilancia física, cerco eléctrico perimetral y cámaras 24/7.',
+      'Estiba profesional sobre pallets de madera maciza para aislar de la humedad del suelo.',
+      'Contratos de alquiler flexibles por días, semanas o meses, adaptados a tu presupuesto real.'
+    ],
+    iconName: 'Warehouse'
+  },
+  {
+    id: 'embalaje-y-desarme',
+    name: 'Embalaje y Desarme',
+    slug: 'embalaje-y-desarme',
+    seo: {
+      title: 'Servicios de Embalaje y Desarme de Muebles en Mendoza',
+      description: 'Protección profesional para tu mudanza. Embalaje con plástico burbuja, film stretch y cajas. Personal experto para desarme de camas y placares.',
+      keywords: ['embalaje para mudanzas mendoza', 'desarme de muebles mendoza', 'cajas de embalar mendoza', 'proteccion de muebles'],
+      h1: 'Servicios de Embalaje Profesional y Desarme'
+    },
+    description: 'Protección premium con film stretch, plástico de burbujas (pluribol) y mantas acolchadas. Desarmamos y rearmamos tus muebles al instante.',
+    longDescription: 'El secreto de una mudanza exitosa, libre de rayones o golpes fortuitos, reside enteramente en la calidad del embalaje previo. Nuestro equipo de operarios embaladores profesionales asiste a tu domicilio provisto de materiales premium: film stretch de alta resistencia, plástico de burbujas (pluribol) de gran densidad, esquineros de cartón prensado y cintas adhesivas de alto agarre. Envolvemos cada televisor, espejo, electrodoméstico y adorno delicado con capas protectoras. Además, desarmamos placares complejos, modulares de sala, camas de dos plazas o cunas de bebé, guardando la tornillería y los herrajes en bolsas etiquetadas independientes para que el armado en tu nuevo hogar sea rápido, limpio y perfecto.',
+    benefits: [
+      'Materiales de calidad profesional que no dejan marcas ni residuos de pegamento en tus muebles.',
+      'Operarios calificados con conocimientos de carpintería para desarmar y rearmar todo sin daños.',
+      'Cajas rotuladas de alta resistencia y clasificación por colores según el ambiente de destino.'
+    ],
+    iconName: 'Shield'
+  },
+  {
+    id: 'izamientos-y-altura',
+    name: 'Izamientos y Altura',
+    slug: 'izamientos-y-altura',
+    seo: {
+      title: 'Izamiento de Muebles por Balcón en Mendoza | Trabajo de Altura',
+      description: 'Servicio profesional de subida y bajada de muebles por balcón y soga en Mendoza. Traslado de pianos, sommiers y sillones por el exterior.',
+      keywords: ['izamiento de muebles mendoza', 'subir muebles por balcon soga', 'mudanzas de altura mendoza', 'traslado por balcon de muebles'],
+      h1: 'Izamiento de Muebles por Balcón y Trabajos de Altura'
+    },
+    description: 'Subida y bajada de sillones, heladeras y muebles de gran porte por balcones y ventanas del exterior mediante poleas, arneses y sogas de alta resistencia.',
+    longDescription: 'En muchos edificios del centro de Mendoza Capital, Godoy Cruz y Guaymallén, los ascensores son pequeños o las escaleras son estrechas y sinuosas para subir sillones amplios, heladeras de doble puerta, mesas de madera maciza o pianos de cola. Para estos casos, ofrecemos nuestro servicio de izamiento profesional por el exterior. Disponemos de un equipo técnico entrenado en trabajos de altura, provisto de poleas de alta carga, sogas de alpinismo certificadas, fajas acolchadas anti-roce y arneses de seguridad homologados, garantizando un ascenso o descenso impecable y libre de riesgos tanto para el mueble como para la propiedad.',
+    benefits: [
+      'Técnicos certificados provistos de seguros de accidentes personales y ART activa.',
+      'Envoltura súper reforzada y acolchada de los bultos para resistir cualquier contacto exterior.',
+      'Póliza de seguro con cobertura especial de responsabilidad civil para operaciones de altura.'
+    ],
+    iconName: 'ArrowUpCircle'
   },
   {
     id: 'mudanzas-urgentes',
@@ -722,5 +798,9 @@ export const GENERAL_FAQS = [
   {
     question: '¿Hacen mudanzas interprovinciales desde Mendoza?',
     answer: 'Sí. Llevamos tus cosas desde Mendoza a cualquier rincón de la Argentina (Buenos Aires, Córdoba, Santa Fe, San Luis, San Juan, Neuquén, etc.) en modalidad directa (camión exclusivo) o compartida para abaratar costos.'
+  },
+  {
+    question: '¿Cuál es la relación de Mudanzas Mendoza 2026 con Mudanzas Miranda?',
+    answer: 'Mudanzas Mendoza 2026 es la división digital premium y producto oficial de Mudanzas Miranda (www.mudanzasmiranda.com.ar). Esta alianza estratégica te garantiza el respaldo de más de 50 años de impecable trayectoria en la región de Cuyo, una flota masiva de camiones de gran porte habilitados, pólizas certificadas de Sancor Seguros, y la innovación de un cotizador automatizado y planificador de mudanzas inteligente asistido por IA.'
   }
 ];

@@ -47,7 +47,8 @@ export default function Cotizador({ onGeneratePlan, aiPlanText, aiLoading }: Cot
   const [touched, setTouched] = useState({
     nombre: false,
     telefono: false,
-    email: false
+    email: false,
+    fecha: false
   });
 
   const stepContainerRef = useRef<HTMLDivElement>(null);
@@ -88,6 +89,17 @@ export default function Cotizador({ onGeneratePlan, aiPlanText, aiLoading }: Cot
     return '';
   };
 
+  const validateFecha = (fecha: string) => {
+    if (!fecha) return 'La fecha de mudanza es obligatoria';
+    const selectedDate = new Date(fecha);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selectedDate < today) {
+      return 'La fecha no puede ser en el pasado';
+    }
+    return '';
+  };
+
   const handleBlur = (field: 'nombre' | 'telefono' | 'email') => {
     setTouched(prev => ({ ...prev, [field]: true }));
   };
@@ -97,12 +109,16 @@ export default function Cotizador({ onGeneratePlan, aiPlanText, aiLoading }: Cot
       setErrorMsg('Por favor especificá el origen y el destino de tu mudanza.');
       return;
     }
-    if (step === 3 && !state.fecha) {
-      setErrorMsg('Por favor elegí una fecha para tu mudanza.');
-      return;
+    if (step === 3) {
+      setTouched(prev => ({ ...prev, fecha: true }));
+      const fechaErr = validateFecha(state.fecha);
+      if (fechaErr) {
+        setErrorMsg('Por favor elegí una fecha válida para tu mudanza.');
+        return;
+      }
     }
     if (step === 4) {
-      setTouched({ nombre: true, telefono: true, email: true });
+      setTouched({ nombre: true, telefono: true, email: true, fecha: touched.fecha });
       const nameErr = validateName(state.nombre);
       const phoneErr = validatePhone(state.telefono);
       const emailErr = validateEmail(state.email);
@@ -154,7 +170,7 @@ export default function Cotizador({ onGeneratePlan, aiPlanText, aiLoading }: Cot
       ? state.objetosEspeciales.map(o => o.toUpperCase()).join(', ') 
       : 'Ninguno';
 
-    const text = `Hola Mudanzas Mendoza 2026! 🚚
+    const text = `Hola Mudanzas Mendoza 2026 (Mudanzas Miranda)! 🚚
 Quiero solicitar un presupuesto personalizado.
 
 📌 DATOS DE LA MUDANZA:
@@ -193,7 +209,7 @@ Agradezco su cotización. ¡Muchas gracias!`;
     setStep(1);
     setSubmitted(false);
     setErrorMsg('');
-    setTouched({ nombre: false, telefono: false, email: false });
+    setTouched({ nombre: false, telefono: false, email: false, fecha: false });
   };
 
   const progressPercent = Math.round((step / 4) * 100);
@@ -202,12 +218,19 @@ Agradezco su cotización. ¡Muchas gracias!`;
     <div className="w-full max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-150 dark:border-slate-800/80 overflow-hidden text-slate-800 dark:text-slate-100 animate-fade-in" id="cotizador-seccion">
       {/* Banner / Header */}
       <header className="bg-slate-900 text-white px-6 py-5 flex items-center justify-between border-b border-slate-800">
-        <div>
+        <div className="space-y-1">
           <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
             <span className="p-1.5 bg-amber-500 text-slate-950 rounded-lg" aria-hidden="true">📊</span>
             Cotizador Inteligente 2026
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm mt-0.5">Calculá tu mudanza al instante y obtené tu plan de IA</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-slate-400 text-xs sm:text-sm">Calculá tu mudanza al instante y obtené tu plan de IA</p>
+            <span className="hidden sm:inline text-slate-600 text-xs">•</span>
+            <a href="https://www.mudanzasmiranda.com.ar/" target="_blank" rel="noopener noreferrer" className="text-amber-400/90 hover:text-amber-300 text-xs font-semibold flex items-center gap-1 hover:underline">
+              <span>Respaldado por</span>
+              <strong>Mudanzas Miranda</strong>
+            </a>
+          </div>
         </div>
         {!submitted && (
           <div className="text-right" aria-live="polite" aria-atomic="true">
@@ -512,10 +535,20 @@ Agradezco su cotización. ¡Muchas gracias!`;
                           type="date"
                           value={state.fecha}
                           onChange={(e) => setState({ ...state, fecha: e.target.value })}
+                          onBlur={() => setTouched(prev => ({ ...prev, fecha: true }))}
                           min={new Date().toISOString().split('T')[0]}
-                          className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 bg-slate-50 dark:bg-slate-950 outline-none text-slate-800 dark:text-slate-100 text-xs sm:text-sm"
+                          className={`w-full pl-9 pr-3 py-2 rounded-xl border bg-slate-50 dark:bg-slate-950 outline-none text-slate-800 dark:text-slate-100 text-xs sm:text-sm transition-all ${
+                            touched.fecha && validateFecha(state.fecha)
+                              ? 'border-rose-500 dark:border-rose-500/80 focus:ring-2 focus:ring-rose-500/20'
+                              : 'border-slate-200 dark:border-slate-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20'
+                          }`}
                         />
                       </div>
+                      {touched.fecha && validateFecha(state.fecha) && (
+                        <p id="fecha-error" className="text-[11px] text-rose-500 font-semibold flex items-center gap-1 mt-1 animate-fade-in">
+                          <span aria-hidden="true">⚠️</span> {validateFecha(state.fecha)}
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-1.5">

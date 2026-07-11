@@ -4,18 +4,11 @@ import {
   ShieldCheck, 
   Clock, 
   Award, 
-  Map, 
-  Calendar, 
-  TrendingUp, 
-  CheckSquare, 
-  ChevronRight, 
-  Smartphone, 
-  Layout, 
-  FileCheck 
+  Map 
 } from 'lucide-react';
 
 export default function ConfidenceIndicators() {
-  const [activeTab, setActiveTab] = useState<'testimonials' | 'trust' | 'seo-plan'>('testimonials');
+  const [activeTab, setActiveTab] = useState<'testimonials' | 'trust'>('testimonials');
 
   const reviews = [
     {
@@ -45,7 +38,7 @@ export default function ConfidenceIndicators() {
     <section className="py-24 sm:py-32 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900" id="confianza-seccion">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Navigation Tabs for Trust, Social Proof & SEO Dashboard */}
+        {/* Navigation Tabs for Trust and Social Proof */}
         <div className="flex justify-center mb-16">
           <div className="inline-flex bg-slate-200/80 dark:bg-slate-900 p-1 rounded-2xl shadow-inner text-sm font-semibold">
             <button
@@ -67,16 +60,6 @@ export default function ConfidenceIndicators() {
               }`}
             >
               🛡️ Garantías y EEAT
-            </button>
-            <button
-              onClick={() => setActiveTab('seo-plan')}
-              className={`px-6 py-3 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'seo-plan' 
-                  ? 'bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 shadow-sm' 
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              📈 Plan Estratégico SEO/CRO
             </button>
           </div>
         </div>
@@ -168,116 +151,7 @@ export default function ConfidenceIndicators() {
           </div>
         )}
 
-        {/* TAB 3: PRO SEO & CRO ACTION PLAN */}
-        {activeTab === 'seo-plan' && (
-          <div className="space-y-8 animate-fade-in bg-slate-900 text-slate-100 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
-                  <TrendingUp className="w-6 h-6 text-amber-400" />
-                  Estrategia SEO/CRO Mendoza 2026
-                </h3>
-                <p className="text-slate-400 text-xs mt-1">Nuestra hoja de ruta técnica para posicionamiento orgánico N° 1 y conversión.</p>
-              </div>
-              <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Auditoría SEO: 100/100 OK
-              </span>
-            </div>
 
-            {/* Grid Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm">
-              
-              {/* 12-Month SEO & Editorial Calendar */}
-              <div className="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 space-y-4">
-                <h4 className="font-extrabold text-amber-400 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <Calendar className="w-4 h-4" /> Cronograma de Contenido (12 Meses)
-                </h4>
-                <ul className="space-y-3 text-xs text-slate-300">
-                  <li className="flex items-start gap-2">
-                    <span className="font-extrabold text-amber-400 shrink-0">Mes 1-3:</span>
-                    <span>Lanzamiento de landings locales optimizadas para Godoy Cruz, Maipú, y microcentro céntrico.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-extrabold text-amber-400 shrink-0">Mes 4-6:</span>
-                    <span>Campaña de Linkbuilding local y Google Business Profile (Reviews de clientes con fotos de los camiones).</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-extrabold text-amber-400 shrink-0">Mes 7-9:</span>
-                    <span>Artículos específicos de mudanzas agrícolas/bodegas en Valle de Uco e interprovinciales.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-extrabold text-amber-400 shrink-0">Mes 10-12:</span>
-                    <span>Auditoría de Search Console, mejora de CTR en keywords de fletes y ampliación de FAQs de clientes.</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Technical indexation check list */}
-              <div className="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 space-y-4">
-                <h4 className="font-extrabold text-amber-400 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <CheckSquare className="w-4 h-4" /> Checklist de Indexación y CWV
-                </h4>
-                <div className="space-y-3 text-xs text-slate-300">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-4 h-4 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center text-[10px] font-bold shrink-0">✓</div>
-                    <span>Sitemap XML y Robots TXT dinámicos listos</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-4 h-4 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center text-[10px] font-bold shrink-0">✓</div>
-                    <span>Rich Snippets LocalBusiness / FAQ JSON-LD</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-4 h-4 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center text-[10px] font-bold shrink-0">✓</div>
-                    <span>Lighthouse Perf. 100: Peso de imágenes optimizado</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-4 h-4 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center text-[10px] font-bold shrink-0">✓</div>
-                    <span>Core Web Vitals en Verde: Sin CLS (diseño estático)</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Conversion Optimizations (CRO) */}
-              <div className="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 space-y-4">
-                <h4 className="font-extrabold text-amber-400 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <Smartphone className="w-4 h-4" /> Optimización de Conversión (CRO)
-                </h4>
-                <div className="space-y-3 text-xs text-slate-300">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0" />
-                    <span><strong>Cotizador interactivo de 8 pasos:</strong> Evita fricción y simplifica presupuestos.</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0" />
-                    <span><strong>WhatsApp One-Click:</strong> Abre automáticamente la app con mensaje pre-estructurado.</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0" />
-                    <span><strong>Chatbot de IA Asistente:</strong> Resuelve objeciones en caliente a la madrugada.</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0" />
-                    <span><strong>Sticky CTA:</strong> Botón visible para cotizar siempre a mano en celulares.</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Micro schema code visualization */}
-            <div className="border-t border-slate-800 pt-5 mt-4 text-xs">
-              <span className="font-bold text-slate-400 uppercase tracking-wider text-[10px]">Esquemas JSON-LD Inyectados Automáticamente:</span>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {['LocalBusiness', 'MovingCompany', 'FAQPage', 'ServiceSchema', 'BreadcrumbList', 'AggregateRating'].map((sc, scIdx) => (
-                  <span key={scIdx} className="bg-slate-800 text-slate-300 border border-slate-700/50 px-2.5 py-1 rounded-md text-[10px] font-mono">
-                    {sc}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        )}
 
       </div>
     </section>

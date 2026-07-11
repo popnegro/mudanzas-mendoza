@@ -4,6 +4,10 @@ import { MapPin, PhoneCall, CheckCircle, ArrowLeft, HelpCircle, CheckSquare } fr
 import { useBreadcrumbSchema } from '../hooks/useBreadcrumbSchema';
 import Breadcrumbs from './Breadcrumbs';
 
+// Import official Mudanzas Miranda images for co-branding and SEO
+import mudanzaMirandaTruck from '../assets/images/mudanza_miranda_truck_1783676498398.jpg';
+import mudanzasEquipoEmbalaje from '../assets/images/mudanzas_equipo_embalaje_1783676512881.jpg';
+
 interface DepartmentLandingProps {
   dept: DepartmentInfo;
   onBack: () => void;
@@ -77,15 +81,9 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
   return (
     <article className="py-12 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-12 animate-fade-in">
       
-      {/* Visual Keyboard-Navigable Breadcrumb and dynamic SEO badge */}
+      {/* Visual Keyboard-Navigable Breadcrumb */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Breadcrumbs steps={breadcrumbSteps} />
-
-        {/* Dynamic SEO schema status indicator */}
-        <div className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 font-mono self-start sm:self-auto">
-          <CheckSquare className="w-3.5 h-3.5 text-emerald-500" />
-          <span>MovingCompany Schema JSON-LD Activado</span>
-        </div>
       </div>
 
       {/* Header section with specific SEO elements */}
@@ -101,13 +99,44 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
         </p>
       </header>
 
-      {/* Structured SEO Copy block */}
-      <section className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed space-y-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Traslados residenciales y fletes de confianza en {dept.name}</h2>
-        <p className="text-sm sm:text-base">
-          {dept.content}
-        </p>
-      </section>
+      {/* Official Mudanzas Miranda Truck Banner (SEO Optimized) */}
+      <div className="w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden relative border border-slate-200 dark:border-slate-800 shadow-md">
+        <img
+          src={mudanzaMirandaTruck}
+          alt={`Servicio profesional de fletes y mudanzas en ${dept.name} Mendoza - Camiones habilitados de Mudanzas Miranda`}
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/80 via-slate-950/25 to-transparent p-4 text-white">
+          <p className="text-xs sm:text-sm font-semibold flex items-center gap-2">
+            🚚 Flota oficial de Mudanzas Miranda operando en todo {dept.name}
+          </p>
+        </div>
+      </div>
+
+      {/* Structured SEO Copy block and Packing image side by side */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-slate-100 dark:border-slate-800 pb-10">
+        <section className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Traslados residenciales y fletes de confianza en {dept.name}</h2>
+          <p className="text-sm sm:text-base leading-relaxed">
+            {dept.content}
+          </p>
+          <div className="p-4.5 bg-amber-500/5 border border-amber-500/10 rounded-xl text-xs text-slate-600 dark:text-slate-300">
+            <strong>Respaldo Premium:</strong> Como división oficial de <strong>Mudanzas Miranda</strong> (con más de 50 años de experiencia), contamos con un estándar de servicio inigualable y cobertura homologada contra todo riesgo.
+          </div>
+        </section>
+        <div className="w-full h-72 sm:h-80 rounded-2xl overflow-hidden border border-slate-150 dark:border-slate-850 shadow-sm relative group">
+          <img
+            src={mudanzasEquipoEmbalaje}
+            alt={`Equipo oficial de Mudanzas Miranda realizando embalaje premium y estiba de objetos frágiles para fletes y mudanzas en ${dept.name}`}
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover group-hover:scale-101 transition-transform duration-500"
+          />
+          <div className="absolute top-3 left-3 bg-slate-950/70 backdrop-blur-sm text-amber-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+            Embalaje Especializado
+          </div>
+        </div>
+      </div>
 
       {/* Local Highlights Card list */}
       <section className="bg-slate-50 dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-100 dark:border-slate-850 space-y-6">
