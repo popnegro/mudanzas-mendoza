@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { ServiceInfo } from '../types';
 import { ArrowLeft, CheckCircle, PhoneCall, Truck, Briefcase, Package, Clock, Calendar, CheckSquare, Home, Warehouse, Shield, ArrowUpCircle } from 'lucide-react';
 import { DEPARTMENTS } from '../data';
-import { useServiceSchema } from '../hooks/useServiceSchema';
 import { useBreadcrumbSchema } from '../hooks/useBreadcrumbSchema';
+import { useSchema } from '../hooks/useSchema';
 import Breadcrumbs from './Breadcrumbs';
 
 // Import official Mudanzas Miranda packing team image for co-branding
@@ -46,8 +46,29 @@ export default function ServiceLanding({ service, onBack, onStartQuote }: Servic
 
   const basePrice = basePrices[service.id] || 20000;
 
-  // Dynamically inject Service Schema.org JSON-LD
-  useServiceSchema(service, basePrice);
+  // Construir el schema de Service y usar el hook genérico
+  const serviceSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": service.name,
+    "name": service.seo.h1,
+    "description": service.description,
+    "provider": {
+      "@type": "MovingCompany",
+      "name": "Mudanzas Mendoza 2026",
+      "telephone": "+542612345678",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mendoza",
+        "addressRegion": "Mendoza",
+        "addressCountry": "AR"
+      }
+    },
+    "areaServed": "Mendoza, Argentina"
+  }), [service, basePrice]);
+
+  useSchema(serviceSchema, `service-schema-${service.id}`);
 
   // Dynamically inject BreadcrumbList Schema.org JSON-LD
   useBreadcrumbSchema([
