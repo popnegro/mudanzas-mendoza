@@ -1,7 +1,7 @@
 # INFORME DE REDISEÑO INTEGRAL DE LOOK & FEEL
-## Mudanzas Mendoza 2026 • Inspirado en Mudanzas Miranda
+## Mudanzas Mudanzas Mendoza • Inspirado en Mudanzas Miranda
 
-Este documento técnico y de diseño detalla la transformación del Look & Feel para **Mudanzas Mendoza 2026**, tomando como base e inspiración el sitio de referencia **Mudanzas Miranda** (`https://www.mudanzasmiranda.com.ar/`). El objetivo principal es elevar la experiencia visual y funcional a niveles premium, potenciando la conversión de prospectos (CRO), garantizando accesibilidad universal (WCAG AA), y asegurando el mejor rendimiento técnico posible sin replicar o infringir propiedad intelectual.
+Este documento técnico y de diseño detalla la transformación del Look & Feel para **Mudanzas Mudanzas Mendoza**, tomando como base e inspiración el sitio de referencia **Mudanzas Miranda** (`https://www.mudanzasmiranda.com.ar/`). El objetivo principal es elevar la experiencia visual y funcional a niveles premium, potenciando la conversión de prospectos (CRO), garantizando accesibilidad universal (WCAG AA), y asegurando el mejor rendimiento técnico posible sin replicar o infringir propiedad intelectual.
 
 ---
 
@@ -96,7 +96,7 @@ Utilizamos una escala tipográfica basada en variables CSS dinámicas y funcione
 ### Wireframe: Hero Central (Desktop)
 ```
 +-----------------------------------------------------------------------------------+
-|  [Logo: 🚚 MENDOZA 2026]         Inicio  Servicios  Zonas  Blog  [Planificador IA] |
+|  [Logo: 🚚 Mudanzas Mendoza]         Inicio  Servicios  Zonas  Blog  [Planificador IA] |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
 |   MUDANZAS PREMIUM EN MENDOZA                   +-----------------------------+   |

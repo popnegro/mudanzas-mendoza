@@ -21,7 +21,7 @@ export default function ChatBot({ isOpen, onClose, onOpen }: ChatBotProps) {
     {
       id: 'welcome',
       sender: 'assistant',
-      text: '¡Hola! Che, soy tu Asistente Virtual de Mudanzas Mendoza 2026. 🧉\n\n¿Te estás por mudar o necesitás un flete rápido? Consultame lo que quieras sobre cómo embalar, el viento zonda, ingresos a barrios privados o cómo armar tus cajas. ¡Te ayudo al toque!',
+      text: '¡Hola! Che, soy tu Asistente Virtual de Mudanzas Mudanzas Mendoza. 🧉\n\n¿Te estás por mudar o necesitás un flete rápido? Consultame lo que quieras sobre cómo embalar, el viento zonda, ingresos a barrios privados o cómo armar tus cajas. ¡Te ayudo al toque!',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -133,7 +133,7 @@ export default function ChatBot({ isOpen, onClose, onOpen }: ChatBotProps) {
                 </div>
                 <div>
                   <h3 className="font-bold text-sm flex items-center gap-1.5">
-                    Asistente Mendoza 2026
+                    Asistente Mudanzas Mendoza
                     <span className="inline-flex items-center gap-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase">
                       <Sparkles className="w-2.5 h-2.5" /> IA
                     </span>

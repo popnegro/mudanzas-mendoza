@@ -114,7 +114,7 @@ export default function AuditedValueSection() {
     <section id="audited-value-section" className="bg-slate-50 dark:bg-slate-950 border-y border-slate-200/60 dark:border-slate-900 py-16 px-4 sm:px-6 lg:px-8 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-amber-400 border border-slate-800 px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-xl flex items-center gap-1.5">
         <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-        Diferencial Mendoza 2026
+        Diferencial Mudanzas Mendoza
       </div>
 
       <div className="max-w-7xl mx-auto space-y-12">
@@ -311,7 +311,7 @@ export default function AuditedValueSection() {
               <div className="bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 text-xs text-amber-400 flex items-center gap-2">
                 <Sparkles className="w-4.5 h-4.5 shrink-0 text-amber-400" />
                 <span>
-                  <strong>La Unión Definitiva:</strong> Mudanzas Mendoza 2026 une la confiabilidad operativa tradicional de <strong>Mudanzas Miranda</strong> con la inteligencia y agilidad digital que merecés.
+                  <strong>La Unión Definitiva:</strong> Mudanzas Mudanzas Mendoza une la confiabilidad operativa tradicional de <strong>Mudanzas Miranda</strong> con la inteligencia y agilidad digital que merecés.
                 </span>
               </div>
 

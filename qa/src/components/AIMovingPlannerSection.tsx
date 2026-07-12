@@ -140,7 +140,7 @@ ${state.specialItems.map(item => `* **${item}:** Embalaje específico con mantas
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-1 bg-amber-400/10 text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider font-mono">
             <Brain className="w-3.5 h-3.5" />
-            Exclusivo Mendoza 2026
+            Exclusivo Mudanzas Mendoza
           </span>
           <h2 className="text-2xl sm:text-3xl font-display font-black tracking-tight leading-tight">
             Planificación de Mudanzas con IA
@@ -344,7 +344,7 @@ ${state.specialItems.map(item => `* **${item}:** Embalaje específico con mantas
                       ¿Querés fijar esta planificación y reservar?
                     </span>
                     <a
-                      href={`https://wa.me/5492612345678?text=Hola Mendoza 2026! Hice la simulación del Planificador IA. Mi nombre es ${state.name || 'Mendocino'} y necesito un traslado de ${state.originDept} a ${state.destDept}.`}
+                      href={`https://wa.me/5492612345678?text=Hola Mudanzas Mendoza! Hice la simulación del Planificador IA. Mi nombre es ${state.name || 'Mendocino'} y necesito un traslado de ${state.originDept} a ${state.destDept}.`}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg shadow transition-all whitespace-nowrap"

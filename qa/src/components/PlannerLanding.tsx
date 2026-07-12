@@ -85,7 +85,7 @@ export default function PlannerLanding({ onBack, onStartQuote }: PlannerLandingP
   const [checklist, setChecklist] = useState<ChecklistItem[]>([
     { id: '1', task: 'Hacer inventario completo de muebles y etiquetar cajas por ambiente.', category: '30_days', checked: false },
     { id: '2', task: 'Donar o vender objetos que no se trasladarán a la nueva vivienda.', category: '30_days', checked: false },
-    { id: '3', task: 'Solicitar presupuesto en Mendoza 2026 y reservar el flete oficial.', category: '30_days', checked: true },
+    { id: '3', task: 'Solicitar presupuesto en Mudanzas Mendoza y reservar el flete oficial.', category: '30_days', checked: true },
     { id: '4', task: 'Dar de baja o cambiar domicilio de servicios (Luz, Gas, Internet).', category: '15_days', checked: false },
     { id: '5', task: 'Comprar cinta de embalaje reforzada y plástico burbuja para vajilla.', category: '15_days', checked: false },
     { id: '6', task: 'Guardar joyas, escrituras y documentos personales en un bolso de mano.', category: '15_days', checked: false },
@@ -179,7 +179,7 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
       .map(item => `${item.checked ? '[X]' : '[ ]'} ${item.task}`)
       .join('\n');
     
-    navigator.clipboard.writeText(`Lista de mudanza - Mendoza 2026:\n\n${listText}`);
+    navigator.clipboard.writeText(`Lista de mudanza - Mudanzas Mendoza:\n\n${listText}`);
     setCopiedNotification(true);
     setTimeout(() => setCopiedNotification(false), 2000);
   };
@@ -442,7 +442,7 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
             {generatedPlan && (
               <div className="pt-6 border-t border-slate-200 dark:border-slate-800 mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
-                  📌 ¿Querés asegurar esta planificación? Enviásela a un asesor en Mendoza 2026.
+                  📌 ¿Querés asegurar esta planificación? Enviásela a un asesor en Mudanzas Mendoza.
                 </span>
                 <button
                   onClick={onStartQuote}
@@ -634,7 +634,7 @@ ${state.specialItems.map(item => `* **${item}:** Activamos el protocolo específ
           Seguridad Certificada Sancor Seguros
         </h4>
         <p className="text-xs text-slate-400 leading-relaxed">
-          Tanto si usás nuestro Planificador IA como si lo coordinás manualmente, todas tus mudanzas y traslados contratados en Mendoza 2026 cuentan con la cobertura oficial civil total en tránsito. No arriesgues tus pertenencias en transportes no regulados.
+          Tanto si usás nuestro Planificador IA como si lo coordinás manualmente, todas tus mudanzas y traslados contratados en Mudanzas Mendoza cuentan con la cobertura oficial civil total en tránsito. No arriesgues tus pertenencias en transportes no regulados.
         </p>
       </div>
 

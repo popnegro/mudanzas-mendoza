@@ -29,7 +29,7 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
       "@context": "https://schema.org",
       "@type": "MovingCompany",
       "id": `https://mudanzasmendoza2026.com.ar/departamentos/${dept.slug}`,
-      "name": `Mudanzas Mendoza 2026 - Cobertura Especial en ${dept.name}`,
+      "name": `Mudanzas Mudanzas Mendoza - Cobertura Especial en ${dept.name}`,
       "description": dept.description,
       "telephone": "+542612345678",
       "priceRange": "$$",
@@ -47,7 +47,7 @@ export default function DepartmentLanding({ dept, onBack, onStartQuote }: Depart
       },
       "provider": {
         "@type": "LocalBusiness",
-        "name": "Mudanzas Mendoza 2026",
+        "name": "Mudanzas Mudanzas Mendoza",
         "telephone": "+542612345678"
       }
     };

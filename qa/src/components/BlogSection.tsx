@@ -241,7 +241,7 @@ export default function BlogSection({ onBackToHome, onArticleSelect }: BlogSecti
             <span className="text-[10px] font-black uppercase text-amber-400 tracking-wider">Un producto oficial de Mudanzas Miranda</span>
             <h3 className="text-lg sm:text-xl font-bold">50 años de experiencia respaldan cada traslado</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Mendoza 2026 es el canal digital premium de <strong>Mudanzas Miranda</strong>. Combinamos la innovación de nuestra plataforma de estimación y planificación por IA con la inmensa capacidad de camiones pesados, grúas y la confianza de los fletistas más tradicionales de Cuyo.
+              Mudanzas Mendoza es el canal digital premium de <strong>Mudanzas Miranda</strong>. Combinamos la innovación de nuestra plataforma de estimación y planificación por IA con la inmensa capacidad de camiones pesados, grúas y la confianza de los fletistas más tradicionales de Cuyo.
             </p>
           </div>
         </div>

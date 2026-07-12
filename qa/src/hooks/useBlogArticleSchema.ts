@@ -34,7 +34,7 @@ export function useBlogArticleSchema(article: BlogArticle | null) {
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Mudanzas Mendoza 2026",
+        "name": "Mudanzas Mudanzas Mendoza",
         "logo": {
           "@type": "ImageObject",
           "url": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png"

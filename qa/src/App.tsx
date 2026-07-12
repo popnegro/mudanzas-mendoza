@@ -84,27 +84,27 @@ export default function App() {
 
   // Dynamic SEO Meta Tags & Canonical URL Management Effect
   useEffect(() => {
-    let title = "Mudanzas Mendoza 2026 | Fletes y Traslados Profesionales";
+    let title = "Mudanzas Mudanzas Mendoza | Fletes y Traslados Profesionales";
     let description = "Servicio premium de fletes y mudanzas en Mendoza. Cotización inmediata, embalaje premium, póliza de Sancor Seguros y planificador de mudanza con Inteligencia Artificial.";
     let canonicalPath = "";
 
     if (view === 'departamento' && activeSlug) {
       const dept = DEPARTMENTS.find(d => d.slug === activeSlug);
       if (dept) {
-        title = dept.seo?.title || `Mudanzas en ${dept.name} | Fletes Mendoza 2026`;
+        title = dept.seo?.title || `Mudanzas en ${dept.name} | Fletes Mudanzas Mendoza`;
         description = dept.seo?.description || dept.description || `Servicios de mudanzas y fletes rápidos en ${dept.name}, Mendoza.`;
         canonicalPath = `/departamento/${dept.slug}`;
       }
     } else if (view === 'servicio' && activeSlug) {
       const svc = SERVICES.find(s => s.slug === activeSlug);
       if (svc) {
-        title = svc.seo?.title || `${svc.name} en Mendoza | Mudanzas Mendoza 2026`;
+        title = svc.seo?.title || `${svc.name} en Mendoza | Mudanzas Mudanzas Mendoza`;
         description = svc.seo?.description || svc.description || `Servicio profesional de ${svc.name} en Mendoza.`;
         canonicalPath = `/servicio/${svc.slug}`;
       }
     } else if (view === 'blog') {
       if (activeBlogArticle) {
-        title = `${activeBlogArticle.title} | Blog Mendoza 2026`;
+        title = `${activeBlogArticle.title} | Blog Mudanzas Mendoza`;
         description = activeBlogArticle.summary || `Leé nuestro artículo sobre ${activeBlogArticle.title} en Mendoza.`;
         canonicalPath = `/blog/${activeBlogArticle.slug}`;
       } else {
@@ -117,12 +117,12 @@ export default function App() {
       description = "Explorá nuestro mapa interactivo de cobertura en Mendoza. Brindamos fletes y mudanzas en Capital, Godoy Cruz, Guaymallén, Luján, Maipú y más.";
       canonicalPath = "/cobertura";
     } else if (view === 'planificador') {
-      title = "Planificador de Mudanza Inteligente con IA | Mendoza 2026";
+      title = "Planificador de Mudanza Inteligente con IA | Mudanzas Mendoza";
       description = "Generá tu checklist personalizado y plan de contingencia con nuestra Inteligencia Artificial para una mudanza en Mendoza totalmente libre de estrés.";
       canonicalPath = "/planificador";
     } else {
       // Home or default
-      title = "Mudanzas Mendoza 2026 | Fletes y Traslados Profesionales";
+      title = "Mudanzas Mudanzas Mendoza | Fletes y Traslados Profesionales";
       description = "Servicio premium de fletes y mudanzas en Mendoza. Cotización inmediata, embalaje premium, póliza de Sancor Seguros y planificador de mudanza con Inteligencia Artificial.";
       canonicalPath = "/";
     }
@@ -320,7 +320,7 @@ export default function App() {
           >
             <span className="text-3xl">🚚</span>
             <span className="font-extrabold uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-amber-400">
-              Mendoza 2026
+              Mudanzas Mendoza
             </span>
           </button>
 

@@ -12,7 +12,7 @@ export const DEPARTMENTS: DepartmentInfo[] = [
       h1: 'Mudanzas y Fletes en Mendoza Capital'
     },
     description: 'Servicio premium de traslados en el microcentro y secciones de la Ciudad de Mendoza. Nos conocemos cada calle, acequia y edificio con o sin ascensor.',
-    content: 'Mudarle la casa a una familia en el centro de Mendoza requiere experiencia: esquivar las zonas de estacionamiento medido, conocer el horario de carga y descarga, y saber cómo subir un mueble pesado por escaleras estrechas de departamentos antiguos. En Mudanzas Mendoza 2026 cuidamos tus cosas como si fueran nuestras. Contamos con habilitaciones municipales completas y seguro de carga para que te quedes totalmente tranquilo.',
+    content: 'Mudarle la casa a una familia en el centro de Mendoza requiere experiencia: esquivar las zonas de estacionamiento medido, conocer el horario de carga y descarga, y saber cómo subir un mueble pesado por escaleras estrechas de departamentos antiguos. En Mudanzas Mudanzas Mendoza cuidamos tus cosas como si fueran nuestras. Contamos con habilitaciones municipales completas y seguro de carga para que te quedes totalmente tranquilo.',
     highlightItems: [
       'Atención rápida en las 1ra, 2da, 3ra, 4ta, 5ta y 6ta Sección',
       'Desarme y armado de placares y camas incluido en el servicio premium',
@@ -145,7 +145,7 @@ export const DEPARTMENTS: DepartmentInfo[] = [
       h1: 'Mudanzas de Confianza en Maipú'
     },
     description: 'Mudanzas residenciales en Maipú Centro, Luzuriaga, Coquimbito y barrios privados de la zona vitivinícola.',
-    content: 'Luzuriaga, Gutiérrez y el centro de Maipú están creciendo a pasos agigantados con nuevos barrios privados y complejos de dúplex. En Mudanzas Mendoza 2026 adaptamos nuestros camiones para el ingreso a barrios cerrados (cumpliendo con todas las normas de seguridad del personal y vehículos requeridas por las administraciones). Hacemos que mudarte a la tierra del vino sea una experiencia alegre y libre de dolores de cabeza.',
+    content: 'Luzuriaga, Gutiérrez y el centro de Maipú están creciendo a pasos agigantados con nuevos barrios privados y complejos de dúplex. En Mudanzas Mudanzas Mendoza adaptamos nuestros camiones para el ingreso a barrios cerrados (cumpliendo con todas las normas de seguridad del personal y vehículos requeridas por las administraciones). Hacemos que mudarte a la tierra del vino sea una experiencia alegre y libre de dolores de cabeza.',
     highlightItems: [
       'Ingreso habilitado a todos los barrios cerrados y countries de Maipú',
       'Seguro de carga civil y de transportistas incluido en cada cotización',
@@ -320,7 +320,7 @@ export const DEPARTMENTS: DepartmentInfo[] = [
       h1: 'Fletes y Mudanzas en Tunuyán'
     },
     description: 'La capital del Valle de Uco merece el mejor servicio. Mudanzas de casas familiares, cabañas de turismo y oficinas comerciales en Tunuyán.',
-    content: 'Tunuyán se ha convertido en un centro urbano muy dinámico con nuevos loteos, barrios privados y un fuerte desarrollo turístico. En Mudanzas Mendoza 2026 brindamos cobertura total en Tunuyán Centro, Vista Flores, Colonia Las Rosas y el Manzano Histórico. Subimos tus pertenencias a cabañas, dúplex o fincas rurales asegurando que cada copa de cristal y mueble llegue intacto.',
+    content: 'Tunuyán se ha convertido en un centro urbano muy dinámico con nuevos loteos, barrios privados y un fuerte desarrollo turístico. En Mudanzas Mudanzas Mendoza brindamos cobertura total en Tunuyán Centro, Vista Flores, Colonia Las Rosas y el Manzano Histórico. Subimos tus pertenencias a cabañas, dúplex o fincas rurales asegurando que cada copa de cristal y mueble llegue intacto.',
     highlightItems: [
       'Ingreso ágil y coordinado a los barrios privados y loteos de Vista Flores',
       'Asistencia técnica para desarmar y rearmar muebles pesados de algarrobo',
@@ -473,7 +473,7 @@ export const SERVICES: ServiceInfo[] = [
       h1: 'Mudanzas Residenciales y Familiares en Mendoza'
     },
     description: 'Servicios de mudanzas completas para casas, departamentos, dúplex y barrios privados. Equipos con peones expertos, estiba profesional y pólizas activas.',
-    longDescription: 'Una mudanza residencial es mucho más que mover cajas: es trasladar tu historia, tu esfuerzo y tus sueños. En Mudanzas Mendoza 2026 nos especializamos en hacer de esta transición un proceso cómodo, seguro y libre de estrés. Ofrecemos soluciones llave en mano adaptadas a la envergadura de tu hogar, ya sea una casa amplia, un departamento céntrico o una residencia en barrios privados. Nuestro personal experto se encarga del embalaje cuidadoso de vajilla y cristalería delicada, la envoltura de sillones en film protector, el desarme y armado de placares o camas, y la carga/descarga con estiba profesionalizada para que nada sufra rozaduras en tránsito. Operamos con camiones furgonados modernos y limpios, y cada servicio viaja respaldado por un seguro de carga integral suscrito con aseguradoras líderes del mercado.',
+    longDescription: 'Una mudanza residencial es mucho más que mover cajas: es trasladar tu historia, tu esfuerzo y tus sueños. En Mudanzas Mudanzas Mendoza nos especializamos en hacer de esta transición un proceso cómodo, seguro y libre de estrés. Ofrecemos soluciones llave en mano adaptadas a la envergadura de tu hogar, ya sea una casa amplia, un departamento céntrico o una residencia en barrios privados. Nuestro personal experto se encarga del embalaje cuidadoso de vajilla y cristalería delicada, la envoltura de sillones en film protector, el desarme y armado de placares o camas, y la carga/descarga con estiba profesionalizada para que nada sufra rozaduras en tránsito. Operamos con camiones furgonados modernos y limpios, y cada servicio viaja respaldado por un seguro de carga integral suscrito con aseguradoras líderes del mercado.',
     benefits: [
       'Suministro gratuito de canastos plásticos rígidos sanitizados para proteger tu vajilla.',
       'Personal propio y uniformado con ART activa, capacitado para ingresos a barrios cerrados exigentes.',
@@ -511,7 +511,7 @@ export const SERVICES: ServiceInfo[] = [
       h1: 'Transporte Seguro de Muebles en Mendoza'
     },
     description: 'Traslado especializado de mobiliario de todo tipo. Camas, sillones, mesas de algarrobo, placares pesados y vajilleros delicados.',
-    longDescription: 'Mover un mueble no es solo cargarlo al camión. Las maderas finas, los sillones de tela clara y los vidrios templados requieren técnicas de estiba adecuadas. En Mudanzas Mendoza 2026 protegemos cada mueble envolviéndolo en film stretch y utilizando mantas acolchadas de alta densidad dentro del furgón. Aseguramos el cargamento con fajas de sujeción profesionales para evitar cualquier roce durante el viaje.',
+    longDescription: 'Mover un mueble no es solo cargarlo al camión. Las maderas finas, los sillones de tela clara y los vidrios templados requieren técnicas de estiba adecuadas. En Mudanzas Mudanzas Mendoza protegemos cada mueble envolviéndolo en film stretch y utilizando mantas acolchadas de alta densidad dentro del furgón. Aseguramos el cargamento con fajas de sujeción profesionales para evitar cualquier roce durante el viaje.',
     benefits: [
       'Mantas de algodón de alta resistencia para amortiguar cualquier roce',
       'Servicio experto de desarme y posterior armado en el nuevo domicilio',
@@ -672,7 +672,7 @@ Este es el tip de oro que nos agradecen siempre todos los clientes. Armá una ca
 * Un destornillador, una pinza y curitas por las dudas.
 
 ### 5. Contratá una empresa habilitada y de confianza
-No dejes tus pertenencias de toda la vida en manos de cualquiera con una camioneta destartalada. Exigí que el servicio cuente con seguro de carga civil y ayudantes experimentados que conozcan el oficio. En **Mudanzas Mendoza 2026** nos caracterizamos por la puntualidad mendocina: llegamos a horario, cuidamos tus esquinas al pasar muebles y te saludamos con una sonrisa.`,
+No dejes tus pertenencias de toda la vida en manos de cualquiera con una camioneta destartalada. Exigí que el servicio cuente con seguro de carga civil y ayudantes experimentados que conozcan el oficio. En **Mudanzas Mudanzas Mendoza** nos caracterizamos por la puntualidad mendocina: llegamos a horario, cuidamos tus esquinas al pasar muebles y te saludamos con una sonrisa.`,
     date: '2026-06-25',
     author: 'Luis Grasso',
     category: 'Consejos de Mudanza',
@@ -714,7 +714,7 @@ Una vez cerradas las puertas, dale una capa extra de protección:
 
 ### Paso 5: El traslado (¡Siempre vertical!)
 * **Nunca traslades la heladera acostada.** Al acostar una heladera, el aceite del compresor puede fluir por las tuberías del sistema de enfriamiento. Si al levantarla se enciende, el motor puede clavarse o dejar de enfriar de por vida.
-* En nuestros camiones de Mudanzas Mendoza 2026, las heladeras viajan **siempre de pie**, sujetas contra el lateral del furgón con fajas de amarre tipo crique profesionales.
+* En nuestros camiones de Mudanzas Mudanzas Mendoza, las heladeras viajan **siempre de pie**, sujetas contra el lateral del furgón con fajas de amarre tipo crique profesionales.
 
 ### Paso 6: El reencendido (La regla de oro de las 4 horas)
 Cuando la heladera llegue a tu nueva casa:
@@ -754,7 +754,7 @@ En esta nota te contamos de forma súper sincera cómo se compone el precio de u
 
 ---
 
-### Estimaciones orientativas de tarifas en Mendoza 2026
+### Estimaciones orientativas de tarifas en Mudanzas Mendoza
 
 * **Flete Simple (Camioneta chica, chofer solo, distancia corta):** Ideal para mover una heladera, una cama desarmada o compras. Tarifa súper económica.
 * **Mudanza Estándar Monoambiente/1 Ambiente (Furgón mediano + 1 ayudante):** Perfecto para mudanzas de jóvenes que alquilan.
@@ -773,7 +773,7 @@ En esta nota te contamos de forma súper sincera cómo se compone el precio de u
     author: 'Asesor Comercial Mudanzas Mendoza',
     category: 'Presupuestos y Tarifas',
     readTime: '6 min de lectura',
-    keywords: ['cuanto cuesta una mudanza mendoza', 'precios fletes mendoza', 'tarifas fletes mendoza 2026'],
+    keywords: ['cuanto cuesta una mudanza mendoza', 'precios fletes mendoza', 'tarifas fletes Mudanzas Mendoza'],
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800'
   }
 ];
@@ -800,7 +800,7 @@ export const GENERAL_FAQS = [
     answer: 'Sí. Llevamos tus cosas desde Mendoza a cualquier rincón de la Argentina (Buenos Aires, Córdoba, Santa Fe, San Luis, San Juan, Neuquén, etc.) en modalidad directa (camión exclusivo) o compartida para abaratar costos.'
   },
   {
-    question: '¿Cuál es la relación de Mudanzas Mendoza 2026 con Mudanzas Miranda?',
-    answer: 'Mudanzas Mendoza 2026 es la división digital premium y producto oficial de Mudanzas Miranda (www.mudanzasmiranda.com.ar). Esta alianza estratégica te garantiza el respaldo de más de 50 años de impecable trayectoria en la región de Cuyo, una flota masiva de camiones de gran porte habilitados, pólizas certificadas de Sancor Seguros, y la innovación de un cotizador automatizado y planificador de mudanzas inteligente asistido por IA.'
+    question: '¿Cuál es la relación de Mudanzas Mudanzas Mendoza con Mudanzas Miranda?',
+    answer: 'Mudanzas Mudanzas Mendoza es la división digital premium y producto oficial de Mudanzas Miranda (www.mudanzasmiranda.com.ar). Esta alianza estratégica te garantiza el respaldo de más de 50 años de impecable trayectoria en la región de Cuyo, una flota masiva de camiones de gran porte habilitados, pólizas certificadas de Sancor Seguros, y la innovación de un cotizador automatizado y planificador de mudanzas inteligente asistido por IA.'
   }
 ];

@@ -25,7 +25,7 @@ export function useServiceSchema(service: ServiceInfo, basePrice: number) {
       "description": service.description,
       "provider": {
         "@type": "Organization",
-        "name": "Mudanzas Mendoza 2026",
+        "name": "Mudanzas Mudanzas Mendoza",
         "url": "https://mudanzasmendoza2026.com.ar",
         "logo": "https://ais-dev-etzjgp4qe2v62cnwnmfoco-175390492626.us-east1.run.app/assets/logo.png",
         "telephone": "+542612345678",

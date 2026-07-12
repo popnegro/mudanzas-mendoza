@@ -170,7 +170,7 @@ export default function Cotizador({ onGeneratePlan, aiPlanText, aiLoading }: Cot
       ? state.objetosEspeciales.map(o => o.toUpperCase()).join(', ') 
       : 'Ninguno';
 
-    const text = `Hola Mudanzas Mendoza 2026 (Mudanzas Miranda)! 🚚
+    const text = `Hola Mudanzas Mudanzas Mendoza (Mudanzas Miranda)! 🚚
 Quiero solicitar un presupuesto personalizado.
 
 📌 DATOS DE LA MUDANZA:

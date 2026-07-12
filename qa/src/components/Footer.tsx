@@ -33,7 +33,7 @@ export default function Footer({
         {
           "@type": "MovingCompany",
           "@id": "https://mudanzasmendoza.com.ar/#organization",
-          "name": "Mudanzas Mendoza 2026",
+          "name": "Mudanzas Mudanzas Mendoza",
           "url": "https://mudanzasmendoza.com.ar",
           "logo": "https://images.unsplash.com/photo-1512418490979-92798cfc32ec?auto=format&fit=crop&q=80&w=150",
           "image": "https://images.unsplash.com/photo-1512418490979-92798cfc32ec?auto=format&fit=crop&q=80&w=600",
@@ -78,7 +78,7 @@ export default function Footer({
           "@type": "WebSite",
           "@id": "https://mudanzasmendoza.com.ar/#website",
           "url": "https://mudanzasmendoza.com.ar",
-          "name": "Mudanzas Mendoza 2026",
+          "name": "Mudanzas Mudanzas Mendoza",
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://mudanzasmendoza.com.ar/?search={search_term_string}",
@@ -138,7 +138,7 @@ export default function Footer({
             onClick={onNavigateHome}
             className="text-lg font-extrabold text-white flex items-center justify-center sm:justify-start gap-2 hover:text-amber-400 transition-colors cursor-pointer"
           >
-            🚚 Mendoza 2026
+            🚚 Mudanzas Mendoza
           </button>
           <p className="text-slate-500 text-xs leading-relaxed max-w-sm">
             La flota de confianza para mudanzas y fletes en todo Mendoza. Traslados seguros con el respaldo técnico que necesitás.
@@ -249,7 +249,7 @@ export default function Footer({
       {/* Under footer: Copyright & details */}
       <div className="bg-slate-950 border-t border-slate-900/60 py-6 text-center text-[10px] sm:text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© 2026 Mendoza 2026. Todos los derechos reservados. Respaldado por Mudanzas Miranda.</p>
+          <p>© 2026 Mudanzas Mendoza. Todos los derechos reservados. Respaldado por Mudanzas Miranda.</p>
           <p className="flex items-center gap-1">
             Hecho con <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> en Mendoza
           </p>

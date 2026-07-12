@@ -53,7 +53,7 @@ app.get('/robots.txt', (req, res) => {
 // 3. PWA MANIFEST
 app.get('/manifest.json', (req, res) => {
   res.json({
-    name: "Mudanzas Mendoza 2026",
+    name: "Mudanzas Mudanzas Mendoza",
     short_name: "MudanzasMendoza",
     description: "Fletes y mudanzas profesionales en Mendoza. Cotizaciones en el acto e inteligencia artificial de planificación.",
     start_url: "/",
@@ -83,7 +83,7 @@ app.get('/rss.xml', (req, res) => {
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
   xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
   xml += `  <channel>\n`;
-  xml += `    <title>Mudanzas Mendoza 2026 - Blog de Consejos</title>\n`;
+  xml += `    <title>Mudanzas Mudanzas Mendoza - Blog de Consejos</title>\n`;
   xml += `    <link>${baseUrl}</link>\n`;
   xml += `    <description>Los mejores tips para mudarse fácil en la provincia de Mendoza</description>\n`;
   xml += `    <language>es-AR</language>\n`;
@@ -135,7 +135,7 @@ Hacélo en formato Markdown claro con títulos descriptivos.`;
       model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        systemInstruction: "Sos el asistente oficial de Mudanzas Mendoza 2026 (una división digital premium y producto de Mudanzas Miranda). Tu personalidad es muy cercana, confiable, mendocina de pura cepa, súper servicial y cero formal-corporativa. Tu objetivo es calmar los nervios del cliente y darle de forma amigable los tips de oro. Siempre que sea oportuno, recordá al cliente que contamos con el respaldo, infraestructura y trayectoria de más de 50 años de Mudanzas Miranda."
+        systemInstruction: "Sos el asistente oficial de Mudanzas Mudanzas Mendoza (una división digital premium y producto de Mudanzas Miranda). Tu personalidad es muy cercana, confiable, mendocina de pura cepa, súper servicial y cero formal-corporativa. Tu objetivo es calmar los nervios del cliente y darle de forma amigable los tips de oro. Siempre que sea oportuno, recordá al cliente que contamos con el respaldo, infraestructura y trayectoria de más de 50 años de Mudanzas Miranda."
       }
     });
 
@@ -149,7 +149,7 @@ Hacélo en formato Markdown claro con títulos descriptivos.`;
     
     const fallbackText = `### ¡Hola! Qué alegría que estés planificando tu mudanza con nosotros.
 
-Como andamos con mucha demanda o la IA está tomando un media tarde, acá te armamos el **Plan de Mudanza Experto de Mendoza 2026** para tu traslado de **${origin || 'origen'}** a **${destination || 'destino'}**:
+Como andamos con mucha demanda o la IA está tomando un media tarde, acá te armamos el **Plan de Mudanza Experto de Mudanzas Mendoza** para tu traslado de **${origin || 'origen'}** a **${destination || 'destino'}**:
 
 #### 📅 Checklist de Oro para vos:
 1. **7 días antes:** Empezá a embalar lo que no usás a diario. Conseguí cajas resistentes y rotulalas en el lateral indicando a qué habitación van.
@@ -193,7 +193,7 @@ app.post('/api/gemini/chat', async (req, res) => {
       model: "gemini-3.5-flash",
       contents: contents,
       config: {
-        systemInstruction: "Sos el asesor virtual estrella de 'Mudanzas Mendoza 2026', que es la división digital premium y producto de la histórica 'Mudanzas Miranda' (www.mudanzasmiranda.com.ar). Ayudás al cliente con dudas de embalaje, fletes, consejos locales, cómo empacar heladeras o colchones. Hablás como mendocino (amigable, cercano, usando 'al toque', 'che', 'mate de por medio', 'no te rompás la cabeza'). Dejá en claro que combinamos la frescura tecnológica de esta división con el respaldo gigante de 50 años de trayectoria, flota y seguros de Mudanzas Miranda. Ofrecé sutilmente usar el Cotizador de la web o tocar el botón de WhatsApp para fijar fecha."
+        systemInstruction: "Sos el asesor virtual estrella de 'Mudanzas Mudanzas Mendoza', que es la división digital premium y producto de la histórica 'Mudanzas Miranda' (www.mudanzasmiranda.com.ar). Ayudás al cliente con dudas de embalaje, fletes, consejos locales, cómo empacar heladeras o colchones. Hablás como mendocino (amigable, cercano, usando 'al toque', 'che', 'mate de por medio', 'no te rompás la cabeza'). Dejá en claro que combinamos la frescura tecnológica de esta división con el respaldo gigante de 50 años de trayectoria, flota y seguros de Mudanzas Miranda. Ofrecé sutilmente usar el Cotizador de la web o tocar el botón de WhatsApp para fijar fecha."
       }
     });
 
@@ -205,7 +205,7 @@ app.post('/api/gemini/chat', async (req, res) => {
     let reply = "¡Hola, che! Qué buena consulta. Mirá, para darte una respuesta bien certera para tu caso, te sugiero usar nuestro **Cotizador de 8 pasos** de la Home o mandarnos un **WhatsApp** directo. ¡Te contestamos al toque!";
     
     if (msgLower.includes('quien sos') || msgLower.includes('quién sos') || msgLower.includes('empresa') || msgLower.includes('miranda') || msgLower.includes('quienes somos') || msgLower.includes('quiénes somos') || msgLower.includes('respald')) {
-      reply = "¡Qué buena pregunta, che! Mudanzas Mendoza 2026 es el producto digital estrella y la división tecnológica premium de **Mudanzas Miranda** (www.mudanzasmiranda.com.ar). Llevamos más de 50 años como la empresa líder de transporte y mudanzas en Mendoza. Con esta unión tenés la tranquilidad de la mayor trayectoria de la provincia respaldando cada furgón, operario y póliza de Sancor Seguros, combinada con herramientas automáticas inteligentes asistidas por IA.";
+      reply = "¡Qué buena pregunta, che! Mudanzas Mudanzas Mendoza es el producto digital estrella y la división tecnológica premium de **Mudanzas Miranda** (www.mudanzasmiranda.com.ar). Llevamos más de 50 años como la empresa líder de transporte y mudanzas en Mendoza. Con esta unión tenés la tranquilidad de la mayor trayectoria de la provincia respaldando cada furgón, operario y póliza de Sancor Seguros, combinada con herramientas automáticas inteligentes asistidas por IA.";
     } else if (msgLower.includes('heladera')) {
       reply = "¡Mudar la heladera tiene su ciencia! Recordá desenchufarla unas 24 horas antes para que se descongele completa, limpiala bien, sacale los estantes de vidrio y recordá: **debe viajar siempre de pie**. Cuando llegue al destino, esperá al menos 4 horas antes de volver a enchufarla para que se asiente el aceite.";
     } else if (msgLower.includes('precio') || msgLower.includes('cuanto cuesta') || msgLower.includes('tarifa') || msgLower.includes('costo')) {
