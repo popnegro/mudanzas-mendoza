@@ -296,15 +296,9 @@ export default function App() {
                       {/* Right Column: Preloaded hero visual with aspect ratio */}
                       <div className="lg:col-span-6 relative flex justify-center">
                         <div className="relative w-full max-w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-200 shadow-amber-500/10 hover:scale-[1.01] transition-transform duration-300">
-                          <picture>
-                            <source // No color change here
-                              srcSet="/img/mudanzas-miranda-600.webp 600w, /img/mudanzas-miranda-800.webp 800w, /img/mudanzas-miranda-1200.webp 1200w" // No color change here
-                              sizes="(max-width: 991px) 100vw, 50vw"
-                              type="image/webp"
-                            />
-                            <img
-                              src="/img/mudanzas-miranda-1200.jpg"
-                              alt="Equipo de mudanzas profesionales de Mudanzas Miranda sonrientes cargando camión en un día soleado en Mendoza."
+                          <img
+                              src="https://mudanzasmendoza.com.ar/img/camiones-mudanzas-miranda.jpg"
+                              alt="Camiones de mudanzas de Mudanzas Miranda estacionados y listos para un servicio."
                               className="w-full h-full object-cover"
                               width="1200"
                               height="900"
@@ -312,7 +306,6 @@ export default function App() {
                               loading="eager"
                               decoding="sync"
                             />
-                          </picture>
                         </div>
                       </div>
                     </div>
