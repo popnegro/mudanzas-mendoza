@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { faqs } from "../data/staticData";
-import { Destination, Service } from "../types";
+import { Destination, Service, BlogArticle } from "../types";
 
 interface SEOProps {
   title: string;
@@ -10,6 +10,7 @@ interface SEOProps {
   isLocalPage?: boolean;
   destinationData?: Destination;
   serviceData?: Service;
+  blogArticleData?: BlogArticle;
 }
 
 const serviceSpecificFAQs = new Map<string, { q: string; a: string }[]>([
@@ -23,19 +24,6 @@ const serviceSpecificFAQs = new Map<string, { q: string; a: string }[]>([
       {
         q: "¿Cuánto tardan en llegar para un flete exprés?",
         a: "Por lo general, nuestras unidades de guardia pueden presentarse en tu domicilio en menos de 2 horas en zonas del Gran Mendoza, sujeto a disponibilidad inmediata.",
-      },
-    ],
-  ],
-  [
-    "fletes-economicos",
-    [
-      {
-        q: "¿Cuentan con fletes baratos para departamentos pequeños?",
-        a: "Totalmente. Ofrecemos fletes económicos ideales para monoambientes, habitaciones y cargas reducidas, brindando una tarifa accesible, fija y sin cargos ocultos.",
-      },
-      {
-        q: "¿Se puede contratar el camión solo con chofer para ahorrar?",
-        a: "Sí, podés abaratar costos contratando únicamente el vehículo con chofer (flete simple) si contás con amigos o familiares que te ayuden con la carga y descarga.",
       },
     ],
   ],
@@ -163,6 +151,7 @@ export default function SEO({
   isLocalPage = false,
   destinationData,
   serviceData,
+  blogArticleData,
 }: SEOProps) {
   useEffect(() => {
     const updateMetaTag = (
@@ -203,15 +192,45 @@ export default function SEO({
     updateMetaTag("og:title", title, true);
     updateMetaTag("og:description", description, true);
     updateMetaTag("og:url", canonicalUrl, true);
+    updateMetaTag("og:type", blogArticleData ? "article" : "website", true);
+    updateMetaTag("og:locale", "es_AR", true);
+    updateMetaTag("og:site_name", "Mudanzas Miranda", true);
 
-    // 5. Update JSON-LD Schemas
+    // Determine the image URL for social previews (OpenGraph & Twitter)
+    let imageUrl = "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg";
+    if (serviceData?.image) {
+      imageUrl = serviceData.image.startsWith("http")
+        ? serviceData.image
+        : `https://www.mudanzasmiranda.com.ar${serviceData.image}`;
+    } else if (blogArticleData?.image) {
+      imageUrl = blogArticleData.image.startsWith("http")
+        ? blogArticleData.image
+        : `https://www.mudanzasmiranda.com.ar${blogArticleData.image}`;
+    }
+    updateMetaTag("og:image", imageUrl, true);
+
+    // 5. Update Twitter Card Tags
+    updateMetaTag("twitter:card", "summary_large_image");
+    updateMetaTag("twitter:title", title);
+    updateMetaTag("twitter:description", description);
+    updateMetaTag("twitter:image", imageUrl);
+
+    // 6. Update Keywords and Robots Tags
+    updateMetaTag("robots", "index, follow");
+    if (blogArticleData?.keywords && blogArticleData.keywords.length > 0) {
+      updateMetaTag("keywords", blogArticleData.keywords.join(", "));
+    } else {
+      updateMetaTag("keywords", "mudanzas mendoza, fletes mendoza, fletes mendoza precios, fletes economicos mendoza, mudanzas baratas mendoza, mudanzas locales mendoza, mudanzas miranda, fletes y mudanzas");
+    }
+
+    // 7. Update JSON-LD Schemas
     const movingCompanySchema = {
       "@context": "https://schema.org",
       "@type": "MovingCompany",
       "@id": "https://www.mudanzasmiranda.com.ar/#company",
       name: "Mudanzas Miranda",
       url: "https://www.mudanzasmiranda.com.ar",
-      logo: "https://www.mudanzasmiranda.com.ar/img/brand-light.png",
+      logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
       image: "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg",
       description:
         "Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas con más de 20 años de experiencia.",
@@ -270,6 +289,47 @@ export default function SEO({
     const schemaData: any[] = [movingCompanySchema];
 
     if (isLocalPage && destinationData) {
+      // Localized Moving Company Branch Schema for Local SEO
+      const localMovingCompanySchema = {
+        "@context": "https://schema.org",
+        "@type": "MovingCompany",
+        "@id": `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html#local-company`,
+        name: `Mudanzas Miranda - ${destinationData.name}`,
+        url: `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html`,
+        logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
+        image: "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg",
+        description: `Servicio especializado de fletes y mudanzas en ${destinationData.name}, Mendoza. Traslados de casas, oficinas, departamentos y fletes económicos.`,
+        telephone: "+5492615130910",
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: destinationData.name,
+          addressRegion: "Mendoza",
+          addressCountry: "AR",
+        },
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: destinationData.name,
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: "Mendoza",
+          },
+        },
+        parentOrganization: {
+          "@type": "MovingCompany",
+          name: "Mudanzas Miranda",
+          url: "https://www.mudanzasmiranda.com.ar",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "186",
+          bestRating: "5",
+          worstRating: "1",
+        },
+      };
+      schemaData.push(localMovingCompanySchema);
+
       // Localized Service Schema
       const localServiceSchema = {
         "@context": "https://schema.org",
@@ -354,6 +414,36 @@ export default function SEO({
         ],
       };
       schemaData.push(serviceFaqSchema);
+    } else if (blogArticleData) {
+      // BlogPosting Schema for Blog Post details
+      const blogPostingSchema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": blogArticleData.title,
+        "description": blogArticleData.summary,
+        "image": blogArticleData.image.startsWith("http")
+          ? blogArticleData.image
+          : `https://www.mudanzasmiranda.com.ar${blogArticleData.image}`,
+        "datePublished": blogArticleData.date,
+        "dateModified": blogArticleData.date,
+        "author": {
+          "@type": "Person",
+          "name": blogArticleData.author || "Mudanzas Miranda",
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Mudanzas Miranda",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://mudanzasmendoza.com.ar/img/logo-light.svg",
+          },
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalUrl,
+        },
+      };
+      schemaData.push(blogPostingSchema);
     } else {
       // FAQ Page Schema for Main Page - generated dynamically from actual faqs data
       const faqSchema = {
@@ -384,6 +474,7 @@ export default function SEO({
     isLocalPage,
     destinationData,
     serviceData,
+    blogArticleData,
   ]);
 
   return null;

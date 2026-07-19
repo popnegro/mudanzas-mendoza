@@ -21,25 +21,6 @@ export const services: Service[] = [
     ctaText: "Cotizar Mudanza Residencial",
   },
   {
-    id: "fletes-economicos",
-    title: "Fletes Económicos",
-    shortTitle: "Fletes",
-    description:
-      "Fletes directos para traslados chicos, mudanzas de pocos ambientes o fletes exprés para tus compras. La opción más ágil.",
-    longDescription:
-      "¿Compraste una heladera o un sillón y no sabés cómo llevarlo? ¿Te mudás de un monoambiente o una habitación estudiantil y tenés pocas pertenencias? Nuestro servicio de fletes económicos en Mendoza es justo lo que necesitás. Es una opción ágil, donde pagás una tarifa súper conveniente por el transporte directo con un chofer que acomoda todo a la perfección. Es ideal para jóvenes que alquilan y buscan cuidar el mango.",
-    benefits: [
-      "Tarifas locales súper accesibles calculadas por kilometraje real",
-      "Atención súper veloz, muchas veces en el mismo día",
-      "Ideal para trasladar electrodomésticos, camas, armarios desarmados o cajas",
-    ],
-    icon: "Truck",
-    image:
-      "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&q=80&w=800",
-    alt: "Camioneta de carga estacionada lista para flete económico",
-    ctaText: "Cotizar Flete Económico",
-  },
-  {
     id: "transporte-de-muebles",
     title: "Transporte de Muebles",
     shortTitle: "Muebles",

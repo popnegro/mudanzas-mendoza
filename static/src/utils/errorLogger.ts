@@ -19,7 +19,7 @@ interface ErrorInfo {
 
 export const logError = async (
   error: Error | PromiseRejectionEvent | any,
-  info?: React.ErrorInfo | { type: "unhandledrejection" },
+  info?: React.ErrorInfo | { type: "client" | "react" | "unhandledrejection" },
   context?: Record<string, any>,
 ) => {
   const errorData: ErrorInfo = {
@@ -33,7 +33,7 @@ export const logError = async (
     url: window.location.href,
     userAgent: navigator.userAgent,
     timestamp: new Date().toISOString(),
-    type: (info as { type: "unhandledrejection" }).type || "client",
+    type: (info as { type: "client" | "react" | "unhandledrejection" }).type || "client",
     context: context,
   };
 

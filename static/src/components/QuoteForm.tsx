@@ -44,6 +44,7 @@ export default function QuoteForm({
     error?: string;
     readOnly?: boolean;
     disabled?: boolean;
+    min?: string;
     className?: string;
     inputClassName?: string;
     wrapperClassName?: string;
@@ -63,6 +64,7 @@ export default function QuoteForm({
     error,
     readOnly = false,
     disabled = false,
+    min,
     className = "",
     inputClassName = "",
     wrapperClassName = "",
@@ -86,7 +88,7 @@ export default function QuoteForm({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={`quote-input-field-textarea ${inputClassName} ${error ? "border-red-500 bg-red-500/5" : "border-slate-200"}`}
+            className={`quote-input-field-textarea ${inputClassName} ${error ? (error.startsWith("¡") ? "border-brand-green-500 bg-brand-green-50/30" : "border-red-500 bg-red-500/5") : "border-slate-200"}`}
             aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
             readOnly={readOnly}
@@ -98,7 +100,7 @@ export default function QuoteForm({
             name={name}
             value={value || ""}
             onChange={onChange}
-            className={`quote-input-field-select ${inputClassName} ${error ? "border-red-500 bg-red-500/5" : "border-slate-200"}`}
+            className={`quote-input-field-select ${inputClassName} ${error ? (error.startsWith("¡") ? "border-brand-green-500 bg-brand-green-50/30" : "border-red-500 bg-red-500/5") : "border-slate-200"}`}
             aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
             disabled={disabled}
@@ -114,7 +116,8 @@ export default function QuoteForm({
             value={value || ""}
             onChange={onChange}
             placeholder={placeholder}
-            className={`quote-input-field ${inputClassName} ${error ? "border-red-500 bg-red-500/5" : "border-slate-200"}`}
+            min={min}
+            className={`quote-input-field ${inputClassName} ${error ? (error.startsWith("¡") ? "border-brand-green-500 bg-brand-green-50/30" : "border-red-500 bg-red-500/5") : "border-slate-200"}`}
             aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
             readOnly={readOnly}
@@ -124,7 +127,7 @@ export default function QuoteForm({
         {children && type !== "select" && children}
       </div>
       {error && (
-        <p id={`${id}-error`} className="quote-error-message">
+        <p id={`${id}-error`} className={error.startsWith("¡") ? "text-xs text-brand-green-600 mt-1 font-medium flex items-center gap-1" : "quote-error-message"}>
           {error}
         </p>
       )}
@@ -151,6 +154,14 @@ export default function QuoteForm({
   // Validation State
   const [errors, setErrors] = React.useState<Record<string, string>>({});
 
+  const getTodayDateString = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -158,12 +169,62 @@ export default function QuoteForm({
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => {
-        const updated = { ...prev };
-        delete updated[name];
-        return updated;
-      });
+
+    if (name === "phone") {
+      const clean = value.replace(/\s+/g, "").replace(/-+/g, "").replace(/\(+/g, "").replace(/\)+/g, "");
+      
+      if (!value.trim()) {
+        setErrors((prev) => ({ ...prev, phone: "Tu número de teléfono es requerido." }));
+      } else if (!/^\+?[0-9\s\-()]+$/.test(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Solo se permiten números, espacios, guiones y '+'.",
+        }));
+      } else {
+        const digitsOnly = clean.replace(/\+/g, "");
+        if (digitsOnly.length < 8) {
+          setErrors((prev) => ({
+            ...prev,
+            phone: `Faltan números (${digitsOnly.length}/8 dígitos mínimo). Ej: 261 5123456`,
+          }));
+        } else if (digitsOnly.length > 15) {
+          setErrors((prev) => ({
+            ...prev,
+            phone: "El número es demasiado largo (máximo 15 dígitos).",
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            phone: "¡Formato de WhatsApp válido! El presupuesto se enviará por este medio.",
+          }));
+        }
+      }
+    } else if (name === "movingDate") {
+      if (!value) {
+        setErrors((prev) => ({ ...prev, movingDate: "La fecha de mudanza es requerida." }));
+      } else {
+        const [year, month, day] = value.split('-').map(Number);
+        const selectedDate = new Date(year, month - 1, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          setErrors((prev) => ({ ...prev, movingDate: "La fecha de mudanza no puede ser anterior a hoy." }));
+        } else {
+          setErrors((prev) => {
+            const updated = { ...prev };
+            delete updated.movingDate;
+            return updated;
+          });
+        }
+      }
+    } else {
+      if (errors[name]) {
+        setErrors((prev) => {
+          const updated = { ...prev };
+          delete updated[name];
+          return updated;
+        });
+      }
     }
   };
 
@@ -215,11 +276,12 @@ export default function QuoteForm({
       if (!formData.movingDate) {
         newErrors.movingDate = "La fecha de mudanza es requerida.";
       } else {
-        const selectedDate = new Date(formData.movingDate);
+        const [year, month, day] = formData.movingDate.split('-').map(Number);
+        const selectedDate = new Date(year, month - 1, day);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         if (selectedDate < today) {
-          newErrors.movingDate = "La fecha de mudanza debe ser futura.";
+          newErrors.movingDate = "La fecha de mudanza no puede ser anterior a hoy.";
         }
       }
       if (!formData.serviceType)
@@ -227,13 +289,23 @@ export default function QuoteForm({
     } else if (currentStep === 3) {
       if (!formData.name.trim())
         newErrors.name = "Tu nombre completo es requerido.";
+      
       if (!formData.phone.trim()) {
         newErrors.phone = "Tu número de teléfono es requerido.";
-      } else if (
-        !/^\+?[0-9\s-]{8,15}$/.test(formData.phone.replace(/\s+/g, ""))
-      ) {
-        newErrors.phone = "Formato de teléfono no válido (ej: 261 1234567).";
+      } else {
+        const clean = formData.phone.replace(/\s+/g, "").replace(/-+/g, "").replace(/\(+/g, "").replace(/\)+/g, "");
+        const digitsOnly = clean.replace(/\+/g, "");
+        if (!/^\+?[0-9\s\-()]+$/.test(formData.phone)) {
+          newErrors.phone = "Solo se permiten números, espacios, guiones y '+'.";
+        } else if (digitsOnly.length < 8) {
+          newErrors.phone = `Faltan números (${digitsOnly.length}/8 dígitos mínimo). Ej: 261 5123456`;
+        } else if (digitsOnly.length > 15) {
+          newErrors.phone = "El número es demasiado largo (máximo 15 dígitos).";
+        } else {
+          newErrors.phone = "¡Formato de WhatsApp válido! El presupuesto se enviará por este medio.";
+        }
       }
+
       if (!formData.email.trim()) {
         newErrors.email = "El correo electrónico es requerido.";
       } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -241,8 +313,11 @@ export default function QuoteForm({
       }
     }
 
+    const hasBlockingErrors = Object.entries(newErrors).some(
+      ([key, val]) => val && !val.startsWith("¡")
+    );
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return !hasBlockingErrors;
   };
 
   const handleNext = () => {
@@ -429,6 +504,7 @@ export default function QuoteForm({
                     value={formData.movingDate}
                     onChange={handleInputChange}
                     placeholder=""
+                    min={getTodayDateString()}
                     icon={Calendar}
                     error={errors.movingDate}
                   />

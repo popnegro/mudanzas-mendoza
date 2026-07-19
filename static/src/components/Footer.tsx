@@ -34,9 +34,13 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             tabIndex={0}
           >
             <img
-              src="/img/brand-dark.png"
+              src="https://mudanzasmendoza.com.ar/img/logo-dark.svg"
               alt="Logo de Mudanzas Miranda"
               className="h-10 w-auto"
+              width="160"
+              height="40"
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = "none";
               }}
@@ -128,14 +132,6 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 className="footer-nav-link footer-link-hover"
               >
                 Mudanzas Urgentes ⚡
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => handleLinkClick("fletes-economicos")}
-                className="footer-nav-link footer-link-hover"
-              >
-                Mudanzas Económicas 💰
               </button>
             </li>
             <li>

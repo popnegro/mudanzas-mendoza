@@ -35,7 +35,7 @@ import { services, faqs, testimonials, blogArticles } from './data/staticData';
 
 // Component imports
 import SEO from './components/SEO';
-import Header from './components/Header';
+import Header from './components/layout/Header';
 import Footer from './components/Footer';
 import QuoteForm from './components/QuoteForm';
 import MarkdownRenderer from './components/MarkdownRenderer';
@@ -154,6 +154,7 @@ export default function App() {
   // SEO details for active view
   const currentDestination = destinations.find((d) => d.slug === activePage);
   const currentService = services.find((s) => s.id === activePage);
+  let currentArticle: any = undefined;
   let pageTitle = 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda';
   let pageDescription = 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!';
   let pageCanonical = 'https://www.mudanzasmiranda.com.ar';
@@ -166,9 +167,6 @@ export default function App() {
     if (currentService.id === 'mudanzas-urgentes') {
       pageTitle = 'Mudanzas Urgentes en Mendoza - Traslado Inmediato Exprés | Mudanzas Miranda';
       pageDescription = '¿Necesitás mudarte hoy? Servicio de mudanzas urgentes y fletes en el acto en Mendoza. Respuesta veloz y camiones de guardia listos.';
-    } else if (currentService.id === 'fletes-economicos') {
-      pageTitle = 'Mudanzas Económicas y Fletes Baratos en Mendoza | Mudanzas Miranda';
-      pageDescription = 'Mudate al mejor precio en Mendoza. Fletes económicos para departamentos, monoambientes y traslados chicos. Tarifas transparentes.';
     } else if (currentService.id === 'mudanzas-24-horas') {
       pageTitle = 'Mudanzas 24 Horas Mendoza - Nocturnas y Feriados | Mudanzas Miranda';
       pageDescription = 'Servicios de mudanza sin límites de horario. Traslados nocturnos, fines de semana y feriados en Mendoza. ¡Reservá tu turno ya!';
@@ -207,6 +205,7 @@ export default function App() {
     const postSlug = activePage.replace('blog/', '');
     const article = blogArticles.find((a) => a.slug === postSlug);
     if (article) {
+      currentArticle = article;
       pageTitle = `${article.title} | Blog Mudanzas Mendoza`;
       pageDescription = article.summary;
       pageCanonical = `https://www.mudanzasmiranda.com.ar/blog/${article.slug}`;
@@ -224,6 +223,7 @@ export default function App() {
           isLocalPage={!!currentDestination}
           destinationData={currentDestination}
           serviceData={currentService}
+          blogArticleData={currentArticle}
         />
 
         {/* 2. Premium Navigation Header */}
@@ -309,6 +309,8 @@ export default function App() {
                               width="1200"
                               height="900"
                               fetchPriority="high"
+                              loading="eager"
+                              decoding="sync"
                             />
                           </picture>
                         </div>
@@ -451,6 +453,7 @@ export default function App() {
                                       loading="lazy"
                                       width="800"
                                       height="600"
+                                      decoding="async"
                                     />
                                   </picture>
                                 </div>
@@ -508,7 +511,7 @@ export default function App() {
                                   handleNavigation(dest.slug); // Using new destination-search-result-card
                                   setSearchQuery(''); // Clear search after navigation
                                 }}
-                                className="destination-search-result-card"
+                                className="destination-search-result-card group"
                               >
                                 <div className="flex flex-col">
                                   <span className="font-semibold text-slate-800 group-hover:text-amber-600">{dest.name}</span>
@@ -641,14 +644,17 @@ export default function App() {
                       {blogArticles.map((article) => (
                         <article
                           key={article.id}
-                          className="blog-article-card"
+                          className="blog-article-card group"
                         >
                           <div className="aspect-[16/10] overflow-hidden bg-slate-100 relative">
                             <img
                               src={article.image}
                               alt={article.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              loading="lazy" // No change needed
+                              loading="lazy"
+                              width="400"
+                              height="250"
+                              decoding="async"
                             />
                             <span className="absolute top-4 left-4 bg-brand-green-600 text-white font-bold text-[10px] uppercase tracking-wider py-1 px-2.5 rounded-md shadow-md">
                               {article.category}
@@ -689,17 +695,19 @@ export default function App() {
                 <section id="faq" className="py-20 bg-white border-b border-slate-200">
                   {/* FAQ Structured Data for Google Rich Snippets */}
                   <script
+                    id="faq-structured-data"
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
                       __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'FAQPage',
-                        'mainEntity': faqs.map((faq) => ({
-                          '@type': 'Question',
-                          'name': faq.question,
-                          'acceptedAnswer': {
-                            '@type': 'Answer',
-                            'text': faq.answer,
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "@id": `${pageCanonical}#faq`,
+                        "mainEntity": faqs.map((faq) => ({
+                          "@type": "Question",
+                          "name": faq.question,
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": faq.answer,
                           },
                         })),
                       }),
@@ -718,11 +726,11 @@ export default function App() {
                         <div // No change needed
                           key={faq.id}
                           className="faq-item-container"
-                        > {/* Class already updated in index.css */}
+                        >
                           <button
                             onClick={() => setOpenFaq(openFaq === faq.id ? null : faq.id)}
-                            className="faq-question-button" {/* Using new faq-question-button */}
-                            aria-expanded={openFaq === faq.id} // No change needed
+                            className="faq-question-button"
+                            aria-expanded={openFaq === faq.id}
                           >
                             <span className="text-base sm:text-lg">{faq.question}</span>
                             <ChevronDown
@@ -737,7 +745,7 @@ export default function App() {
                               <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ opacity: 0, opacity: 0 }}
+                                exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.2 }}
                                 className="overflow-hidden bg-white border-t border-slate-100" /* Layout classes remain */
                               >
@@ -794,15 +802,18 @@ export default function App() {
                     {blogArticles.map((article) => ( // No change needed
                       <article
                         key={article.id}
-                        className="blog-article-card bg-slate-50"
+                        className="blog-article-card bg-slate-50 group"
                       >
                         <div className="aspect-[16/10] overflow-hidden bg-slate-100 relative">
                           <img
                             src={article.image}
                             alt={article.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              loading="lazy" // No change needed
-                          /> {/* No change needed */}
+                            loading="lazy"
+                            width="400"
+                            height="250"
+                            decoding="async"
+                          />
                           <span className="absolute top-4 left-4 bg-brand-green-600 text-white font-bold text-[10px] uppercase tracking-wider py-1 px-2.5 rounded-md shadow-md">
                             {article.category}
                           </span>
@@ -922,6 +933,10 @@ export default function App() {
                           src={article.image}
                           alt={article.title}
                           className="w-full h-full object-cover"
+                          width="800"
+                          height="450"
+                          decoding="async"
+                          loading="eager"
                         />
                       </div>
 
@@ -935,10 +950,10 @@ export default function App() {
                         <div className="space-y-1 text-center sm:text-left">
                           <p className="font-bold text-slate-800">¿Necesitás mudarte en Mendoza?</p>
                           <p className="text-xs text-slate-500">Ofrecemos asesoramiento personalizado y presupuestos a medida sin cargo.</p>
-                        </div> {/* Using blog-cta-button */}
-                        <a // No change needed
+                        </div>
+                        <a
                           href="#form"
-                          className="blog-cta-button w-full sm:w-auto text-center" {/* Using blog-cta-button */}
+                          className="blog-cta-button w-full sm:w-auto text-center"
                         >
                           Cotizar mi Mudanza
                         </a>
@@ -990,8 +1005,6 @@ export default function App() {
                         <h1 className="page-hero-title">
                           {currentService.id === 'mudanzas-urgentes' ?
                             <>Mudanzas <span className="text-brand-green-600">Urgentes</span> en Mendoza: Traslados Exprés Hoy</>
-                          : currentService.id === 'fletes-economicos' ?
-                            <>Mudanzas <span className="text-brand-green-600">Económicas</span> y Fletes Baratos en Mendoza</>
                           : currentService.id === 'mudanzas-24-horas' ?
                             <>Mudanzas <span className="text-brand-green-600">24 Horas</span>: Servicio Nocturno y Feriados</>
                           :
@@ -1027,11 +1040,14 @@ export default function App() {
                       {/* Right Side: Visual Image */}
                       <div className="lg:col-span-5 relative flex justify-center">
                         <div className="relative w-full max-w-md aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-slate-200 hover:scale-[1.01] transition-transform duration-300">
-                          <img // No change needed
-                            src={currentService.image} // No change needed
-                            alt={currentService.alt} // No color change here
+                          <img
+                            src={currentService.image}
+                            alt={currentService.alt}
                             className="w-full h-full object-cover"
                             loading="eager"
+                            width="800"
+                            height="600"
+                            decoding="async"
                           />
                         </div>
                       </div>
@@ -1088,18 +1104,6 @@ export default function App() {
                       </div>
                     )}
 
-                    {currentService.id === 'fletes-economicos' && (
-                      <div className="service-cro-banner bg-green-50 border-green-200">
-                        <Truck className="w-8 h-8 text-green-600 flex-shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-green-950 text-sm">Tarifas Claras y Económicas</h4>
-                          <p className="text-xs text-green-800 leading-relaxed">
-                            La tarifa más baja garantizada. Sin costos sorpresa ni cargos extra al terminar. Ideal para jóvenes, estudiantes universitarios o traslados chicos de un solo electrodoméstico o mueble en todo Mendoza.
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
                     {currentService.id === 'mudanzas-24-horas' && (
                       <div className="service-cro-banner bg-blue-50 border-blue-200">
                         <Calendar className="w-8 h-8 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -1126,9 +1130,7 @@ export default function App() {
 
                     {/* <QuoteForm
                       initialService={
-                        currentService.id === 'fletes-economicos'
-                          ? 'logistica'
-                          : currentService.id === 'mudanzas-urgentes' || currentService.id === 'mudanzas-24-horas'
+                        currentService.id === 'mudanzas-urgentes' || currentService.id === 'mudanzas-24-horas'
                           ? 'residencial'
                           : currentService.id
                       }
@@ -1290,8 +1292,8 @@ export default function App() {
 
                                 return ( // Using new department-card
                                   <div
-                                    key={dept.slug} // No change needed
-                                    className="department-card" {/* Using new department-card */}
+                                    key={dept.slug}
+                                    className="department-card"
                                   >
                                     <div className="space-y-4">
                                       <div className="flex items-start justify-between gap-4">
@@ -1337,10 +1339,10 @@ export default function App() {
                                       )}
                                     </div>
                                   </div>
-                                ); // No change needed
-                              })} {/* No change needed */}
+                                );
+                              })}
                             </div>
-                          </div> {/* No change needed */}
+                          </div>
                         ))}
                       </div>
                     )}
@@ -1494,8 +1496,8 @@ export default function App() {
                               .map((d) => (
                                 <button
                                   key={d.slug}
-                                  onClick={() => handleNavigation(d.slug)} // No change needed
-                                  className="district-button bg-white" {/* Using district-button */}
+                                  onClick={() => handleNavigation(d.slug)}
+                                  className="district-button bg-white"
                                 >
                                   Mudanzas {d.name.split(' (')[0]}
                                 </button>
@@ -1514,8 +1516,8 @@ export default function App() {
                               .map((d) => (
                                   <button
                                   key={d.slug}
-                                  onClick={() => handleNavigation(d.slug)} // No change needed
-                                  className="district-button bg-white" {/* Using district-button */}
+                                  onClick={() => handleNavigation(d.slug)}
+                                  className="district-button bg-white"
                                 >
                                   Mudanzas {d.name.split(' (')[0]}
                                 </button>
@@ -1534,7 +1536,7 @@ export default function App() {
                                   <button
                                     key={d.slug}
                                     onClick={() => handleNavigation(d.slug)}
-                                    className="district-button bg-white" {/* Using district-button */}
+                                    className="district-button bg-white"
                                   >
                                     {d.name}
                                   </button>
@@ -1573,7 +1575,7 @@ export default function App() {
           href={`https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda!%20Quisiera%20consultar%20por%20un%20servicio%20de%20mudanza%20para%20Mendoza.`}
           target="_blank"
           rel="noopener noreferrer"
-          className="floating-whatsapp-button"
+          className="floating-whatsapp-button group"
           aria-label="Contactar a Mudanzas Miranda por WhatsApp"
         >
           <MessageSquare className="w-7 h-7 fill-white stroke-[2]" />
