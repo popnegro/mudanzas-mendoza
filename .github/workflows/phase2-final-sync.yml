@@ -1,0 +1,61 @@
+name: Phase 2 final sync
+
+on:
+  push:
+    branches:
+      - feature/new-web
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: "!contains(github.event.head_commit.message, 'Phase 2: commit synced state')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/new-web
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: static/package-lock.json
+      - name: Repair JSX closure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('static/src/App.tsx')
+          s = p.read_text(encoding='utf-8')
+          marker = '                      {/* Right Column: Preloaded hero visual with aspect ratio */}'
+          pos = s.find(marker)
+          before = s[max(0, pos-180):pos]
+          if before.count('</div>') < 2:
+              s = s[:pos] + '                        </div>\n' + s[pos:]
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Sync lockfile
+        working-directory: static
+        run: npm install --no-audit --no-fund
+      - name: Build and typecheck
+        working-directory: static
+        run: |
+          npm run build
+          npx tsc --noEmit
+      - name: Verify invariants
+        working-directory: static
+        run: |
+          if grep -RInE '4\.9/?5|4\.9.*186|reviewCount.*186|ratingValue.*4\.9' src; then exit 1; fi
+          if grep -RIn 'mudanzasmiranda.com.ar' src index.html public; then exit 1; fi
+          grep -RIn 'Contactar por WhatsApp' src/App.tsx
+          grep -RIn 'handleWhatsAppRedirect' src/components/QuoteForm.tsx
+      - name: Commit and cleanup
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add static/src/App.tsx static/package.json static/package-lock.json static/tsconfig.json
+          git commit -m 'Phase 2: commit synced state' || true
+          git rm .github/workflows/phase2-final-sync.yml .github/workflows/phase2-close.yml .github/workflows/phase2-finalize.yml .github/workflows/phase2-validate-final.yml || true
+          git commit -m 'chore(phase2): remove temporary workflows' || true
+          git push origin feature/new-web
