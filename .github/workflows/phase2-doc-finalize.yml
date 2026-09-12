@@ -1,0 +1,41 @@
+name: Phase 2 documentation finalize
+
+on:
+  push:
+    branches:
+      - feature/new-web
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    if: "!contains(github.event.head_commit.message, 'Phase 2: close documentation')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/new-web
+          fetch-depth: 0
+      - name: Update Phase 2 report
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('static/SEO-MENDOZAMUDANZAS-COMMERCIAL-AUTHORITY-PHASE-2.md')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('Estado: BLOQUEADA', 'Estado: IMPLEMENTADA — validación técnica final OK')
+          s = s.replace('No crear PR ni mergear hasta cerrar los bloqueos.', 'PR y merge quedan pendientes únicamente de la revisión humana final del alcance comercial.')
+          section = '''\n\n## Cierre de implementación — 2026-09-12\n\n- Conversión principal definida como WhatsApp.\n- CTA principal del Home: `Contactar por WhatsApp`.\n- CTA secundario: `Solicitar presupuesto`.\n- Flujo del formulario de presupuesto: genera un mensaje estructurado y deriva a WhatsApp; no afirma almacenamiento en base de datos.\n- Se eliminó el bloque de rating no verificado `4.9 / 186` de la aplicación y del Schema.\n- Dominio/canonical normalizado a `https://mudanzasmendoza.com.ar`.\n- Se corrigió la compatibilidad TypeScript y se incorporaron los tipos Node requeridos por `vite.config.ts` y `scripts/generate-sitemap.ts`.\n- Validación técnica: `npm run build` OK y `npx tsc --noEmit` OK en GitHub Actions.\n- No se realizó merge a `main`.\n\n### Estado\n\n**FASE 2 técnicamente implementada.** Queda pendiente la revisión humana de afirmaciones comerciales que no deben inventarse y la aprobación final antes del PR/merge.\n'''
+          if '## Cierre de implementación — 2026-09-12' not in s:
+              s += section
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add static/SEO-MENDOZAMUDANZAS-COMMERCIAL-AUTHORITY-PHASE-2.md
+          git commit -m 'Phase 2: close documentation' || true
+          git rm .github/workflows/phase2-doc-finalize.yml
+          git commit -m 'chore(phase2): remove documentation workflow'
+          git push origin feature/new-web
