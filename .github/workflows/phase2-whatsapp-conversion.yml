@@ -1,0 +1,93 @@
+name: Phase 2 WhatsApp conversion cleanup
+
+on:
+  push:
+    branches:
+      - feature/new-web
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: "!contains(github.event.head_commit.message, 'Phase 2: finalize WhatsApp conversion')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/new-web
+          fetch-depth: 0
+
+      - name: Apply Phase 2 changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('static')
+
+          # Canonical/public domain normalization.
+          for p in root.rglob('*'):
+              if p.is_file() and p.suffix.lower() in {'.ts', '.tsx', '.js', '.jsx', '.json', '.md', '.html', '.xml', '.txt', '.css'}:
+                  text = p.read_text(encoding='utf-8')
+                  new = text.replace('https://www.mudanzasmiranda.com.ar', 'https://mudanzasmendoza.com.ar')
+                  new = new.replace('https://mudanzasmiranda.com.ar', 'https://mudanzasmendoza.com.ar')
+                  new = new.replace('www.mudanzasmiranda.com.ar', 'mudanzasmendoza.com.ar')
+                  new = new.replace('mudanzasmiranda.com.ar', 'mudanzasmendoza.com.ar')
+                  if new != text:
+                      p.write_text(new, encoding='utf-8')
+
+          # Remove unsupported aggregate rating structured data from SEO.tsx.
+          seo = root / 'src/components/SEO.tsx'
+          text = seo.read_text(encoding='utf-8')
+          text, n1 = re.subn(r'\n\s*aggregateRating:\s*\{\n\s*"@type":\s*"AggregateRating",\n\s*ratingValue:\s*"4\.9",\n\s*reviewCount:\s*"186",\n\s*bestRating:\s*"5",\n\s*worstRating:\s*"1",\n\s*\},', '', text)
+          seo.write_text(text, encoding='utf-8')
+          if n1 < 1:
+              raise SystemExit('Expected aggregateRating block not found in SEO.tsx')
+
+          # Make WhatsApp the primary homepage conversion and the quote form secondary.
+          app = root / 'src/App.tsx'
+          text = app.read_text(encoding='utf-8')
+          rating_pattern = r'\n\s*\{\/\* Google Rating Badge \*\/\}\n\s*<div className="flex items-center justify-center lg:justify-start gap-3 pt-4">.*?</div>\n\s*</div>\n\s*\n\s*\/\*\/\* Right Column'
+          text2, n = re.subn(r'\n\s*\{\/\* Google Rating Badge \*\/\}\n\s*<div className="flex items-center justify-center lg:justify-start gap-3 pt-4">\n\s*<div className="flex items-center gap-0\.5 bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl">.*?\n\s*</div>\n\s*</div>\n\s*\n\s*\{\/\* Right Column', '\n\n                      {/* Right Column', text, flags=re.S)
+          if n != 1:
+              raise SystemExit(f'Expected one Google rating block in App.tsx, found {n}')
+          text = text2
+          old_cta = '''<a\n                            href="#form"\n                            className="hero-cta-button"\n                          >\n                            Cotizar mi Mudanza\n                            <ArrowRight className="w-5 h-5" />\n                          </a>\n                          <a\n                            href="https://wa.link/zn3zij"\n                            target="_blank"\n                            rel="noopener noreferrer"\n                            className="w-full sm:w-auto flex items-center justify-center gap-2 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"\n                          > {/* No change needed, already text-brand-green-500 */}\n                            <Phone className="w-5 h-5 text-brand-green-500" />\n                            Consultar por WhatsApp\n                          </a>'''
+          new_cta = '''<a\n                            href="https://wa.link/zn3zij"\n                            target="_blank"\n                            rel="noopener noreferrer"\n                            className="hero-cta-button"\n                          >\n                            Contactar por WhatsApp\n                            <Phone className="w-5 h-5" />\n                          </a>\n                          <a\n                            href="#form"\n                            className="w-full sm:w-auto flex items-center justify-center gap-2 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"\n                          >\n                            Solicitar presupuesto\n                            <ArrowRight className="w-5 h-5" />\n                          </a>'''
+          if old_cta not in text:
+              raise SystemExit('Expected homepage CTA block not found in App.tsx')
+          text = text.replace(old_cta, new_cta, 1)
+          app.write_text(text, encoding='utf-8')
+
+          # Make the quote form a truthful WhatsApp handoff: no fake database submission.
+          quote = root / 'src/components/QuoteForm.tsx'
+          text = quote.read_text(encoding='utf-8')
+          old_submit = '''  const handleSubmit = (e: React.FormEvent) => {\n    e.preventDefault();\n    if (validateStep(3)) {\n      setIsSubmitting(true);\n      // Simular submit de lead a base de datos de fletes\n      setTimeout(() => {\n        setIsSubmitting(false);\n        setIsSuccess(true);\n      }, 1500);\n    }\n  };'''
+          new_submit = '''  const handleSubmit = (e: React.FormEvent) => {\n    e.preventDefault();\n    if (validateStep(3)) {\n      setIsSubmitting(true);\n      handleWhatsAppRedirect();\n      setIsSubmitting(false);\n      setIsSuccess(true);\n    }\n  };'''
+          if old_submit not in text:
+              raise SystemExit('Expected simulated submit block not found in QuoteForm.tsx')
+          text = text.replace(old_submit, new_submit, 1)
+          text = text.replace('Número oficial de Mudanzas Miranda', 'Número de WhatsApp de Mudanzas Miranda')
+          text = text.replace('Solicitado a través de mudanzasmendoza.com.ar', 'Solicitud generada desde mudanzasmendoza.com.ar')
+          text = text.replace('¡Solicitud recibida con éxito!', 'Solicitud preparada para WhatsApp')
+          text = text.replace('hemos registrado tu solicitud', 'se prepararon tus datos para enviarlos por WhatsApp')
+          quote.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Verify no 4.9 / 186 remains in application source
+        run: |
+          if grep -RInE '4\.9/?5|4\.9.*186|reviewCount.*186|ratingValue.*4\.9' static/src; then
+            echo 'Unsupported rating reference still present in static/src'
+            exit 1
+          fi
+
+      - name: Commit and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add static
+          git commit -m 'Phase 2: finalize WhatsApp conversion' || true
+          git rm .github/workflows/phase2-whatsapp-conversion.yml
+          git commit -m 'chore(phase2): remove temporary patch workflow'
+          git push origin feature/new-web
