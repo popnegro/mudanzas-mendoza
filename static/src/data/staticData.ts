@@ -352,7 +352,7 @@ export const faqs: FAQItem[] = [
     question:
       "¿Cuál es la relación de Mudanzas Mudanzas Mendoza con Mudanzas Miranda?",
     answer:
-      "Mudanzas Mudanzas Mendoza es la división digital premium y producto oficial de Mudanzas Miranda (www.mudanzasmiranda.com.ar). Esta alianza estratégica te garantiza el respaldo de más de 50 años de impecable trayectoria en la región de Cuyo, una flota masiva de camiones de gran porte habilitados, pólizas certificadas de Sancor Seguros, y la innovación de un cotizador automatizado y planificador de mudanzas inteligente asistido por IA.",
+      "Mudanzas Mudanzas Mendoza es la división digital premium y producto oficial de Mudanzas Miranda (mudanzasmendoza.com.ar). Esta alianza estratégica te garantiza el respaldo de más de 50 años de impecable trayectoria en la región de Cuyo, una flota masiva de camiones de gran porte habilitados, pólizas certificadas de Sancor Seguros, y la innovación de un cotizador automatizado y planificador de mudanzas inteligente asistido por IA.",
   },
 ];
 

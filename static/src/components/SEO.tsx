@@ -197,15 +197,15 @@ export default function SEO({
     updateMetaTag("og:site_name", "Mudanzas Miranda", true);
 
     // Determine the image URL for social previews (OpenGraph & Twitter)
-    let imageUrl = "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg";
+    let imageUrl = "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg";
     if (serviceData?.image) {
       imageUrl = serviceData.image.startsWith("http")
         ? serviceData.image
-        : `https://www.mudanzasmiranda.com.ar${serviceData.image}`;
+        : `https://mudanzasmendoza.com.ar${serviceData.image}`;
     } else if (blogArticleData?.image) {
       imageUrl = blogArticleData.image.startsWith("http")
         ? blogArticleData.image
-        : `https://www.mudanzasmiranda.com.ar${blogArticleData.image}`;
+        : `https://mudanzasmendoza.com.ar${blogArticleData.image}`;
     }
     updateMetaTag("og:image", imageUrl, true);
 
@@ -227,11 +227,11 @@ export default function SEO({
     const movingCompanySchema = {
       "@context": "https://schema.org",
       "@type": "MovingCompany",
-      "@id": "https://www.mudanzasmiranda.com.ar/#company",
+      "@id": "https://mudanzasmendoza.com.ar/#company",
       name: "Mudanzas Miranda",
-      url: "https://www.mudanzasmiranda.com.ar",
+      url: "https://mudanzasmendoza.com.ar",
       logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
-      image: "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg",
+      image: "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg",
       description:
         "Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas con más de 20 años de experiencia.",
       telephone: "+5492615130910",
@@ -267,13 +267,6 @@ export default function SEO({
         "https://www.facebook.com/mudanzasmiranda4",
         "https://www.instagram.com/mudanzasmiranda/",
       ],
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "186",
-        bestRating: "5",
-        worstRating: "1",
-      },
     };
 
     const schemaId = "seo-structured-data";
@@ -293,11 +286,11 @@ export default function SEO({
       const localMovingCompanySchema = {
         "@context": "https://schema.org",
         "@type": "MovingCompany",
-        "@id": `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html#local-company`,
+        "@id": `https://mudanzasmendoza.com.ar/mudanzas-mendoza/${destinationData.slug}.html#local-company`,
         name: `Mudanzas Miranda - ${destinationData.name}`,
-        url: `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html`,
+        url: `https://mudanzasmendoza.com.ar/mudanzas-mendoza/${destinationData.slug}.html`,
         logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
-        image: "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg",
+        image: "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg",
         description: `Servicio especializado de fletes y mudanzas en ${destinationData.name}, Mendoza. Traslados de casas, oficinas, departamentos y fletes económicos.`,
         telephone: "+5492615130910",
         priceRange: "$$",
@@ -318,14 +311,7 @@ export default function SEO({
         parentOrganization: {
           "@type": "MovingCompany",
           name: "Mudanzas Miranda",
-          url: "https://www.mudanzasmiranda.com.ar",
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "186",
-          bestRating: "5",
-          worstRating: "1",
+          url: "https://mudanzasmendoza.com.ar",
         },
       };
       schemaData.push(localMovingCompanySchema);
@@ -341,7 +327,7 @@ export default function SEO({
           telephone: "+5492615130910",
           priceRange: "$$",
           image:
-            "https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg",
+            "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg",
         },
         areaServed: {
           "@type": "AdministrativeArea", // Use non-null assertion as destinationData is checked
@@ -423,7 +409,7 @@ export default function SEO({
         "description": blogArticleData.summary,
         "image": blogArticleData.image.startsWith("http")
           ? blogArticleData.image
-          : `https://www.mudanzasmiranda.com.ar${blogArticleData.image}`,
+          : `https://mudanzasmendoza.com.ar${blogArticleData.image}`,
         "datePublished": blogArticleData.date,
         "dateModified": blogArticleData.date,
         "author": {

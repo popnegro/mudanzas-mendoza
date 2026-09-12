@@ -79,10 +79,10 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             <div className="footer-contact-item">
               <Mail className="footer-icon-amber" />
               <a
-                href="mailto:info@mudanzasmiranda.com.ar"
+                href="mailto:info@mudanzasmendoza.com.ar"
                 className="footer-link-hover"
               >
-                info@mudanzasmiranda.com.ar
+                info@mudanzasmendoza.com.ar
               </a>
             </div>
           </div>
