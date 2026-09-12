@@ -334,17 +334,15 @@ export default function QuoteForm({
     e.preventDefault();
     if (validateStep(3)) {
       setIsSubmitting(true);
-      // Simular submit de lead a base de datos de fletes
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSuccess(true);
-      }, 1500);
+      handleWhatsAppRedirect();
+      setIsSubmitting(false);
+      setIsSuccess(true);
     }
   };
 
   // WhatsApp click handler con mensaje estructurado pre-relleno
   const handleWhatsAppRedirect = () => {
-    const phone = "5492615130910"; // Número oficial de Mudanzas Miranda
+    const phone = "5492615130910"; // Número de WhatsApp de Mudanzas Miranda
     const text = encodeURIComponent(
       `¡Hola Mudanzas Miranda! Quisiera cotizar una mudanza:\n\n` +
         `📦 *Servicio:* ${formData.serviceType === "residencial" ? "Mudanza Residencial 🏠" : formData.serviceType === "oficina" ? "Mudanza de Oficina 🏢" : formData.serviceType === "combinada" ? "Mudanza Combinada 🚚" : formData.serviceType === "embalaje" ? "Embalaje Profesional 📦" : formData.serviceType === "guardamuebles" ? "Guardamuebles 🔑" : "Logística / Flete 🚛"}\n` +
@@ -355,7 +353,7 @@ export default function QuoteForm({
         `📞 *Contacto:* ${formData.phone}\n` +
         `✉️ *Email:* ${formData.email}\n` +
         `📝 *Notas:* ${formData.comments || "Ninguna"}\n\n` +
-        `Solicitado a través de mudanzasmiranda.com.ar`,
+        `Solicitud generada desde mudanzasmendoza.com.ar`,
     );
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
   };
@@ -702,14 +700,14 @@ export default function QuoteForm({
             </div>
 
             <h3 className="quote-success-title">
-              ¡Solicitud recibida con éxito!
+              Solicitud preparada para WhatsApp
             </h3>
             <p className="quote-success-description">
               Hola{" "}
               <span className="font-semibold text-slate-800">
                 {formData.name}
               </span>
-              , hemos registrado tu solicitud para el{" "}
+              , se prepararon tus datos para enviarlos por WhatsApp para el{" "}
               <span className="font-semibold text-brand-green-600">
                 {formData.movingDate}
               </span>

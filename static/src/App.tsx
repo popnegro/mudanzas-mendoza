@@ -157,12 +157,12 @@ export default function App() {
   let currentArticle: any = undefined;
   let pageTitle = 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda';
   let pageDescription = 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!';
-  let pageCanonical = 'https://www.mudanzasmiranda.com.ar';
+  let pageCanonical = 'https://mudanzasmendoza.com.ar';
 
   if (currentDestination) {
     pageTitle = currentDestination.title;
     pageDescription = currentDestination.description;
-    pageCanonical = `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${currentDestination.slug}.html`;
+    pageCanonical = `https://mudanzasmendoza.com.ar/mudanzas-mendoza/${currentDestination.slug}.html`;
   } else if (currentService) {
     if (currentService.id === 'mudanzas-urgentes') {
       pageTitle = 'Mudanzas Urgentes en Mendoza - Traslado Inmediato Exprés | Mudanzas Miranda';
@@ -192,15 +192,15 @@ export default function App() {
       pageTitle = `${currentService.title} en Mendoza - Profesional | Mudanzas Miranda`;
       pageDescription = currentService.description;
     }
-    pageCanonical = `https://www.mudanzasmiranda.com.ar/servicios/${currentService.id}.html`;
+    pageCanonical = `https://mudanzasmendoza.com.ar/servicios/${currentService.id}.html`;
   } else if (activePage === 'destinos') {
     pageTitle = 'Cobertura de Mudanzas en Mendoza | Departamentos y Distritos | Mudanzas Miranda';
     pageDescription = 'Conocé nuestra amplia cobertura de fletes y mudanzas en Mendoza. Brindamos servicios profesionales en todos los departamentos y distritos de la provincia.';
-    pageCanonical = 'https://www.mudanzasmiranda.com.ar/destinos';
+    pageCanonical = 'https://mudanzasmendoza.com.ar/destinos';
   } else if (activePage === 'blog') {
     pageTitle = 'Blog de Mudanzas Mendoza | Consejos, Guías y Tarifas 2026';
     pageDescription = 'Leé los mejores consejos para organizar tu mudanza sin estrés, aprender a embalar tus electrodomésticos y conocer los precios actualizados en Mendoza.';
-    pageCanonical = 'https://www.mudanzasmiranda.com.ar/blog';
+    pageCanonical = 'https://mudanzasmendoza.com.ar/blog';
   } else if (activePage.startsWith('blog/')) {
     const postSlug = activePage.replace('blog/', '');
     const article = blogArticles.find((a) => a.slug === postSlug);
@@ -208,7 +208,7 @@ export default function App() {
       currentArticle = article;
       pageTitle = `${article.title} | Blog Mudanzas Mendoza`;
       pageDescription = article.summary;
-      pageCanonical = `https://www.mudanzasmiranda.com.ar/blog/${article.slug}`;
+      pageCanonical = `https://mudanzasmendoza.com.ar/blog/${article.slug}`;
     }
   }
 
@@ -261,37 +261,22 @@ export default function App() {
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                           <a
-                            href="#form"
-                            className="hero-cta-button"
-                          >
-                            Cotizar mi Mudanza
-                            <ArrowRight className="w-5 h-5" />
-                          </a>
-                          <a
                             href="https://wa.link/zn3zij"
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="hero-cta-button"
+                          >
+                            Contactar por WhatsApp
+                            <Phone className="w-5 h-5" />
+                          </a>
+                          <a
+                            href="#form"
                             className="w-full sm:w-auto flex items-center justify-center gap-2 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
-                          > {/* No change needed, already text-brand-green-500 */}
-                            <Phone className="w-5 h-5 text-brand-green-500" />
-                            Consultar por WhatsApp
+                          >
+                            Solicitar presupuesto
+                            <ArrowRight className="w-5 h-5" />
                           </a>
                         </div>
-
-                        {/* Google Rating Badge */}
-                        <div className="flex items-center justify-center lg:justify-start gap-3 pt-4">
-                          <div className="flex items-center gap-0.5 bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl"> {/* No change needed */}
-                            <div className="flex text-brand-green-500">
-                              {[...Array(5)].map((_, i) => ( // No change needed, already brand-green
-                                <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
-                              ))}
-                            </div>
-                            <span className="text-xs text-slate-600 ml-2">
-                              <strong>4.9/5</strong> de 186 opiniones en Google
-                            </span>
-                          </div>
-                        </div>
-                      </div>
 
                       {/* Right Column: Preloaded hero visual with aspect ratio */}
                       <div className="lg:col-span-6 relative flex justify-center">

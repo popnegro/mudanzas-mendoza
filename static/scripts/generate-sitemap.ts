@@ -9,7 +9,7 @@ import { services, blogArticles } from "../src/data/staticData";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = "https://www.mudanzasmiranda.com.ar";
+const BASE_URL = "https://mudanzasmendoza.com.ar";
 
 function generateSitemap() {
   console.log("Starting dynamic sitemap generation...");

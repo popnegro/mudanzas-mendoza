@@ -10,7 +10,7 @@
 
 ### 1. Canonical / dominio inconsistente
 
-El branch `feature/new-web` contiene `CNAME` con `mudanzasmendoza.com.ar`, mientras la implementación React genera canonicals, Open Graph, imágenes y referencias de sitio usando `mudanzasmiranda.com.ar`. El dominio público actualmente accesible es `mudanzasmendoza.com.ar`.
+El branch `feature/new-web` contiene `CNAME` con `mudanzasmendoza.com.ar`, mientras la implementación React genera canonicals, Open Graph, imágenes y referencias de sitio usando `mudanzasmendoza.com.ar`. El dominio público actualmente accesible es `mudanzasmendoza.com.ar`.
 
 Esto debe unificarse antes del cierre de Fase 2 para evitar señales SEO contradictorias.
 
