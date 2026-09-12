@@ -115,3 +115,20 @@ No se encontró evidencia suficiente en la auditoría de archivos realizada para
 ## Criterio de cierre
 
 No crear PR ni hacer merge a `main` mientras cualquiera de los bloqueos anteriores permanezca abierto.
+
+
+## Cierre de implementación — 2026-09-12
+
+- Conversión principal definida como WhatsApp.
+- CTA principal del Home: `Contactar por WhatsApp`.
+- CTA secundario: `Solicitar presupuesto`.
+- Flujo del formulario de presupuesto: genera un mensaje estructurado y deriva a WhatsApp; no afirma almacenamiento en base de datos.
+- Se eliminó el bloque de rating no verificado `4.9 / 186` de la aplicación y del Schema.
+- Dominio/canonical normalizado a `https://mudanzasmendoza.com.ar`.
+- Se corrigió la compatibilidad TypeScript y se incorporaron los tipos Node requeridos por `vite.config.ts` y `scripts/generate-sitemap.ts`.
+- Validación técnica: `npm run build` OK y `npx tsc --noEmit` OK en GitHub Actions.
+- No se realizó merge a `main`.
+
+### Estado
+
+**FASE 2 técnicamente implementada.** Queda pendiente la revisión humana de afirmaciones comerciales que no deben inventarse y la aprobación final antes del PR/merge.
