@@ -158,6 +158,14 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 Blog de Mudanzas & Consejos
               </button>
             </li>
+            <li>
+              <a
+                href="/mudanzas-en-mendoza.html"
+                className="footer-nav-link footer-link-hover"
+              >
+                Guía: Mudanzas en Mendoza
+              </a>
+            </li>
           </ul>
         </div>
         {/* Local SEO Directories */}
