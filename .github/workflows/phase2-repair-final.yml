@@ -1,0 +1,47 @@
+name: Phase 2 final JSX repair
+
+on:
+  push:
+    branches:
+      - feature/new-web
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: "!contains(github.event.head_commit.message, 'Phase 2: remove repair workflow')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/new-web
+          fetch-depth: 0
+      - name: Repair App.tsx
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('static/src/App.tsx')
+          s = p.read_text(encoding='utf-8')
+          pattern = r'(?m)^(\s*)\{\/\* Right Column: Preloaded hero visual with aspect ratio \*\/\}'
+          s2, n = re.subn(pattern, r'\1</div>\n\n\1{/* Right Column: Preloaded hero visual with aspect ratio */}', s, count=1)
+          if n != 1:
+              raise SystemExit(f'Expected exactly one Right Column marker, found {n}')
+          p.write_text(s2, encoding='utf-8')
+          PY
+      - name: Build and typecheck
+        working-directory: static
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+          npx tsc --noEmit
+      - name: Remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add static/src/App.tsx
+          git commit -m 'Phase 2: repair homepage JSX' || true
+          git rm .github/workflows/phase2-repair-final.yml
+          git commit -m 'Phase 2: remove repair workflow'
+          git push origin feature/new-web
