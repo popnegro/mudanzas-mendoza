@@ -4,7 +4,7 @@
 
 **Branch auditada:** `feature/new-web`
 
-**Estado:** BLOQUEADA — no cerrar Fase 2 ni abrir PR de merge a `main` todavía.
+**Estado:** IMPLEMENTADA — validación técnica final OK. PR/merge a `main` quedan pendientes de revisión humana final.
 
 ## Hallazgos críticos
 
