@@ -278,6 +278,7 @@ export default function App() {
                           </a>
                         </div>
 
+                        </div>
                       {/* Right Column: Preloaded hero visual with aspect ratio */}
                       <div className="lg:col-span-6 relative flex justify-center">
                         <div className="relative w-full max-w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-200 shadow-amber-500/10 hover:scale-[1.01] transition-transform duration-300">
