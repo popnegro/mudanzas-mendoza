@@ -1,0 +1,43 @@
+name: Phase 2 validation
+
+on:
+  push:
+    branches:
+      - feature/new-web
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    if: "!contains(github.event.head_commit.message, 'Phase 2: remove validation workflow')"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: static
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/new-web
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: static/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npx tsc --noEmit
+      - name: Verify Phase 2 invariants
+        run: |
+          ! grep -RInE '4\.9/?5|4\.9.*186|reviewCount.*186|ratingValue.*4\.9' src
+          ! grep -RIn 'mudanzasmiranda.com.ar' src index.html public || true
+          grep -RIn 'mudanzasmendoza.com.ar' src/components/SEO.tsx src/App.tsx
+      - name: Remove validation workflow
+        working-directory: .
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/phase2-validate.yml
+          git commit -m 'Phase 2: remove validation workflow'
+          git push origin feature/new-web
