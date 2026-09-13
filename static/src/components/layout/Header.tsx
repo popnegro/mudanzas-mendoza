@@ -1,5 +1,5 @@
 import { Menu, X, ChevronDown, Phone, MessageSquare } from "lucide-react";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Destination } from "@/types";
@@ -49,7 +49,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
     setIsMegaMenuOpen(false);
   }, [onNavigate]);
 
-  const handleSectionClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+  const handleSectionClick = useCallback((event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     event.preventDefault();
     setIsMobileMenuOpen(false);
     setIsMegaMenuOpen(false);
@@ -68,12 +68,9 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
       <ul className="mega-menu-list">
         {items.map((destination) => (
           <li key={destination.slug}>
-            <a
-              href={destinationHref(destination.slug)}
-              onClick={(event) => { event.preventDefault(); navigate(destination.slug); }}
-              aria-current={activePage === destination.slug ? "page" : undefined}
-              className={`mega-menu-item-button ${activePage === destination.slug ? "text-amber-500 font-semibold" : "text-slate-600"}`}
-            >{destination.name}</a>
+            <a href={destinationHref(destination.slug)} onClick={(event) => { event.preventDefault(); navigate(destination.slug); }} aria-current={activePage === destination.slug ? "page" : undefined} className={`mega-menu-item-button ${activePage === destination.slug ? "text-amber-500 font-semibold" : "text-slate-600"}`}>
+              {destination.name}
+            </a>
           </li>
         ))}
       </ul>
@@ -87,7 +84,6 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
           <a href="/" onClick={(event) => { event.preventDefault(); navigate(""); }} className="flex-shrink-0" aria-label="Mudanzas Miranda — inicio">
             <img src="https://mudanzasmendoza.com.ar/img/logo-dark.svg" alt="Mudanzas Miranda" className="h-10 w-auto" width="160" height="40" decoding="async" />
           </a>
-
           <nav aria-label="Navegación principal" className="hidden lg:flex items-center gap-1">
             <a href="/#nosotros" onClick={(event) => handleSectionClick(event, "nosotros")} className="nav-link-desktop">Nosotros</a>
             <a href="/#servicios" onClick={(event) => handleSectionClick(event, "servicios")} className="nav-link-desktop">Servicios</a>
@@ -110,24 +106,15 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
             <a href="/#faq" onClick={(event) => handleSectionClick(event, "faq")} className="nav-link-desktop">Preguntas</a>
             <a href="/blog" onClick={(event) => { event.preventDefault(); navigate("blog"); }} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activePage.startsWith("blog") ? "text-amber-500 bg-amber-500/10" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"}`}>Blog</a>
           </nav>
-
           <div className="hidden lg:flex items-center gap-3">
-            <a href="/#form" onClick={(event) => handleSectionClick(event, "form")} className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md transition-all">
-              <MessageSquare className="w-4 h-4" aria-hidden="true" /> Cotizar Mudanza
-            </a>
+            <a href="/#form" onClick={(event) => handleSectionClick(event, "form")} className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md transition-all"><MessageSquare className="w-4 h-4" aria-hidden="true" /> Cotizar Mudanza</a>
           </div>
-
           <div className="flex lg:hidden items-center gap-3">
-            <a href="https://wa.link/zn3zij" target="_blank" rel="noopener noreferrer" className="bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-xl shadow-md flex items-center justify-center" aria-label="Contactar por WhatsApp">
-              <MessageSquare className="w-5 h-5" aria-hidden="true" />
-            </a>
-            <button type="button" onClick={() => setIsMobileMenuOpen((open) => !open)} className="p-3 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center justify-center" aria-expanded={isMobileMenuOpen} aria-controls="mobile-navigation" aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}>
-              {isMobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-            </button>
+            <a href="https://wa.link/zn3zij" target="_blank" rel="noopener noreferrer" className="bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-xl shadow-md flex items-center justify-center" aria-label="Contactar por WhatsApp"><MessageSquare className="w-5 h-5" aria-hidden="true" /></a>
+            <button type="button" onClick={() => setIsMobileMenuOpen((open) => !open)} className="p-3 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center justify-center" aria-expanded={isMobileMenuOpen} aria-controls="mobile-navigation" aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}>{isMobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}</button>
           </div>
         </div>
       </div>
-
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div id="mobile-navigation" initial={{ opacity: 0, x: "100%" }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: "100%" }} transition={{ type: "spring", bounce: 0, duration: 0.3 }} className={`lg:hidden fixed inset-0 ${isScrolled ? "top-[65px]" : "top-[73px]"} bg-white z-40 flex flex-col p-6 overflow-y-auto border-t border-slate-200`}>
@@ -141,9 +128,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
                 <h2 id="mobile-destinos" className="text-xs font-bold text-amber-500 uppercase tracking-widest px-4 block mb-2">Nuestros destinos</h2>
                 <ul className="grid grid-cols-2 gap-x-2 gap-y-1 px-2">
                   {destinations.filter((d) => !d.isDistrict).map((destination) => (
-                    <li key={destination.slug}>
-                      <a href={destinationHref(destination.slug)} onClick={(event) => { event.preventDefault(); navigate(destination.slug); }} className={`mobile-destination-button block ${activePage === destination.slug ? "text-amber-500 bg-amber-500/10 font-semibold" : "text-slate-500 hover:text-slate-900"}`} aria-current={activePage === destination.slug ? "page" : undefined}>{destination.name}</a>
-                    </li>
+                    <li key={destination.slug}><a href={destinationHref(destination.slug)} onClick={(event) => { event.preventDefault(); navigate(destination.slug); }} className={`mobile-destination-button block ${activePage === destination.slug ? "text-amber-500 bg-amber-500/10 font-semibold" : "text-slate-500 hover:text-slate-900"}`} aria-current={activePage === destination.slug ? "page" : undefined}>{destination.name}</a></li>
                   ))}
                 </ul>
                 <a href="/destinos" onClick={(event) => { event.preventDefault(); navigate("destinos"); }} className="mt-3 w-full text-center text-xs font-bold text-amber-600 bg-amber-500/10 hover:bg-amber-500/20 py-2.5 rounded-xl block">Ver todos los departamentos y distritos →</a>
