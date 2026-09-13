@@ -2,11 +2,6 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/mudanzas-locales/:path*",
-      "destination": "/mudanzas-mendoza/:path*",
-      "permanent": true
-    },
-    {
       "source": "/mudanzas-locales/mudanzas-lasheras.html",
       "destination": "/mudanzas-mendoza/mudanzas-las-heras.html",
       "permanent": true
@@ -14,6 +9,11 @@
     {
       "source": "/mudanzas-locales/mudanzas-sanmartin.html",
       "destination": "/mudanzas-mendoza/mudanzas-san-martin.html",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-locales/:path*",
+      "destination": "/mudanzas-mendoza/:path*",
       "permanent": true
     },
     {
