@@ -1,5 +1,67 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/mudanzas-locales/:path*",
+      "destination": "/mudanzas-mendoza/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-locales/mudanzas-lasheras.html",
+      "destination": "/mudanzas-mendoza/mudanzas-las-heras.html",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-locales/mudanzas-sanmartin.html",
+      "destination": "/mudanzas-mendoza/mudanzas-san-martin.html",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-en-mendoza.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mendoza-mudanzas.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-precios.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/precios-mudanzas-en-mendoza.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-seguras-mendoza.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-argentina/mudanzas-mendoza.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-argentina/mudanzas-buenos-aires.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mudanzas-nacionales/mudanzas-argentina.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap.html",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/mudanzas-mendoza/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
