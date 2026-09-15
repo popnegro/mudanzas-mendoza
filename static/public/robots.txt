@@ -1,9 +1,0 @@
-# Allow all user agents access to the site
-User-agent: *
-
-# Disallow crawling of system directories
-Disallow: /cgi-bin/
-
-# Point to the sitemaps
-Sitemap: https://mudanzasmendoza.com.ar/sitemap.xml
-Sitemap: https://mudanzasmendoza.com.ar/sitemap-phase3.xml
