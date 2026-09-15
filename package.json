@@ -1,5 +1,8 @@
 {
   "name": "mudanzas-mendoza",
   "private": true,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd static && npm install && npm run build && rm -rf ../dist && cp -R dist ../dist"
+  }
 }
