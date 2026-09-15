@@ -1,5 +1,17 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/mudanzas-locales/:slug.html", "destination": "/mudanzas-mendoza/:slug.html", "statusCode": 301 },
+    { "source": "/mudanzas-argentina/mudanzas-mendoza.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mudanzas-argentina/mudanzas-buenos-aires.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mudanzas-nacionales/mudanzas-argentina.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mendoza-mudanzas.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mudanzas-en-mendoza.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mudanzas-precios.html", "destination": "/", "statusCode": 301 },
+    { "source": "/precios-mudanzas-en-mendoza.html", "destination": "/", "statusCode": 301 },
+    { "source": "/mudanzas-seguras-mendoza.html", "destination": "/", "statusCode": 301 },
+    { "source": "/sitemap.html", "destination": "/", "statusCode": 301 }
+  ],
   "rewrites": [
     { "source": "/mudanzas-mendoza/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
