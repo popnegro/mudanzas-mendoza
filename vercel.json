@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "installCommand": "cd static && npm install",
+  "buildCommand": "cd static && npm run build",
+  "outputDirectory": "static/dist",
+  "rewrites": [
+    { "source": "/mudanzas-mendoza/:path*", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
