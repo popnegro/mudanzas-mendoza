@@ -2,6 +2,7 @@ import { Menu, X, ChevronDown, Phone, MessageSquare } from "lucide-react";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import brandmark from "../../../../img/mudanzas-mendoza-brandmark.webp";
 import { Destination } from "@/types";
 
 interface HeaderProps {
@@ -70,7 +71,7 @@ export default function Header({
           <div className="flex-shrink-0 cursor-pointer" onClick={() => handleLinkClick("")} onKeyDown={(e) => e.key === "Enter" && handleLinkClick("")} role="button" tabIndex={0}>
             <div className="flex items-center gap-2">
               <img
-                src="/img/mudanzas-mendoza-brandmark.webp"
+                src={brandmark}
                 alt="Mudanzas en Mendoza"
                 className="h-10 w-auto object-contain"
                 width="640"
