@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Use Node.js 18
+      - name: Use Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
+          node-version: '22'
       - name: Vercel Preview Deploy
         uses: amondnet/vercel-action@v42.3.0
         with:
