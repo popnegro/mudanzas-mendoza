@@ -1,0 +1,18 @@
+# Cloudflare Pages — SPA fallback
+# Production: mudanzasmendoza.com.ar | mudanzasmiranda.com.ar | mudanzaspro.com.ar
+# QA (Vercel): *.vercel.app
+
+# Legacy HTML path redirects (301) — keep parity with vercel.json where possible
+/mudanzas-locales/*  /mudanzas-mendoza/:splat  301
+/mudanzas-argentina/mudanzas-mendoza.html  /  301
+/mudanzas-argentina/mudanzas-buenos-aires.html  /  301
+/mudanzas-nacionales/mudanzas-argentina.html  /  301
+/mendoza-mudanzas.html  /  301
+/mudanzas-en-mendoza.html  /  301
+/mudanzas-precios.html  /  301
+/precios-mudanzas-en-mendoza.html  /  301
+/mudanzas-seguras-mendoza.html  /  301
+/sitemap.html  /  301
+
+# SPA client-side routes
+/*    /index.html   200
