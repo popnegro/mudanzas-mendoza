@@ -2,7 +2,10 @@
 
 Base oficial de la plataforma web de **Mudanzas Miranda** (mudanzas residenciales, oficinas y fletes en Mendoza, Argentina).
 
-Sitio en producción: [https://mudanzasmendoza.com.ar](https://mudanzasmendoza.com.ar)
+**Producción:** [mudanzasmendoza.com.ar](https://mudanzasmendoza.com.ar) · [mudanzasmiranda.com.ar](https://mudanzasmiranda.com.ar) · [mudanzaspro.com.ar](https://mudanzaspro.com.ar)  
+**QA:** `*.vercel.app` (mudanzas-mendoza / mudanzas-miranda / mudanzapro)
+
+Deploy de producción: **Cloudflare Pages** (DNS en Cloudflare). Vercel solo para previews de QA.
 
 ---
 
@@ -15,22 +18,22 @@ Sitio en producción: [https://mudanzasmendoza.com.ar](https://mudanzasmendoza.c
 | Estilos | Tailwind CSS v4 |
 | Animación | Framer Motion |
 | Tipado | TypeScript 5 (strict) |
-| Deploy | Vercel |
+| Producción | Cloudflare Pages |
+| QA | Vercel (`*.vercel.app`) |
 
 La **única fuente de verdad** es el directorio `static/`.
-El root del repositorio solo contiene configuración de deploy, SEO estático (robots/sitemaps), verificación de buscadores y assets residuales en migración.
 
 ```text
 /
 ├── static/                 # SPA (código de producto)
-│   ├── public/             # Assets que salen en dist/ (img, robots, sitemap)
-│   ├── src/                # React + TypeScript
+│   ├── public/             # → dist/ (img, robots, sitemap, _redirects)
+│   ├── src/
 │   ├── package.json
 │   └── vite.config.ts
-├── vercel.json             # Build + redirects 301 legacy + SPA rewrite
-├── img/                    # Assets legacy (en migración → static/public/img)
-├── docs/                   # Documentación operativa
-└── README.md               # Este archivo
+├── vercel.json             # QA (Vercel): build + redirects + SPA rewrite
+├── img/                    # Legacy (migración → static/public/img)
+├── docs/
+└── README.md
 ```
 
 ---
@@ -41,72 +44,82 @@ El root del repositorio solo contiene configuración de deploy, SEO estático (r
 cd static
 npm install
 npm run dev          # http://localhost:3000
-npm run typecheck    # tsc --noEmit
-npm run build        # salida en static/dist
+npm run typecheck
+npm run build        # → static/dist
 npm run preview
 ```
 
-### Scripts disponibles (`static/`)
-
 | Script | Descripción |
 |--------|-------------|
-| `dev` | Servidor de desarrollo Vite |
-| `build` | Build de producción |
-| `preview` | Preview del build |
-| `typecheck` | Chequeo TypeScript estricto |
+| `dev` | Vite dev server |
+| `build` | Build producción |
+| `preview` | Preview local del build |
+| `typecheck` | `tsc --noEmit` |
 
 ---
 
-## Deploy (Vercel)
+## Deploy
 
-`vercel.json` (raíz) es la configuración autoritativa:
+### Producción — Cloudflare Pages
 
-- **install**: `cd static && npm install`
-- **build**: `cd static && npm run build`
-- **output**: `static/dist`
-- **rewrites**: SPA fallback `/(.*) → /index.html`
-- **redirects**: 301 de URLs legacy (`.html` antiguas → rutas canónicas)
+| Setting | Valor |
+|---------|--------|
+| Root / build | `cd static && npm run build` |
+| Output | `static/dist` |
+| SPA | `static/public/_redirects` → se copia a `dist/` (`/* /index.html 200`) |
+| Dominios | mudanzasmendoza.com.ar, mudanzasmiranda.com.ar, mudanzaspro.com.ar (DNS Cloudflare) |
 
-Cualquier cambio de routing o redirects debe hacerse en este archivo, no en configs duplicados.
+### QA — Vercel
+
+`vercel.json` en la raíz:
+
+- install / build / output: `static/`
+- rewrites SPA + redirects 301 legacy
+- Solo para links `*.vercel.app`
 
 ---
 
 ## SEO y paridad de URL
 
-La SPA mantiene paridad con las URLs históricas (incluyendo rutas `.html`) mediante un enrutador basado en `window.location.pathname`.
+Enrutador por `window.location.pathname` (incluye rutas `.html` históricas).
 
-- Schemas JSON-LD dinámicos (`MovingCompany`, `LocalBusiness`, `FAQPage`, `Service`)
-- Metatags por destino/localidad
-- Sitemaps en `static/public/` y raíz (legacy)
-
-Documentación SEO detallada: `static/SEO.md` y archivos de fase en `static/`.
+- JSON-LD: `MovingCompany`, `LocalBusiness`, `FAQPage`, `Service`
+- Canonical / OG: dominio de producción `mudanzasmendoza.com.ar`
+- Detalle: `static/SEO.md`
 
 ---
 
 ## Seguridad
 
-En la limpieza de legacy se eliminó `include/sendemail.php`, que contenía **credenciales SMTP en texto plano**. Ese endpoint ya no existe.
-
-La conversión de leads se hace por WhatsApp (formulario multi-paso → mensaje estructurado). No hay backend de correo en este repo.
-
-Si esas credenciales estuvieron expuestas en el historial de git, conviene rotarlas en el proveedor SMTP.
+Se eliminó `include/sendemail.php` (credenciales SMTP en texto plano).  
+Conversión de leads: WhatsApp. Rotar SMTP si esas credenciales siguen activas en el proveedor.
 
 ---
 
-## Estado de limpieza (theme-mudanzas)
+## Estado de limpieza
 
-### Eliminado
-- HTML de entrada legacy (`index.html`, `index-qa.html` en root)
-- `css/`, `js/`, `theme.min.css`
-- `include/` (phpmailer, twitter, sendemail)
-- Assets de test, preloaders, PNG sin optimizar con versión WebP
+### Hecho
+- `.gitignore` limpio, HTML/CSS/JS/include legacy fuera
+- `logo-light.svg` en `static/public/img/`
+- `_redirects` para Cloudflare Pages
+- Tooling: `typecheck` + TS strict
 
-### Pendiente
-1. Migrar assets críticos de root `img/` → `static/public/img/`
-2. Vaciar residuales (`img/portfolio/`, etc.)
-3. Refactor de `App.tsx` (extraer páginas/componentes)
-4. ESLint + Prettier formales
-5. CI (typecheck + build en PR)
+### Pendiente / atención
+1. **Urgente:** restaurar `static/src/App.tsx` si quedó truncado (ver abajo)
+2. Migrar residuales root `img/` → `static/public/img/`
+3. Vaciar `img/portfolio/`
+4. Refactor `App.tsx` → `pages/`
+5. ESLint + Prettier + CI
+
+### Restaurar App.tsx (si hace falta)
+
+```bash
+git fetch origin
+git checkout 0d8f3df8fa73bf771ce6f937387d912d95522a90 -- static/src/App.tsx
+# opcional: hero con asset en public
+sed -i 's|https://mudanzasmendoza.com.ar/img/camiones-mudanzas-miranda.jpg|/img/camiones-mudanzas-miranda.webp|' static/src/App.tsx
+git add static/src/App.tsx && git commit -m "fix: restore App.tsx" && git push
+```
 
 ---
 
@@ -114,16 +127,14 @@ Si esas credenciales estuvieron expuestas en el historial de git, conviene rotar
 
 | Rama | Rol |
 |------|-----|
-| `main` | Producción / base integrada |
-| `theme-mudanzas` | Base de trabajo post-auditoría (origen de la limpieza) |
-| `staging` | Entorno de prueba (cuando esté alineado) |
-
-Nuevas features: branch desde `main` (o `theme-mudanzas` mientras se consolida), PR hacia `main`.
+| `main` | Base integrada |
+| `theme-mudanzas` | Trabajo post-auditoría |
+| `staging` | QA alineado |
 
 ---
 
-## Contacto / negocio
+## Marca / conversión
 
-- Dominio: mudanzasmendoza.com.ar
-- Marca operativa: Mudanzas Miranda
-- Conversión principal: WhatsApp (estimador en la SPA)
+- Dominios prod: mudanzasmendoza.com.ar, mudanzasmiranda.com.ar, mudanzaspro.com.ar
+- Marca: Mudanzas Miranda
+- Lead: estimador → WhatsApp
