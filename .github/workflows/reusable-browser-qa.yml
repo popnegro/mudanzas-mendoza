@@ -1,0 +1,83 @@
+name: Reusable Browser QA
+
+on:
+  workflow_call:
+    inputs:
+      preview_url:
+        description: Public preview URL to smoke-test
+        required: true
+        type: string
+      node_version:
+        description: Node.js version required by agent-browser
+        required: false
+        default: '24'
+        type: string
+      desktop_width:
+        required: false
+        default: 1440
+        type: number
+      desktop_height:
+        required: false
+        default: 900
+        type: number
+      mobile_width:
+        required: false
+        default: 390
+        type: number
+      mobile_height:
+        required: false
+        default: 844
+        type: number
+
+jobs:
+  browser:
+    name: Browser smoke QA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      - name: Install Chrome and agent-browser
+        run: |
+          npx --yes agent-browser@0.37.1 install --with-deps
+
+      - name: Desktop smoke test
+        env:
+          QA_URL: ${{ inputs.preview_url }}
+          QA_WIDTH: ${{ inputs.desktop_width }}
+          QA_HEIGHT: ${{ inputs.desktop_height }}
+        run: |
+          set -euo pipefail
+          npx --yes agent-browser@0.37.1 open "$QA_URL"
+          npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
+          npx --yes agent-browser@0.37.1 wait --load networkidle
+          npx --yes agent-browser@0.37.1 eval 'JSON.stringify({title:document.title, width:window.innerWidth, height:window.innerHeight, bodyScrollWidth:document.body.scrollWidth, viewportWidth:window.innerWidth})'
+          npx --yes agent-browser@0.37.1 errors
+          npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/desktop.png"
+
+      - name: Mobile navigation smoke test
+        env:
+          QA_URL: ${{ inputs.preview_url }}
+          QA_WIDTH: ${{ inputs.mobile_width }}
+          QA_HEIGHT: ${{ inputs.mobile_height }}
+        run: |
+          set -euo pipefail
+          npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
+          npx --yes agent-browser@0.37.1 reload
+          npx --yes agent-browser@0.37.1 wait --load networkidle
+          npx --yes agent-browser@0.37.1 find label "Toggle Menu" click
+          npx --yes agent-browser@0.37.1 wait 300
+          npx --yes agent-browser@0.37.1 eval '(() => { const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position === "fixed" && getComputedStyle(el).overflowY === "auto"); const bodyLocked=getComputedStyle(document.body).overflow === "hidden"; const menuText=document.body.innerText.includes("Destinos y Cobertura"); return JSON.stringify({panelFound:!!panel, bodyLocked, menuText, panelScrollHeight:panel?.scrollHeight ?? 0, panelClientHeight:panel?.clientHeight ?? 0, viewportHeight:window.innerHeight}); })()'
+          npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/mobile-menu.png"
+          npx --yes agent-browser@0.37.1 press Escape
+          npx --yes agent-browser@0.37.1 errors
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa-evidence
+          path: ${{ runner.temp }}/*.png
+          if-no-files-found: ignore
