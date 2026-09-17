@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ArrowRight, BookOpen, MapPin, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { ServiceCard, ServiceGrid, ServiceCTA } from './services';
 import type { ServiceItem } from './services.types';
 
@@ -17,8 +17,7 @@ export interface MendozaHomeProps {
 /**
  * Informational home composition for Mudanzas Mendoza.
  *
- * This is intentionally not a commercial quote page: the primary journey is
- * discovery -> service understanding -> destinations/guides -> planning.
+ * Discovery -> service understanding -> destinations/guides -> planning.
  */
 export function MendozaHome({
   services,
@@ -30,6 +29,15 @@ export function MendozaHome({
   guidesHref = '/blog',
   children,
 }: MendozaHomeProps) {
+  const serviceCards: ServiceItem[] = services.map((service) => ({
+    id: service.id,
+    title: service.title,
+    description: service.description,
+    href: service.href ?? `/servicios/${service.id}.html`,
+    eyebrow: service.eyebrow ?? 'Servicio',
+    icon: service.icon,
+  }));
+
   return (
     <div className="bg-white text-[#302D28]">
       <section className="relative overflow-hidden border-b border-slate-200 bg-[#FAF9F5] py-16 lg:py-24">
@@ -46,16 +54,10 @@ export function MendozaHome({
               Conocé los servicios disponibles, qué implica cada tipo de mudanza y qué tener en cuenta antes de pedir un presupuesto.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#servicios"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#06434A] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#06434A]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#07BE8A] focus-visible:ring-offset-2"
-              >
+              <a href="#servicios" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#06434A] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#06434A]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#07BE8A] focus-visible:ring-offset-2">
                 Explorar servicios <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
-              <a
-                href={planningHref}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-[#06434A] transition hover:border-[#07BE8A]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#07BE8A] focus-visible:ring-offset-2"
-              >
+              <a href={planningHref} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-[#06434A] transition hover:border-[#07BE8A]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#07BE8A] focus-visible:ring-offset-2">
                 {planningLabel}
               </a>
             </div>
@@ -77,11 +79,7 @@ export function MendozaHome({
             <h2 className="mt-2 text-3xl font-black tracking-tight text-[#06434A] sm:text-4xl">Servicios de mudanza en Mendoza</h2>
             <p className="mt-4 text-base leading-7 text-slate-600">Explorá cada servicio antes de decidir qué necesitás incluir en tu mudanza.</p>
           </div>
-          <ServiceGrid>
-            {services.map((service) => (
-              <ServiceCard key={service.id} {...service} />
-            ))}
-          </ServiceGrid>
+          <ServiceGrid services={serviceCards} />
         </div>
       </section>
 
@@ -108,8 +106,8 @@ export function MendozaHome({
           <ServiceCTA
             title="¿Ya sabés qué necesitás?"
             description="Usá MudanzaPro para planificar tu mudanza y preparar mejor tu solicitud de presupuesto."
-            href={planningHref}
-            label="Planificar mi mudanza"
+            primaryHref={planningHref}
+            primaryLabel={planningLabel}
           />
         </div>
       </section>
