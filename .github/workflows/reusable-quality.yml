@@ -1,0 +1,53 @@
+name: Reusable Theme Quality
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: 'Directory containing package.json'
+        required: false
+        default: 'static'
+        type: string
+      node_version:
+        description: 'Node.js major/minor version'
+        required: false
+        default: '22'
+        type: string
+      typecheck_command:
+        description: 'Typecheck command executed in working_directory'
+        required: false
+        default: 'npm run typecheck'
+        type: string
+      build_command:
+        description: 'Build command executed in working_directory'
+        required: false
+        default: 'npm run build'
+        type: string
+
+jobs:
+  quality:
+    name: Typecheck and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consuming repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: npm
+          cache-dependency-path: ${{ inputs.working_directory }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working_directory }}
+        run: npm ci
+
+      - name: Typecheck
+        if: ${{ inputs.typecheck_command != '' }}
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.typecheck_command }}
+
+      - name: Build
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.build_command }}
