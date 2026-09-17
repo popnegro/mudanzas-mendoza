@@ -1,0 +1,26 @@
+name: Browser QA
+
+on:
+  pull_request:
+    branches:
+      - theme-mudanzas
+  push:
+    branches:
+      - theme-mudanzas
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Vercel Preview URL to audit
+        required: true
+        default: 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app'
+        type: string
+
+concurrency:
+  group: browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    uses: ./.github/workflows/reusable-browser-qa.yml
+    with:
+      preview_url: ${{ inputs.url || 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app' }}
