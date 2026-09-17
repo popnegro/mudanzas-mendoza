@@ -46,10 +46,38 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Generate reusable Lighthouse config
+        env:
+          LH_RUNS: ${{ inputs.runs }}
+          LH_PERFORMANCE: ${{ inputs.performance_min }}
+          LH_ACCESSIBILITY: ${{ inputs.accessibility_min }}
+          LH_BEST_PRACTICES: ${{ inputs.best_practices_min }}
+          LH_SEO: ${{ inputs.seo_min }}
+        run: |
+          cat > "$RUNNER_TEMP/lighthouserc.cjs" <<'EOF'
+          module.exports = {
+            ci: {
+              collect: {
+                numberOfRuns: Number(process.env.LH_RUNS),
+                settings: { preset: 'desktop' }
+              },
+              assert: {
+                assertions: {
+                  'categories:performance': ['warn', { minScore: Number(process.env.LH_PERFORMANCE) }],
+                  'categories:accessibility': ['warn', { minScore: Number(process.env.LH_ACCESSIBILITY) }],
+                  'categories:best-practices': ['warn', { minScore: Number(process.env.LH_BEST_PRACTICES) }],
+                  'categories:seo': ['warn', { minScore: Number(process.env.LH_SEO) }]
+                }
+              },
+              upload: { target: 'temporary-public-storage' }
+            }
+          };
+          EOF
+
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: ${{ inputs.preview_url }}
-          configPath: ./lighthouserc.cjs
+          configPath: ${{ runner.temp }}/lighthouserc.cjs
           uploadArtifacts: true
           temporaryPublicStorage: true
