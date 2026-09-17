@@ -1,36 +1,29 @@
 import * as React from "react";
-import { StrictMode, createElement, createRoot } from "react";
+import { StrictMode, createRoot } from "react-dom/client";
 
-import App from "./App.tsx";
 import MendozaHomeShell from "./theme/MendozaHomeShell.tsx";
 import "./index.css";
+
+const App = React.lazy(() => import("./App.tsx"));
 
 function RootRouter() {
   const [path, setPath] = React.useState(() => window.location.pathname);
 
   React.useEffect(() => {
     const onPopState = () => setPath(window.location.pathname);
-    const originalPushState = window.history.pushState.bind(window.history);
-    const originalReplaceState = window.history.replaceState.bind(window.history);
-
-    window.history.pushState = (...args) => {
-      originalPushState(...args);
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    };
-    window.history.replaceState = (...args) => {
-      originalReplaceState(...args);
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    };
-
     window.addEventListener("popstate", onPopState);
-    return () => {
-      window.history.pushState = originalPushState;
-      window.history.replaceState = originalReplaceState;
-      window.removeEventListener("popstate", onPopState);
-    };
+    return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  return path === "/" ? createElement(MendozaHomeShell) : createElement(App);
+  if (path === "/") {
+    return <MendozaHomeShell />;
+  }
+
+  return (
+    <React.Suspense fallback={null}>
+      <App />
+    </React.Suspense>
+  );
 }
 
 createRoot(document.getElementById("root")!).render(
