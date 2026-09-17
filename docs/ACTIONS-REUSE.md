@@ -2,21 +2,26 @@
 
 `theme-mudanzas` es la fuente de workflows reutilizables para los repositorios que adopten el theme.
 
+## Quality: typecheck + build
+
+Los consumidores pueden reutilizar el quality gate base sin copiar su implementación:
+
+```yaml
+jobs:
+  quality:
+    uses: popnegro/mudanzas-mendoza/.github/workflows/reusable-quality.yml@theme-mudanzas
+    with:
+      working_directory: static
+      node_version: '22'
+```
+
+El workflow instala con `npm ci`, ejecuta TypeScript y luego el build. Los comandos son configurables para repos con estructura distinta.
+
 ## Lighthouse CI
 
 Desde un repositorio consumidor se puede invocar el workflow sin copiar la implementación:
 
 ```yaml
-name: Lighthouse Preview
-
-on:
-  workflow_dispatch:
-    inputs:
-      preview_url:
-        description: 'URL pública del Preview'
-        required: true
-        type: string
-
 jobs:
   lighthouse:
     uses: popnegro/mudanzas-mendoza/.github/workflows/reusable-lighthouse.yml@theme-mudanzas
@@ -24,13 +29,17 @@ jobs:
       preview_url: ${{ inputs.preview_url }}
 ```
 
-### Contrato
+### Contrato Lighthouse
 
 - `preview_url`: obligatorio; debe ser una URL pública y estable durante el job.
 - Node.js: 22.
 - Lighthouse: `treosh/lighthouse-ci-action@v12`.
 - 3 ejecuciones por defecto.
 - Thresholds iniciales en modo `warn`, para no bloquear el primer baseline.
+- Performance: 0.70.
+- Accessibility: 0.90.
+- Best Practices: 0.90.
+- SEO: 0.90.
 
 ## Regla de adopción
 
