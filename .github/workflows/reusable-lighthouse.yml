@@ -1,0 +1,55 @@
+name: Reusable Lighthouse CI
+
+on:
+  workflow_call:
+    inputs:
+      preview_url:
+        description: 'Public preview URL to audit'
+        required: true
+        type: string
+      runs:
+        description: 'Number of Lighthouse runs'
+        required: false
+        default: 3
+        type: number
+      performance_min:
+        description: 'Initial non-blocking performance threshold'
+        required: false
+        default: 0.70
+        type: number
+      accessibility_min:
+        description: 'Initial non-blocking accessibility threshold'
+        required: false
+        default: 0.90
+        type: number
+      best_practices_min:
+        description: 'Initial non-blocking best-practices threshold'
+        required: false
+        default: 0.90
+        type: number
+      seo_min:
+        description: 'Initial non-blocking SEO threshold'
+        required: false
+        default: 0.90
+        type: number
+
+jobs:
+  lighthouse:
+    name: Lighthouse baseline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consuming repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ inputs.preview_url }}
+          configPath: ./lighthouserc.cjs
+          uploadArtifacts: true
+          temporaryPublicStorage: true
