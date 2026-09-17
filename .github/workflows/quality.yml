@@ -9,6 +9,10 @@ on:
       - theme-mudanzas
   workflow_dispatch:
 
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     uses: ./.github/workflows/reusable-quality.yml
