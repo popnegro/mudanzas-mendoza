@@ -14,22 +14,11 @@ on:
 
 jobs:
   lighthouse:
-    name: Lighthouse baseline
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Run Lighthouse CI against Vercel Preview
-        uses: treosh/lighthouse-ci-action@v12
-        with:
-          urls: |
-            ${{ inputs.url || 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app' }}
-          configPath: ./lighthouserc.cjs
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+    uses: ./.github/workflows/reusable-lighthouse.yml
+    with:
+      preview_url: ${{ inputs.url || 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app' }}
+      runs: 3
+      performance_min: 0.70
+      accessibility_min: 0.90
+      best_practices_min: 0.90
+      seo_min: 0.90
