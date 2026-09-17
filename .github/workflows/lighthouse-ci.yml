@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - theme-mudanzas
+  pull_request:
+    branches:
+      - theme-mudanzas
   workflow_dispatch:
     inputs:
       url:
