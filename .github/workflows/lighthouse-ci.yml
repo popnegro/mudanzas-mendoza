@@ -15,6 +15,10 @@ on:
         default: 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app'
         type: string
 
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lighthouse:
     uses: ./.github/workflows/reusable-lighthouse.yml
