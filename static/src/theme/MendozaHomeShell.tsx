@@ -31,7 +31,7 @@ export default function MendozaHomeShell() {
           heroImageAlt="Camiones preparados para servicios de mudanza en Mendoza"
         />
       </main>
-      <Footer />
+      <Footer destinations={destinations} onNavigate={onNavigate} />
     </div>
   );
 }
