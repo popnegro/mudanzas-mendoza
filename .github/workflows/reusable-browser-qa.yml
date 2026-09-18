@@ -28,6 +28,9 @@ on:
         required: false
         default: 844
         type: number
+    secrets:
+      VERCEL_AUTOMATION_BYPASS_SECRET:
+        required: true
 
 jobs:
   browser:
@@ -47,9 +50,11 @@ jobs:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.desktop_width }}
           QA_HEIGHT: ${{ inputs.desktop_height }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           set -euo pipefail
-          npx --yes agent-browser@0.37.1 open "$QA_URL"
+          BYPASS_URL="${QA_URL}?x-vercel-set-bypass-cookie=true&x-vercel-protection-bypass=${VERCEL_AUTOMATION_BYPASS_SECRET}"
+          npx --yes agent-browser@0.37.1 open "$BYPASS_URL"
           npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
           npx --yes agent-browser@0.37.1 wait --load networkidle
           npx --yes agent-browser@0.37.1 eval '(() => { if (!document.title) throw new Error("Missing document title"); if (document.body.scrollWidth > window.innerWidth + 1) throw new Error(`Horizontal overflow: ${document.body.scrollWidth} > ${window.innerWidth}`); return JSON.stringify({title:document.title,width:window.innerWidth,height:window.innerHeight}); })()'
@@ -61,6 +66,7 @@ jobs:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.mobile_width }}
           QA_HEIGHT: ${{ inputs.mobile_height }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           set -euo pipefail
           npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
