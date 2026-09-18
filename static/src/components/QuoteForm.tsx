@@ -379,7 +379,7 @@ export default function QuoteForm({
               />
             </div>{" "}
             {/* No change needed */}
-            {stepsConfig.map((s, index) => (
+            {stepsConfig.map((s) => (
               // No change needed
               <div key={s.number} className="quote-step-indicator-wrapper">
                 <div
