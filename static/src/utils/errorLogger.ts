@@ -29,7 +29,7 @@ export const logError = async (
         : error.reason?.message || error.message || "Unknown error",
     stack:
       error instanceof Error ? error.stack : error.reason?.stack || undefined,
-    componentStack: info && "componentStack" in info ? info.componentStack : undefined,
+    componentStack: info && "componentStack" in info ? info.componentStack ?? undefined : undefined,
     url: window.location.href,
     userAgent: navigator.userAgent,
     timestamp: new Date().toISOString(),
