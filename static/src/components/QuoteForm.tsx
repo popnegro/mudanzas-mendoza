@@ -233,7 +233,7 @@ export default function QuoteForm({
     setIsLocating(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        () => {
           // Utilizar reverse geocoding o simularlo en el área metropolitana de Mendoza
           setTimeout(() => {
             setFormData((prev) => ({
@@ -314,7 +314,7 @@ export default function QuoteForm({
     }
 
     const hasBlockingErrors = Object.entries(newErrors).some(
-      ([key, val]) => val && !val.startsWith("¡")
+      ([, val]) => val && !val.startsWith("¡")
     );
     setErrors(newErrors);
     return !hasBlockingErrors;
@@ -379,7 +379,7 @@ export default function QuoteForm({
               />
             </div>{" "}
             {/* No change needed */}
-            {stepsConfig.map((s, index) => (
+            {stepsConfig.map((s) => (
               // No change needed
               <div key={s.number} className="quote-step-indicator-wrapper">
                 <div

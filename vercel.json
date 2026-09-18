@@ -11,7 +11,7 @@
     },
     {
       "source": "/mudanzas-argentina/mudanzas-mendoza.html",
-      "destination": "/",
+      "destination": "/index.html",
       "statusCode": 301
     },
     {
@@ -58,7 +58,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ]
 }

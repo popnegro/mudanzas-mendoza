@@ -1,0 +1,64 @@
+name: Quality Gate
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  push:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+
+concurrency:
+  group: quality-gate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build + Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: static/package-lock.json
+
+      - name: Install dependencies
+        working-directory: static
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck
+        working-directory: static
+        run: npm run typecheck
+
+      - name: Build
+        working-directory: static
+        run: npm run build
+
+      - name: Verify build output
+        working-directory: static
+        run: |
+          test -f dist/index.html
+          test -s dist/index.html
+          echo "Build output verified: static/dist/index.html"
+
+  browser:
+    name: Browser Technical QA
+    needs: build
+    uses: ./.github/workflows/reusable-browser-qa.yml
+    secrets: inherit
+    with:
+      preview_url: ${{ github.event_name == 'pull_request' && 'https://mudanzas-mendoza-git-fix-browser-console-qa-popnegros-projects.vercel.app' || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app' }}

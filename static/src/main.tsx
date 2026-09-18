@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StrictMode, createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 import MendozaHomeShell from "./theme/MendozaHomeShell.tsx";
 import "./index.css";
@@ -27,7 +27,7 @@ function RootRouter() {
 }
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <React.StrictMode>
     <RootRouter />
-  </StrictMode>,
+  </React.StrictMode>,
 );
