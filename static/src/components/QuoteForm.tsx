@@ -314,7 +314,7 @@ export default function QuoteForm({
     }
 
     const hasBlockingErrors = Object.entries(newErrors).some(
-      ([key, val]) => val && !val.startsWith("¡")
+      ([, val]) => val && !val.startsWith("¡")
     );
     setErrors(newErrors);
     return !hasBlockingErrors;
