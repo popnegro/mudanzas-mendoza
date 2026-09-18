@@ -1,0 +1,71 @@
+name: Quality Gate
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Public URL to audit
+        required: false
+        default: 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app'
+        type: string
+
+concurrency:
+  group: quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build + Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: static/package.json
+
+      - name: Install dependencies
+        working-directory: static
+        run: npm install --no-audit --no-fund
+
+      - name: Typecheck
+        working-directory: static
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -s dist/index.html
+          echo "Build output verified: dist/index.html"
+
+  browser:
+    name: Browser Technical QA
+    needs: build
+    uses: ./.github/workflows/reusable-browser-qa.yml
+    secrets: inherit
+    with:
+      preview_url: ${{ inputs.url || (github.event_name == 'pull_request' && 'https://mudanzas-mendoza-pq6m2lmdy-popnegros-projects.vercel.app') || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app' }}
+
+  human-gate:
+    name: HUMAN GATE — UI/UX only
+    needs: browser
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop before visual approval
+        run: |
+          echo "AUTOMATED QA PASSED."
+          echo "HUMAN GATE remains intentionally manual and is limited to UI/UX/design validation."
