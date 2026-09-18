@@ -22,5 +22,6 @@ concurrency:
 jobs:
   browser:
     uses: ./.github/workflows/reusable-browser-qa.yml
+    secrets: inherit
     with:
       preview_url: ${{ inputs.url || (github.event_name == 'pull_request' && 'https://mudanzas-mendoza-pq6m2lmdy-popnegros-projects.vercel.app') || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app' }}
