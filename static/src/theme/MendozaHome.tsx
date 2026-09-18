@@ -106,12 +106,14 @@ export function MendozaHome({
               href={destinationsHref}
               eyebrow="Destinos"
               variant="featured"
+              id="destinos"
             />
             <ServiceCard
               title="Aprendé a organizar tu mudanza"
               description="Guías prácticas para embalar, organizar tiempos y llegar mejor preparado."
               href={guidesHref}
               eyebrow="Guías"
+              id="guias"
             />
           </div>
         </div>
