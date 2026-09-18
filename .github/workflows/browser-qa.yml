@@ -11,8 +11,8 @@ on:
     inputs:
       url:
         description: Public URL to audit
-        required: true
-        default: 'https://mudanzasmendoza.com.ar'
+        required: false
+        default: 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app'
         type: string
 
 concurrency:
@@ -23,4 +23,4 @@ jobs:
   browser:
     uses: ./.github/workflows/reusable-browser-qa.yml
     with:
-      preview_url: ${{ inputs.url || 'https://mudanzasmendoza.com.ar' }}
+      preview_url: ${{ inputs.url || (github.event_name == 'pull_request' && format('https://mudanzas-mendoza-git-{0}-popnegros-projects.vercel.app', github.head_ref) || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app') }}
