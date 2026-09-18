@@ -8,7 +8,6 @@ on:
         required: true
         type: string
       node_version:
-        description: Node.js version required by agent-browser
         required: false
         default: '24'
         type: string
@@ -34,7 +33,7 @@ on:
 
 jobs:
   browser:
-    name: Browser smoke QA
+    name: Browser technical QA
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js
@@ -45,7 +44,7 @@ jobs:
       - name: Install Chrome and agent-browser
         run: npx --yes agent-browser@0.37.1 install --with-deps
 
-      - name: Desktop smoke test
+      - name: Desktop runtime gate
         env:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.desktop_width }}
@@ -57,11 +56,45 @@ jobs:
           npx --yes agent-browser@0.37.1 open "$BYPASS_URL"
           npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
           npx --yes agent-browser@0.37.1 wait --load networkidle
-          npx --yes agent-browser@0.37.1 eval '(() => { if (!document.title) throw new Error("Missing document title"); if (document.body.scrollWidth > window.innerWidth + 1) throw new Error(`Horizontal overflow: ${document.body.scrollWidth} > ${window.innerWidth}`); return JSON.stringify({title:document.title,width:window.innerWidth,height:window.innerHeight}); })()'
+          npx --yes agent-browser@0.37.1 eval '(() => {
+            const bodyText = document.body.innerText.trim();
+            const root = document.querySelector("#root");
+            const overlay = document.querySelector("[data-nextjs-dialog], .vite-error-overlay, #webpack-dev-server-client-overlay");
+            const images = [...document.images].filter(img => !img.complete || img.naturalWidth === 0);
+            if (!document.title) throw new Error("Missing document title");
+            if (!root || root.children.length === 0) throw new Error("React root is empty");
+            if (bodyText.length < 80) throw new Error("Page appears blank or has insufficient rendered content");
+            if (overlay) throw new Error("Framework error overlay detected");
+            if (images.length) throw new Error("Broken/unloaded images: " + images.map(i => i.src).join(", "));
+            if (document.body.scrollWidth > window.innerWidth + 1) throw new Error(`Horizontal overflow: ${document.body.scrollWidth} > ${window.innerWidth}`);
+            return JSON.stringify({title:document.title,contentChars:bodyText.length,images:document.images.length,width:window.innerWidth,height:window.innerHeight});
+          })()'
           npx --yes agent-browser@0.37.1 errors
           npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/desktop.png"
 
-      - name: Mobile navigation smoke test
+      - name: Critical route gate
+        env:
+          QA_URL: ${{ inputs.preview_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          set -euo pipefail
+          for ROUTE in "/" "/destinos" "/blog"; do
+            BYPASS_URL="${QA_URL%/}${ROUTE}?x-vercel-set-bypass-cookie=true&x-vercel-protection-bypass=${VERCEL_AUTOMATION_BYPASS_SECRET}"
+            npx --yes agent-browser@0.37.1 open "$BYPASS_URL"
+            npx --yes agent-browser@0.37.1 wait --load networkidle
+            npx --yes agent-browser@0.37.1 eval '(() => {
+              const text=document.body.innerText.trim();
+              const root=document.querySelector("#root");
+              const overlay=document.querySelector("[data-nextjs-dialog], .vite-error-overlay, #webpack-dev-server-client-overlay");
+              if (!root || root.children.length===0) throw new Error("Empty React root on " + location.pathname);
+              if (text.length < 80) throw new Error("Insufficient content on " + location.pathname);
+              if (overlay) throw new Error("Framework error overlay on " + location.pathname);
+              return JSON.stringify({path:location.pathname,title:document.title,contentChars:text.length});
+            })()'
+            npx --yes agent-browser@0.37.1 errors
+          done
+
+      - name: Mobile interaction gate
         env:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.mobile_width }}
@@ -74,9 +107,25 @@ jobs:
           npx --yes agent-browser@0.37.1 open "$BYPASS_URL"
           npx --yes agent-browser@0.37.1 set viewport "$QA_WIDTH" "$QA_HEIGHT"
           npx --yes agent-browser@0.37.1 wait --load networkidle
-          npx --yes agent-browser@0.37.1 eval '(() => { const width=window.innerWidth; const mobile=window.matchMedia("(max-width: 1023px)").matches; if (!mobile) throw new Error(`Mobile viewport not active: ${width}px`); const button=document.querySelector("[aria-label=\"Toggle Menu\"]"); if (!button) throw new Error("Mobile menu toggle not found"); button.click(); return JSON.stringify({width,height:window.innerHeight,mobile:true}); })()'
+          npx --yes agent-browser@0.37.1 eval '(() => {
+            const width=window.innerWidth;
+            if (!window.matchMedia("(max-width: 1023px)").matches) throw new Error(`Mobile viewport not active: ${width}px`);
+            const button=document.querySelector("[aria-label=\"Toggle Menu\"]");
+            if (!button) throw new Error("Mobile menu toggle not found");
+            button.click();
+            return JSON.stringify({width,height:window.innerHeight});
+          })()'
           npx --yes agent-browser@0.37.1 wait 300
-          npx --yes agent-browser@0.37.1 eval '(() => { const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position === "fixed" && getComputedStyle(el).overflowY === "auto"); const bodyLocked=getComputedStyle(document.body).overflow === "hidden"; const menuText=document.body.innerText.includes("Nuestros Destinos"); if (!panel) throw new Error("Mobile menu panel not found"); if (!bodyLocked) throw new Error("Body scroll is not locked while mobile menu is open"); if (!menuText) throw new Error("Nuestros Destinos link is missing from mobile menu"); if (panel.clientHeight >= panel.scrollHeight && panel.scrollHeight > window.innerHeight) throw new Error("Mobile menu overflow model is invalid"); return JSON.stringify({panelFound:true,bodyLocked,menuText,panelScrollHeight:panel.scrollHeight,panelClientHeight:panel.clientHeight,viewportHeight:window.innerHeight}); })()'
+          npx --yes agent-browser@0.37.1 eval '(() => {
+            const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position==="fixed" && getComputedStyle(el).overflowY==="auto");
+            const bodyLocked=getComputedStyle(document.body).overflow==="hidden";
+            const menuText=document.body.innerText.includes("Nuestros Destinos");
+            if (!panel) throw new Error("Mobile menu panel not found");
+            if (!bodyLocked) throw new Error("Body scroll is not locked while mobile menu is open");
+            if (!menuText) throw new Error("Nuestros Destinos link is missing from mobile menu");
+            if (panel.clientHeight >= panel.scrollHeight && panel.scrollHeight > window.innerHeight) throw new Error("Mobile menu overflow model is invalid");
+            return JSON.stringify({panelFound:true,bodyLocked,menuText,panelScrollHeight:panel.scrollHeight,panelClientHeight:panel.clientHeight});
+          })()'
           npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/mobile-menu.png"
           npx --yes agent-browser@0.37.1 press Escape
           npx --yes agent-browser@0.37.1 errors
