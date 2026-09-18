@@ -120,12 +120,11 @@ jobs:
           npx --yes agent-browser@0.37.1 eval '(() => {
             const width=window.innerWidth;
             if (!window.matchMedia("(max-width: 1023px)").matches) throw new Error(`Mobile viewport not active: ${width}px`);
-            const button=document.querySelector("[aria-label=\"Toggle Menu\"]");
-            if (!button) throw new Error("Mobile menu toggle not found");
-            button.click();
+            if (!document.querySelector("[aria-label=\"Toggle Menu\"]")) throw new Error("Mobile menu toggle not found");
             return JSON.stringify({width,height:window.innerHeight});
           })()'
-          npx --yes agent-browser@0.37.1 wait 300
+          npx --yes agent-browser@0.37.1 find role button click --name "Toggle Menu"
+          npx --yes agent-browser@0.37.1 wait 1000
           npx --yes agent-browser@0.37.1 eval '(() => {
             const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position==="fixed" && getComputedStyle(el).overflowY==="auto");
             const bodyLocked=getComputedStyle(document.body).overflow==="hidden";
