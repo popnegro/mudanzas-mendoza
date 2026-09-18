@@ -27,7 +27,7 @@ function RootRouter() {
 }
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <React.StrictMode>
     <RootRouter />
-  </StrictMode>,
+  </React.StrictMode>,
 );
