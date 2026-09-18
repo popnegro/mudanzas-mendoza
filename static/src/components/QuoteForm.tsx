@@ -233,7 +233,7 @@ export default function QuoteForm({
     setIsLocating(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        () => {
           // Utilizar reverse geocoding o simularlo en el área metropolitana de Mendoza
           setTimeout(() => {
             setFormData((prev) => ({
