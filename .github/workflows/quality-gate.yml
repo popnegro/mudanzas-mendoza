@@ -4,25 +4,27 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      url:
-        description: Public URL to audit
-        required: false
-        default: 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app'
-        type: string
+  merge_group:
+    types:
+      - checks_requested
 
 concurrency:
-  group: quality-gate-${{ github.ref }}
+  group: quality-gate-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     name: Build + Typecheck
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,15 +61,4 @@ jobs:
     uses: ./.github/workflows/reusable-browser-qa.yml
     secrets: inherit
     with:
-      preview_url: ${{ inputs.url || (github.event_name == 'pull_request' && 'https://mudanzas-mendoza-git-fix-browser-console-qa-popnegros-projects.vercel.app') || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app' }}
-
-  human-gate:
-    name: HUMAN GATE — UI/UX only
-    needs: browser
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Stop before visual approval
-        run: |
-          echo "AUTOMATED QA PASSED."
-          echo "HUMAN GATE remains intentionally manual and is limited to UI/UX/design validation."
+      preview_url: ${{ github.event_name == 'pull_request' && 'https://mudanzas-mendoza-git-fix-browser-console-qa-popnegros-projects.vercel.app' || 'https://mudanzas-mendoza-git-main-popnegros-projects.vercel.app' }}
