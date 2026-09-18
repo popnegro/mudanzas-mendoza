@@ -32,24 +32,26 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: static/package.json
+          cache-dependency-path: static/package-lock.json
 
       - name: Install dependencies
         working-directory: static
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: Typecheck
         working-directory: static
         run: npm run typecheck
 
       - name: Build
+        working-directory: static
         run: npm run build
 
       - name: Verify build output
+        working-directory: static
         run: |
           test -f dist/index.html
           test -s dist/index.html
-          echo "Build output verified: dist/index.html"
+          echo "Build output verified: static/dist/index.html"
 
   browser:
     name: Browser Technical QA
