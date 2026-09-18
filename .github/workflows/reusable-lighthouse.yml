@@ -1,0 +1,83 @@
+name: Reusable Lighthouse CI
+
+on:
+  workflow_call:
+    inputs:
+      preview_url:
+        description: 'Public preview URL to audit'
+        required: true
+        type: string
+      runs:
+        description: 'Number of Lighthouse runs'
+        required: false
+        default: 3
+        type: number
+      performance_min:
+        description: 'Initial non-blocking performance threshold'
+        required: false
+        default: 0.70
+        type: number
+      accessibility_min:
+        description: 'Initial non-blocking accessibility threshold'
+        required: false
+        default: 0.90
+        type: number
+      best_practices_min:
+        description: 'Initial non-blocking best-practices threshold'
+        required: false
+        default: 0.90
+        type: number
+      seo_min:
+        description: 'Initial non-blocking SEO threshold'
+        required: false
+        default: 0.90
+        type: number
+
+jobs:
+  lighthouse:
+    name: Lighthouse baseline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consuming repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate reusable Lighthouse config
+        env:
+          LH_RUNS: ${{ inputs.runs }}
+          LH_PERFORMANCE: ${{ inputs.performance_min }}
+          LH_ACCESSIBILITY: ${{ inputs.accessibility_min }}
+          LH_BEST_PRACTICES: ${{ inputs.best_practices_min }}
+          LH_SEO: ${{ inputs.seo_min }}
+        run: |
+          cat > "$RUNNER_TEMP/lighthouserc.cjs" <<'EOF'
+          module.exports = {
+            ci: {
+              collect: {
+                numberOfRuns: Number(process.env.LH_RUNS),
+                settings: { preset: 'desktop' }
+              },
+              assert: {
+                assertions: {
+                  'categories:performance': ['warn', { minScore: Number(process.env.LH_PERFORMANCE) }],
+                  'categories:accessibility': ['warn', { minScore: Number(process.env.LH_ACCESSIBILITY) }],
+                  'categories:best-practices': ['warn', { minScore: Number(process.env.LH_BEST_PRACTICES) }],
+                  'categories:seo': ['warn', { minScore: Number(process.env.LH_SEO) }]
+                }
+              },
+              upload: { target: 'temporary-public-storage' }
+            }
+          };
+          EOF
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ inputs.preview_url }}
+          configPath: ${{ runner.temp }}/lighthouserc.cjs
+          uploadArtifacts: true
+          temporaryPublicStorage: true

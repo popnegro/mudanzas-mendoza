@@ -1,0 +1,31 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches:
+      - theme-mudanzas
+  pull_request:
+    branches:
+      - theme-mudanzas
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Vercel Preview URL to audit'
+        required: true
+        default: 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app'
+        type: string
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    uses: ./.github/workflows/reusable-lighthouse.yml
+    with:
+      preview_url: ${{ inputs.url || 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app' }}
+      runs: 3
+      performance_min: 0.70
+      accessibility_min: 0.90
+      best_practices_min: 0.90
+      seo_min: 0.90

@@ -1,0 +1,23 @@
+name: Theme Quality
+
+on:
+  push:
+    branches:
+      - theme-mudanzas
+  pull_request:
+    branches:
+      - theme-mudanzas
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    uses: ./.github/workflows/reusable-quality.yml
+    with:
+      working_directory: static
+      node_version: '22'
+      typecheck_command: 'npm run typecheck'
+      build_command: 'npm run build'
