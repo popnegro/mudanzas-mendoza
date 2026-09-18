@@ -29,11 +29,11 @@ export const logError = async (
         : error.reason?.message || error.message || "Unknown error",
     stack:
       error instanceof Error ? error.stack : error.reason?.stack || undefined,
-    componentStack: (info as React.ErrorInfo).componentStack,
+    componentStack: info && "componentStack" in info ? info.componentStack : undefined,
     url: window.location.href,
     userAgent: navigator.userAgent,
     timestamp: new Date().toISOString(),
-    type: (info as { type: "client" | "react" | "unhandledrejection" }).type || "client",
+    type: info && "type" in info ? info.type : "client",
     context: context,
   };
 
