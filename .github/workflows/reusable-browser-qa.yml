@@ -33,8 +33,15 @@ on:
 
 jobs:
   browser:
-    name: Browser technical QA
+    name: Browser technical QA (${{ matrix.mode }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+          - desktop
+          - routes
+          - mobile
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -45,6 +52,7 @@ jobs:
         run: npx --yes agent-browser@0.37.1 install --with-deps
 
       - name: Desktop runtime gate
+        if: matrix.mode == 'desktop'
         env:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.desktop_width }}
@@ -73,6 +81,7 @@ jobs:
           npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/desktop.png"
 
       - name: Critical route gate
+        if: matrix.mode == 'routes'
         env:
           QA_URL: ${{ inputs.preview_url }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
@@ -95,6 +104,7 @@ jobs:
           done
 
       - name: Mobile interaction gate
+        if: matrix.mode == 'mobile'
         env:
           QA_URL: ${{ inputs.preview_url }}
           QA_WIDTH: ${{ inputs.mobile_width }}
@@ -134,6 +144,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-qa-evidence
+          name: browser-qa-evidence-${{ matrix.mode }}
           path: ${{ runner.temp }}/*.png
           if-no-files-found: ignore
