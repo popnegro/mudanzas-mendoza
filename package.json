@@ -2,7 +2,8 @@
   "name": "mudanzas-mendoza",
   "private": true,
   "version": "1.0.0",
+  "description": "Classic static HTML site (restored from zip)",
   "scripts": {
-    "build": "cd static && npm install && npm run build && rm -rf ../dist && cp -R dist ../dist"
+    "build": "echo 'Static site — no build step'"
   }
 }
