@@ -81,7 +81,7 @@ export default function Header({
           </div>
 
           <nav className="hidden lg:flex items-center gap-1">
-            <button onClick={(e) => handleScrollToSection(e, "nosotros")} className="nav-link-desktop">Nosotros</button>
+            <button onClick={() => handleLinkClick("")} className="nav-link-desktop">Inicio</button>
             <button onClick={(e) => handleScrollToSection(e, "servicios")} className="nav-link-desktop">Servicios</button>
             <div className="relative">
               <button onMouseEnter={() => setIsMegaMenuOpen(true)} onClick={() => handleLinkClick("destinos")} className={`mega-menu-button ${activePage === "destinos" || destinations.some((d) => d.slug === activePage) ? "text-amber-500 bg-amber-500/10" : ""}`} aria-expanded={isMegaMenuOpen} aria-haspopup="true">
@@ -97,8 +97,7 @@ export default function Header({
                 </div>
               )}
             </div>
-            <button onClick={(e) => handleScrollToSection(e, "faq")} className="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/60 transition-all cursor-pointer">Preguntas</button>
-            <button onClick={() => handleLinkClick("blog")} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer ${activePage.startsWith("blog") ? "text-amber-500 bg-amber-500/10" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"}`}>Blog</button>
+            <button onClick={(e) => handleScrollToSection(e, "blog-highlights")} className="nav-link-desktop">Guías</button>
           </nav>
 
           <div className="hidden lg:flex items-center gap-3"><a href="https://wa.link/zn3zij" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"><MessageSquare className="w-4 h-4" />Pedir presupuesto</a></div>
@@ -112,10 +111,9 @@ export default function Header({
           <motion.div initial={{ opacity: 0, x: "100%" }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: "100%" }} transition={{ type: "spring", bounce: 0, duration: 0.3 }} className={`lg:hidden fixed inset-0 ${isScrolled ? "top-[65px]" : "top-[73px]"} bg-white z-40 flex flex-col p-6 overflow-y-auto border-t border-slate-200`}>
             <nav className="flex flex-col gap-3">
               <button onClick={() => handleLinkClick("")} className={`w-full text-left py-3 px-4 rounded-xl text-base font-semibold ${activePage === "" ? "text-amber-500 bg-amber-500/10" : "text-slate-600"}`}>Inicio</button>
-              <button onClick={(e) => handleScrollToSection(e, "nosotros")} className="nav-link-mobile">Nosotros</button>
               <button onClick={(e) => handleScrollToSection(e, "servicios")} className="nav-link-mobile">Servicios</button>
-              <button onClick={(e) => handleScrollToSection(e, "faq")} className="nav-link-mobile">Preguntas Frecuentes</button>
-              <button onClick={() => handleLinkClick("blog")} className={`w-full text-left py-3 px-4 rounded-xl text-base font-semibold transition-all cursor-pointer ${activePage.startsWith("blog") ? "text-amber-500 bg-amber-500/10" : "text-slate-600 hover:bg-slate-50"}`}>Blog</button>
+              <button onClick={() => handleLinkClick("destinos")} className="nav-link-mobile">Destinos</button>
+              <button onClick={(e) => handleScrollToSection(e, "blog-highlights")} className="nav-link-mobile">Guías</button>
               <div className="border-t border-slate-200 my-2 pt-2">
                 <span className="text-xs font-bold text-amber-500 uppercase tracking-widest px-4 block mb-2">Nuestros Destinos</span>
                 <div className="grid grid-cols-2 gap-x-2 gap-y-1 px-2">{destinations.filter((d) => !d.isDistrict).map((d) => <button key={d.slug} onClick={() => handleLinkClick(d.slug)} className={`mobile-destination-button ${activePage === d.slug ? "text-amber-500 bg-amber-500/10 font-semibold" : "text-slate-500 hover:text-slate-900"}`}>{d.name}</button>)}</div>
