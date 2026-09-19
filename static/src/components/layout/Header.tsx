@@ -68,15 +68,14 @@ export default function Header({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0 cursor-pointer" onClick={() => handleLinkClick("")} onKeyDown={(e) => e.key === "Enter" && handleLinkClick("")} role="button" tabIndex={0}>
-            <div className="flex items-center gap-2">
-              <img
-                src="/img/mudanzas-mendoza-brandmark.webp"
-                alt="Mudanzas en Mendoza"
-                className="h-10 w-auto object-contain"
-                width="640"
-                height="160"
-                decoding="async"
-              />
+            <div className="flex items-center gap-2.5" aria-label="Mudanzas Mendoza">
+              <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white text-xl font-black tracking-tight shadow-sm ring-1 ring-amber-600/10">
+                M
+              </span>
+              <span className="flex flex-col leading-none">
+                <span className="text-[15px] sm:text-base font-extrabold tracking-tight text-slate-900">Mudanzas</span>
+                <span className="text-[11px] sm:text-xs font-bold tracking-[0.16em] uppercase text-amber-600">Mendoza</span>
+              </span>
             </div>
           </div>
 
