@@ -228,11 +228,11 @@ export default function SEO({
     const movingCompanySchema = {
       "@context": "https://schema.org",
       "@type": "MovingCompany",
-      "@id": "${themeConfig.site.baseUrl}/#company",
+      "@id": `${themeConfig.site.baseUrl}/#company`,
       name: themeConfig.brandRelationship?.parentName || themeConfig.brand.name,
       url: themeConfig.site.baseUrl,
-      logo: "${themeConfig.site.baseUrl}/img/logo-light.svg",
-      image: "${themeConfig.site.baseUrl}/img/mudanzas-miranda-1200.jpg",
+      logo: `${themeConfig.site.baseUrl}/img/logo-light.svg`,
+      image: `${themeConfig.site.baseUrl}/img/mudanzas-miranda-1200.jpg`,
       description:
         "Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas con más de 20 años de experiencia.",
       telephone: themeConfig.contact.phoneHref.replace("tel:", ""),
