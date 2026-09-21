@@ -1,5 +1,6 @@
-import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
 import { Destination } from "../types";
+import { themeConfig } from "../theme/theme.config";
 
 interface FooterProps {
   destinations: Destination[];
@@ -27,67 +28,63 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const serviceLinks = [
-    { slug: "mudanzas-urgentes", label: "Mudanzas Urgentes" },
-    { slug: "mudanzas-24-horas", label: "Mudanzas 24 Horas" },
-    { slug: "mudanzas-residenciales", label: "Mudanzas Residenciales" },
-    { slug: "blog", label: "Blog de Mudanzas & Consejos" },
-  ];
+  const relationship = themeConfig.brandRelationship;
 
   return (
     <footer
+      id="site-footer"
       className="bg-[var(--miranda-surface)] text-[var(--miranda-text-tertiary)] border-t border-[var(--miranda-border)]"
       aria-label="Información de Mudanzas en Mendoza"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
-        <section aria-labelledby="footer-brand-title" className="space-y-6">
+        <section aria-labelledby="footer-brand-title" className="space-y-5">
           <h2 id="footer-brand-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
             Mudanzas en Mendoza
           </h2>
-          <p className="text-sm text-[var(--miranda-text-secondary)] leading-relaxed">
-            Más de 20 años de experiencia brindando tranquilidad y confianza en mudanzas residenciales, comerciales y fletes en toda Mendoza y el país.
-          </p>
-          <a
-            href="/nosotros.html"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick("nosotros");
-            }}
-            className="text-amber-500 hover:text-amber-400 text-sm font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors pt-1"
-          >
-            Conocé más sobre nosotros <span aria-hidden="true">→</span>
-          </a>
+          {relationship && (
+            <div className="rounded-2xl border border-[var(--miranda-border)] bg-[var(--miranda-background)] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--miranda-text-subtle)]">
+                {relationship.label}
+              </p>
+              <a
+                href={relationship.parentUrl}
+                className="mt-1 inline-flex text-base font-extrabold text-[var(--miranda-text)] hover:text-amber-500 transition-colors"
+                rel="noopener"
+              >
+                {relationship.parentName}
+              </a>
+              {relationship.googleRating && (
+                <p className="mt-2 text-sm font-semibold text-[var(--miranda-text-secondary)]">
+                  {relationship.googleRating.label}
+                </p>
+              )}
+              <a
+                href={relationship.parentUrl}
+                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-amber-500 hover:text-amber-400"
+                rel="noopener"
+              >
+                Conocé Mudanzas Miranda <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          )}
         </section>
 
-        <section aria-labelledby="footer-contact-title" className="space-y-4">
-          <h2 id="footer-contact-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
-            Contacto
+        <section aria-labelledby="footer-ecosystem-title" className="space-y-4">
+          <h2 id="footer-ecosystem-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
+            Ecosistema
           </h2>
-          <address className="not-italic space-y-3 text-sm">
-            <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-1" aria-hidden="true" />
-              <a
-                href="https://maps.google.com/?q=Armada+Argentina+584,+Mendoza,+Argentina"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors leading-relaxed"
-              >
-                Armada Argentina 584, Mendoza, Argentina
+          <ul className="space-y-3 text-sm">
+            <li>
+              <a href={themeConfig.ecosystem.planningUrl} className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors font-medium">
+                Planificá con MudanzaPro
               </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" />
-              <a href="tel:+5492615130910" className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors font-medium">
-                +54 9 261 513-0910
+            </li>
+            <li>
+              <a href={themeConfig.ecosystem.providerUrl} className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors font-medium">
+                Conocé Mudanzas Miranda
               </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" />
-              <a href="mailto:info@mudanzasmendoza.com.ar" className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors">
-                info@mudanzasmendoza.com.ar
-              </a>
-            </div>
-          </address>
+            </li>
+          </ul>
         </section>
 
         <nav aria-labelledby="footer-services-title" className="space-y-4">
@@ -146,22 +143,10 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             © 2026 Mudanzas en Mendoza · Powered by <a href="https://wa.me/5492616706710">SmartWeb</a>
           </p>
           <nav aria-label="Redes sociales" className="flex items-center gap-4">
-            <a
-              href="https://www.instagram.com/mudanzasmiranda/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all"
-              aria-label="Instagram de Mudanzas en Mendoza"
-            >
+            <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Instagram de Mudanzas en Mendoza">
               <Instagram className="w-5 h-5 text-amber-500" aria-hidden="true" />
             </a>
-            <a
-              href="https://www.facebook.com/mudanzasmiranda4"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all"
-              aria-label="Facebook de Mudanzas en Mendoza"
-            >
+            <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Facebook de Mudanzas en Mendoza">
               <Facebook className="w-5 h-5 text-amber-500" aria-hidden="true" />
             </a>
           </nav>
@@ -169,4 +154,13 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
       </div>
     </footer>
   );
+}
+
+function serviceLinks() {
+  return [
+    { slug: "mudanzas-urgentes", label: "Mudanzas Urgentes" },
+    { slug: "mudanzas-24-horas", label: "Mudanzas 24 Horas" },
+    { slug: "mudanzas-residenciales", label: "Mudanzas Residenciales" },
+    { slug: "blog", label: "Blog de Mudanzas & Consejos" },
+  ];
 }
