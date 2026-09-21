@@ -48,7 +48,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
               </p>
               <a
                 href={relationship.parentUrl}
-                className="mt-1 inline-flex text-base font-extrabold text-[var(--miranda-text)] hover:text-amber-500 transition-colors"
+                className="mt-1 inline-flex text-base font-extrabold text-[var(--miranda-text)] hover:text-brand-green-500 transition-colors"
                 rel="noopener"
               >
                 {relationship.parentName}
@@ -60,7 +60,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
               )}
               <a
                 href={relationship.parentUrl}
-                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-amber-500 hover:text-amber-400"
+                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-green-500 hover:text-brand-green-400"
                 rel="noopener"
               >
                 Conocé Mudanzas Miranda <span aria-hidden="true">→</span>
@@ -75,12 +75,12 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           </h2>
           <ul className="space-y-3 text-sm">
             <li>
-              <a href={themeConfig.ecosystem.planningUrl} className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors font-medium">
+              <a href={themeConfig.ecosystem.planningUrl} className="text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-colors font-medium">
                 Planificá con MudanzaPro
               </a>
             </li>
             <li>
-              <a href={themeConfig.ecosystem.providerUrl} className="text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-colors font-medium">
+              <a href={themeConfig.ecosystem.providerUrl} className="text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-colors font-medium">
                 Conocé Mudanzas Miranda
               </a>
             </li>
@@ -97,9 +97,9 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 <button
                   type="button"
                   onClick={() => handleLinkClick(service.slug)}
-                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium"
+                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                   {service.label}
                 </button>
               </li>
@@ -107,9 +107,9 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             <li>
               <a
                 href="/mudanzas-en-mendoza.html"
-                className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-all duration-200 hover:translate-x-1 text-sm font-medium"
+                className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 text-sm font-medium"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                 Guía: Mudanzas en Mendoza
               </a>
             </li>
@@ -126,9 +126,9 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 <button
                   type="button"
                   onClick={() => handleLinkClick(d.slug)}
-                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-amber-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium"
+                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                   <span>Mudanzas {d.name.replace(" de Mendoza", "").replace("Mendoza", "")}</span>
                 </button>
               </li>
@@ -144,10 +144,10 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           </p>
           <nav aria-label="Redes sociales" className="flex items-center gap-4">
             <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Instagram de Mudanzas en Mendoza">
-              <Instagram className="w-5 h-5 text-amber-500" aria-hidden="true" />
+              <Instagram className="w-5 h-5 text-brand-green-500" aria-hidden="true" />
             </a>
             <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Facebook de Mudanzas en Mendoza">
-              <Facebook className="w-5 h-5 text-amber-500" aria-hidden="true" />
+              <Facebook className="w-5 h-5 text-brand-green-500" aria-hidden="true" />
             </a>
           </nav>
         </div>
