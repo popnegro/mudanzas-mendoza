@@ -92,7 +92,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             Nuestros Servicios
           </h2>
           <ul className="space-y-3">
-            {serviceLinks.map((service) => (
+            {serviceLinks().map((service) => (
               <li key={service.slug}>
                 <button
                   type="button"
