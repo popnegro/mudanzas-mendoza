@@ -46,10 +46,10 @@ export function MendozaHome({
               Conocé los servicios disponibles, los destinos y qué tener en cuenta antes de pedir un presupuesto.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#servicios" className="hero-cta-button">
-                Explorar servicios <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              <a id="cta-hero-quote" href="https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda%2C%20quiero%20pedir%20un%20presupuesto%20de%20mudanza." target="_blank" rel="noopener noreferrer" className="hero-cta-button">
+                Pedir presupuesto <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </a>
-              <a href={planningHref} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-base font-semibold text-slate-700 transition hover:bg-slate-100">
+              <a id="cta-hero-planning" href={planningHref} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-base font-semibold text-slate-700 transition hover:bg-slate-100">
                 {planningLabel}
               </a>
             </div>
