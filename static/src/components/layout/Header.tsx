@@ -2,7 +2,7 @@ import { Menu, X, Phone, MessageSquare } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { themeConfig } from "@/theme/theme.config";
+import { themeConfig } from "../../theme/theme.config";
 
 interface HeaderProps {
   activePage: string;
