@@ -224,7 +224,7 @@ export default function App() {
         />
 
         {/* 2. Premium Navigation Header */}
-        <Header destinations={destinations} activePage={activePage} onNavigate={handleNavigation} />
+        <Header activePage={activePage} onNavigate={handleNavigation} />
 
         {/* Main Content Area with Route Switching */}
         <main className="flex-grow">
