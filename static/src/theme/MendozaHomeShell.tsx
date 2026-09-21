@@ -2,8 +2,8 @@ import SEO from '../components/SEO';
 import Header from '../components/layout/Header';
 import Footer from '../components/Footer';
 import { services } from '../data/staticData';
-import { destinations } from '../data/destinations';
 import { MendozaHome } from './MendozaHome';
+import { themeConfig } from './theme.config';
 
 export default function MendozaHomeShell() {
   const onNavigate = (slug: string) => {
@@ -23,7 +23,7 @@ export default function MendozaHomeShell() {
         description="Información sobre servicios de mudanza en Mendoza, destinos, tipos de servicio y guías para planificar tu traslado."
         canonicalUrl="https://mudanzasmendoza.com.ar/"
       />
-      <Header destinations={destinations} activePage="" onNavigate={onNavigate} />
+      <Header activePage="" onNavigate={onNavigate} />
       <main className="flex-grow">
         <MendozaHome
           services={services}
@@ -31,7 +31,7 @@ export default function MendozaHomeShell() {
           heroImageAlt="Camiones preparados para servicios de mudanza en Mendoza"
         />
       </main>
-      <Footer destinations={destinations} onNavigate={onNavigate} />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }
