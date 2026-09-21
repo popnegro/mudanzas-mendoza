@@ -1,7 +1,6 @@
-import { Menu, X, Phone, MessageSquare } from "lucide-react";
+import { Menu, X, MessageSquare, Truck } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { themeConfig } from "../../theme/theme.config";
 
 interface HeaderProps {
@@ -15,8 +14,17 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("keydown", handleEscape);
+    };
   }, []);
 
   useEffect(() => {
@@ -30,6 +38,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
     (slug: string) => {
       onNavigate(slug);
       setIsMobileMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [onNavigate],
   );
@@ -42,41 +51,47 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
       if (activePage !== "") {
         handleLinkClick("");
         window.setTimeout(() => {
-          document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-        }, 300);
+          document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
         return;
       }
 
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
     },
     [activePage, handleLinkClick],
   );
 
   return (
     <header
-      className={isScrolled
-        ? "sticky top-0 z-50 w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200/80 py-3"
-        : "sticky top-0 z-50 w-full transition-all duration-300 bg-white py-4 border-b border-slate-200"}
+      className={`sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-all duration-300 ${
+        isScrolled ? "py-3 shadow-md" : "py-4"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => handleLinkClick("")}
-            className="flex-shrink-0 cursor-pointer"
-            aria-label="Ir al inicio"
+            className="flex shrink-0 items-center gap-3 rounded-xl text-left transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60"
+            aria-label={`Ir al inicio de ${themeConfig.brand.name}`}
           >
-            <img
-              src="/img/mudanzas-mendoza-brandmark.webp"
-              alt={themeConfig.brand.name}
-              className="h-10 w-auto object-contain"
-              width="640"
-              height="160"
-              decoding="async"
-            />
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md sm:h-11 sm:w-11">
+              <Truck className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+            </span>
+            <span className="hidden sm:block">
+              <span className="block text-base font-extrabold tracking-tight text-slate-900 sm:text-xl">
+                {themeConfig.brand.name}
+              </span>
+              <span className="block text-[10px] font-semibold uppercase tracking-widest text-slate-500 sm:text-xs">
+                {themeConfig.brand.tagline}
+              </span>
+            </span>
+            <span className="block text-base font-extrabold tracking-tight text-slate-900 sm:hidden">
+              {themeConfig.brand.name}
+            </span>
           </button>
 
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
             <button onClick={(e) => handleScrollToSection(e, "nosotros")} className="nav-link-desktop">
               Nosotros
             </button>
@@ -85,7 +100,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
             </button>
             <button
               onClick={() => handleLinkClick("destinos")}
-              className={"nav-link-desktop " + (activePage === "destinos" ? "text-brand-green-500 bg-brand-green-500/10" : "")}
+              className={`nav-link-desktop ${activePage === "destinos" ? "text-emerald-600 bg-emerald-50" : ""}`}
             >
               Destinos
             </button>
@@ -94,104 +109,75 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
             </button>
             <button
               onClick={() => handleLinkClick("blog")}
-              className={"nav-link-desktop " + (activePage.startsWith("blog") ? "text-brand-green-500 bg-brand-green-500/10" : "")}
+              className={`nav-link-desktop ${activePage.startsWith("blog") ? "text-emerald-600 bg-emerald-50" : ""}`}
             >
               Blog
             </button>
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden items-center lg:flex">
             <a
               href={themeConfig.contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="header-cta-button"
             >
-              <MessageSquare className="w-4 h-4" />
+              <MessageSquare className="h-4 w-4" />
               Pedir presupuesto
             </a>
           </div>
 
-          <div className="flex lg:hidden items-center gap-3">
-            <a
-              href={themeConfig.contact.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mobile-whatsapp-button p-3"
-              aria-label="Chat por WhatsApp"
-            >
-              <MessageSquare className="w-5 h-5" />
-            </a>
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-3 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer flex items-center justify-center"
-              aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-              aria-expanded={isMobileMenuOpen}
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 lg:hidden"
+            aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-            className={isScrolled
-              ? "lg:hidden fixed inset-0 top-[65px] bg-white z-40 flex flex-col p-6 overflow-y-auto border-t border-slate-200"
-              : "lg:hidden fixed inset-0 top-[73px] bg-white z-40 flex flex-col p-6 overflow-y-auto border-t border-slate-200"}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="absolute left-0 right-0 top-full z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-slate-200 bg-white px-4 pb-6 pt-4 shadow-xl sm:px-6 lg:hidden"
           >
-            <nav className="flex flex-col gap-3" aria-label="Navegación móvil">
-              <button
-                onClick={() => handleLinkClick("")}
-                className={"w-full text-left py-3 px-4 rounded-xl text-base font-semibold " + (activePage === "" ? "text-brand-green-500 bg-brand-green-500/10" : "text-slate-600")}
-              >
+            <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
+              <button onClick={() => handleLinkClick("")} className="nav-link-mobile text-left">
                 Inicio
               </button>
-              <button onClick={(e) => handleScrollToSection(e, "nosotros")} className="nav-link-mobile">
+              <button onClick={(e) => handleScrollToSection(e, "nosotros")} className="nav-link-mobile text-left">
                 Nosotros
               </button>
-              <button onClick={(e) => handleScrollToSection(e, "servicios")} className="nav-link-mobile">
+              <button onClick={(e) => handleScrollToSection(e, "servicios")} className="nav-link-mobile text-left">
                 Servicios
               </button>
-              <button
-                onClick={() => handleLinkClick("destinos")}
-                className={"nav-link-mobile " + (activePage === "destinos" ? "text-brand-green-500 bg-brand-green-500/10" : "")}
-              >
+              <button onClick={() => handleLinkClick("destinos")} className="nav-link-mobile text-left">
                 Destinos
               </button>
-              <button onClick={(e) => handleScrollToSection(e, "faq")} className="nav-link-mobile">
+              <button onClick={(e) => handleScrollToSection(e, "faq")} className="nav-link-mobile text-left">
                 Preguntas frecuentes
               </button>
-              <button
-                onClick={() => handleLinkClick("blog")}
-                className={"nav-link-mobile " + (activePage.startsWith("blog") ? "text-brand-green-500 bg-brand-green-500/10" : "")}
-              >
+              <button onClick={() => handleLinkClick("blog")} className="nav-link-mobile text-left">
                 Blog
               </button>
             </nav>
 
-            <div className="mt-auto space-y-3 pt-6 border-t border-slate-200">
-              <a
-                href={themeConfig.contact.phoneHref}
-                className="w-full flex items-center justify-center gap-2 text-slate-600 font-semibold border border-slate-200 py-3 rounded-xl hover:bg-slate-50"
-              >
-                <Phone className="w-5 h-5 text-brand-green-500" />
-                Llamar al {themeConfig.contact.phone}
-              </a>
+            <div className="mt-4 border-t border-slate-200 pt-4">
               <a
                 href={themeConfig.contact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba56] text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-500/10 cursor-pointer"
+                className="header-cta-button flex w-full justify-center"
               >
-                <MessageSquare className="w-5 h-5 fill-white" />
-                Chatear por WhatsApp
+                <MessageSquare className="h-4 w-4" />
+                Pedir presupuesto
               </a>
             </div>
           </motion.div>
