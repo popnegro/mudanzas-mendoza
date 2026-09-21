@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import { services } from '../data/staticData';
 import { destinations } from '../data/destinations';
 import { MendozaHome } from './MendozaHome';
-import { themeConfig } from './theme.config';
 
 export default function MendozaHomeShell() {
   const onNavigate = (slug: string) => {
