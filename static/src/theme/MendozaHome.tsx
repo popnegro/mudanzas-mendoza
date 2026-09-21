@@ -2,6 +2,7 @@ import { ArrowRight, Award, ShieldCheck, Truck } from 'lucide-react';
 import QuoteForm from '../components/QuoteForm';
 import { ServiceCard, ServiceGrid, ServiceCTA } from './services';
 import type { ServiceItem } from './services.types';
+import { themeConfig } from './theme.config';
 
 export interface MendozaHomeProps {
   services: ServiceItem[];
@@ -16,7 +17,7 @@ export interface MendozaHomeProps {
 export function MendozaHome({
   services,
   destinationsHref = '/destinos',
-  planningHref = 'https://mudanzapro.vercel.app/',
+  planningHref = themeConfig.ecosystem.planningUrl ?? 'https://mudanzapro.com.ar/',
   planningLabel = 'Planificar mi mudanza',
   heroImage,
   heroImageAlt = 'Servicio de mudanzas en Mendoza',
@@ -37,7 +38,7 @@ export function MendozaHome({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,rgba(245,158,11,0.08),transparent_38%)]" />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-600">
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-green-500/20 bg-brand-green-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-green-600">
               <Truck className="h-4 w-4 text-brand-green-600" aria-hidden="true" />
               Informate antes de mudarte
             </span>
@@ -46,7 +47,7 @@ export function MendozaHome({
               Conocé los servicios disponibles, los destinos y qué tener en cuenta antes de pedir un presupuesto.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a id="cta-hero-quote" href="https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda%2C%20quiero%20pedir%20un%20presupuesto%20de%20mudanza." target="_blank" rel="noopener noreferrer" className="hero-cta-button">
+              <a id="cta-hero-quote" href={themeConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hero-cta-button">
                 Pedir presupuesto <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </a>
               <a id="cta-hero-planning" href={planningHref} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-base font-semibold text-slate-700 transition hover:bg-slate-100">
@@ -56,7 +57,7 @@ export function MendozaHome({
           </div>
           {heroImage && (
             <div className="lg:col-span-6">
-              <div className="mx-auto max-w-lg overflow-hidden rounded-3xl border-4 border-slate-200 shadow-2xl shadow-amber-500/10">
+              <div className="mx-auto max-w-lg overflow-hidden rounded-3xl border-4 border-slate-200 shadow-2xl shadow-brand-green-500/10">
                 <img src={heroImage} alt={heroImageAlt} className="aspect-[4/3] w-full object-cover" width="1200" height="900" fetchPriority="high" />
               </div>
             </div>
@@ -89,7 +90,7 @@ export function MendozaHome({
       <section id="servicios" className="scroll-mt-24 border-b border-slate-200 bg-white py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-3xl">
-            <p className="text-xs font-bold uppercase tracking-wider text-amber-600">Qué necesitás resolver</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-brand-green-600">Qué necesitás resolver</p>
             <h2 className="section-title mt-2">Servicios de mudanza en Mendoza</h2>
             <p className="section-description mt-3">Explorá cada servicio antes de decidir qué necesitás incluir en tu mudanza.</p>
           </div>
