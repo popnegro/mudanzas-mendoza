@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { faqs } from "../data/staticData";
 import { Destination, Service, BlogArticle } from "../types";
+import { themeConfig } from "../theme/theme.config";
 
 interface SEOProps {
   title: string;
@@ -194,18 +195,18 @@ export default function SEO({
     updateMetaTag("og:url", canonicalUrl, true);
     updateMetaTag("og:type", blogArticleData ? "article" : "website", true);
     updateMetaTag("og:locale", "es_AR", true);
-    updateMetaTag("og:site_name", "Mudanzas Miranda", true);
+    updateMetaTag("og:site_name", themeConfig.brand.name, true);
 
     // Determine the image URL for social previews (OpenGraph & Twitter)
-    let imageUrl = "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg";
+    let imageUrl = `${themeConfig.site.baseUrl}/img/mudanzas-miranda-1200.jpg`;
     if (serviceData?.image) {
       imageUrl = serviceData.image.startsWith("http")
         ? serviceData.image
-        : `https://mudanzasmendoza.com.ar${serviceData.image}`;
+        : `${themeConfig.site.baseUrl}${serviceData.image}`;
     } else if (blogArticleData?.image) {
       imageUrl = blogArticleData.image.startsWith("http")
         ? blogArticleData.image
-        : `https://mudanzasmendoza.com.ar${blogArticleData.image}`;
+        : `${themeConfig.site.baseUrl}${blogArticleData.image}`;
     }
     updateMetaTag("og:image", imageUrl, true);
 
@@ -227,46 +228,43 @@ export default function SEO({
     const movingCompanySchema = {
       "@context": "https://schema.org",
       "@type": "MovingCompany",
-      "@id": "https://mudanzasmendoza.com.ar/#company",
-      name: "Mudanzas Miranda",
-      url: "https://mudanzasmendoza.com.ar",
-      logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
-      image: "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg",
+      "@id": "${themeConfig.site.baseUrl}/#company",
+      name: themeConfig.brandRelationship?.parentName || themeConfig.brand.name,
+      url: themeConfig.site.baseUrl,
+      logo: "${themeConfig.site.baseUrl}/img/logo-light.svg",
+      image: "${themeConfig.site.baseUrl}/img/mudanzas-miranda-1200.jpg",
       description:
         "Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas con más de 20 años de experiencia.",
-      telephone: "+5492615130910",
+      telephone: themeConfig.contact.phoneHref.replace("tel:", ""),
       priceRange: "$$",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Armada Argentina 584",
+        streetAddress: themeConfig.contact.address,
         addressLocality: "Mendoza",
         addressRegion: "Mendoza",
-        postalCode: "5500",
+        postalCode: themeConfig.contact.postalCode,
         addressCountry: "AR",
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: -32.890183,
-        longitude: -68.84405,
+        latitude: themeConfig.contact.latitude,
+        longitude: themeConfig.contact.longitude,
       },
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "08:00",
-          closes: "20:00",
+          dayOfWeek: themeConfig.contact.openingHours[0].days,
+          opens: themeConfig.contact.openingHours[0].opens,
+          closes: themeConfig.contact.openingHours[0].closes,
         },
         {
           "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Saturday"],
-          opens: "09:00",
-          closes: "14:00",
+          dayOfWeek: themeConfig.contact.openingHours[1].days,
+          opens: themeConfig.contact.openingHours[1].opens,
+          closes: themeConfig.contact.openingHours[1].closes,
         },
       ],
-      sameAs: [
-        "https://www.facebook.com/mudanzasmiranda4",
-        "https://www.instagram.com/mudanzasmiranda/",
-      ],
+      sameAs: themeConfig.contact.socialProfiles,
     };
 
     const schemaId = "seo-structured-data";
@@ -286,9 +284,9 @@ export default function SEO({
       const localMovingCompanySchema = {
         "@context": "https://schema.org",
         "@type": "MovingCompany",
-        "@id": `https://mudanzasmendoza.com.ar/mudanzas-mendoza/${destinationData.slug}.html#local-company`,
+        "@id": `${themeConfig.site.baseUrl}/mudanzas-mendoza/${destinationData.slug}.html#local-company`,
         name: `Mudanzas Miranda - ${destinationData.name}`,
-        url: `https://mudanzasmendoza.com.ar/mudanzas-mendoza/${destinationData.slug}.html`,
+        url: `${themeConfig.site.baseUrl}/mudanzas-mendoza/${destinationData.slug}.html`,
         logo: "https://mudanzasmendoza.com.ar/img/logo-light.svg",
         image: "https://mudanzasmendoza.com.ar/img/mudanzas-miranda-1200.jpg",
         description: `Servicio especializado de fletes y mudanzas en ${destinationData.name}, Mendoza. Traslados de casas, oficinas, departamentos y fletes económicos.`,
@@ -310,8 +308,8 @@ export default function SEO({
         },
         parentOrganization: {
           "@type": "MovingCompany",
-          name: "Mudanzas Miranda",
-          url: "https://mudanzasmendoza.com.ar",
+          name: themeConfig.brandRelationship?.parentName || themeConfig.brand.name,
+          url: themeConfig.site.baseUrl,
         },
       };
       schemaData.push(localMovingCompanySchema);
@@ -409,7 +407,7 @@ export default function SEO({
         "description": blogArticleData.summary,
         "image": blogArticleData.image.startsWith("http")
           ? blogArticleData.image
-          : `https://mudanzasmendoza.com.ar${blogArticleData.image}`,
+          : `${themeConfig.site.baseUrl}${blogArticleData.image}`,
         "datePublished": blogArticleData.date,
         "dateModified": blogArticleData.date,
         "author": {
