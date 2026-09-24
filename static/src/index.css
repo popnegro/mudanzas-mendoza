@@ -150,7 +150,11 @@ html {
 
   /* Clases para el componente Header */
   .nav-link-desktop {
-    @apply px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/60 transition-all;
+    @apply inline-flex min-h-11 items-center px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/60 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green-500/60;
+  }
+
+  .nav-link-desktop--active {
+    @apply text-brand-green-500 bg-brand-green-500/10;
   }
 
   .mega-menu-button {
@@ -174,7 +178,7 @@ html {
   }
 
   .header-cta-button {
-    @apply flex items-center gap-1.5 bg-brand-green-500 hover:bg-brand-green-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer;
+    @apply inline-flex min-h-11 items-center justify-center gap-1.5 bg-brand-green-500 hover:bg-brand-green-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green-500/60;
   }
 
   .mobile-whatsapp-button {
@@ -182,7 +186,11 @@ html {
   }
 
   .nav-link-mobile {
-    @apply w-full text-left py-3 px-4 rounded-xl text-base font-semibold text-slate-600 hover:bg-slate-50;
+    @apply w-full min-h-12 text-left py-3 px-4 rounded-xl text-base font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green-500/60;
+  }
+
+  .nav-link-mobile--active {
+    @apply text-brand-green-500 bg-brand-green-500/10;
   }
 
   .mobile-destination-button {
