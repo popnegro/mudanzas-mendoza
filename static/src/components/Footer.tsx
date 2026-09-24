@@ -33,28 +33,28 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
   return (
     <footer
       id="site-footer"
-      className="bg-[var(--miranda-surface)] text-[var(--miranda-text-tertiary)] border-t border-[var(--miranda-border)]"
+      className="bg-white text-slate-600 border-t border-slate-200"
       aria-label="Información de Mudanzas en Mendoza"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
         <section aria-labelledby="footer-brand-title" className="space-y-5">
-          <h2 id="footer-brand-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
+          <h2 id="footer-brand-title" className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Mudanzas en Mendoza
           </h2>
           {relationship && (
-            <div className="rounded-2xl border border-[var(--miranda-border)] bg-[var(--miranda-background)] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--miranda-text-subtle)]">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                 {relationship.label}
               </p>
               <a
                 href={relationship.parentUrl}
-                className="mt-1 inline-flex text-base font-extrabold text-[var(--miranda-text)] hover:text-brand-green-500 transition-colors"
+                className="mt-1 inline-flex text-base font-extrabold text-slate-800 hover:text-brand-green-500 transition-colors"
                 rel="noopener"
               >
                 {relationship.parentName}
               </a>
               {relationship.googleRating && (
-                <p className="mt-2 text-sm font-semibold text-[var(--miranda-text-secondary)]">
+                <p className="mt-2 text-sm font-semibold text-slate-700">
                   {relationship.googleRating.label}
                 </p>
               )}
@@ -69,26 +69,30 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           )}
         </section>
 
-        <section aria-labelledby="footer-ecosystem-title" className="space-y-4">
-          <h2 id="footer-ecosystem-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
+        <nav aria-labelledby="footer-ecosystem-title" className="space-y-4">
+          <h2 id="footer-ecosystem-title" className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Ecosistema
           </h2>
           <ul className="space-y-3 text-sm">
-            <li>
-              <a href={themeConfig.ecosystem.planningUrl} className="text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-colors font-medium">
-                Planificá con MudanzaPro
-              </a>
-            </li>
-            <li>
-              <a href={themeConfig.ecosystem.providerUrl} className="text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-colors font-medium">
-                Conocé Mudanzas Miranda
-              </a>
-            </li>
+            {themeConfig.ecosystem.planningUrl && (
+              <li>
+                <a href={themeConfig.ecosystem.planningUrl} className="text-slate-600 hover:text-brand-green-500 transition-colors font-medium">
+                  Planificá con MudanzaPro
+                </a>
+              </li>
+            )}
+            {themeConfig.ecosystem.providerUrl && (
+              <li>
+                <a href={themeConfig.ecosystem.providerUrl} className="text-slate-600 hover:text-brand-green-500 transition-colors font-medium">
+                  Conocé Mudanzas Miranda
+                </a>
+              </li>
+            )}
           </ul>
-        </section>
+        </nav>
 
         <nav aria-labelledby="footer-services-title" className="space-y-4">
-          <h2 id="footer-services-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
+          <h2 id="footer-services-title" className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Nuestros Servicios
           </h2>
           <ul className="space-y-3">
@@ -97,7 +101,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 <button
                   type="button"
                   onClick={() => handleLinkClick(service.slug)}
-                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium"
+                  className="group flex items-center gap-2 text-left text-slate-600 hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                   {service.label}
@@ -105,19 +109,20 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
               </li>
             ))}
             <li>
-              <a
-                href="/mudanzas-en-mendoza.html"
-                className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 text-sm font-medium"
+              <button
+                type="button"
+                onClick={() => handleLinkClick("destinos")}
+                className="group flex items-center gap-2 text-left text-slate-600 hover:text-brand-green-500 transition-all duration-200 hover:translate-x-1 text-sm font-medium"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
-                Guía: Mudanzas en Mendoza
-              </a>
+                Ver todos los destinos
+              </button>
             </li>
           </ul>
         </nav>
 
         <nav aria-labelledby="footer-coverage-title" className="space-y-4">
-          <h2 id="footer-coverage-title" className="text-sm font-bold text-[var(--miranda-text)] uppercase tracking-wider">
+          <h2 id="footer-coverage-title" className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Lugares principales
           </h2>
           <ul className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm">
@@ -126,7 +131,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
                 <button
                   type="button"
                   onClick={() => handleLinkClick(d.slug)}
-                  className="group flex items-center gap-2 text-left text-[var(--miranda-text-tertiary)] hover:text-brand-green-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium"
+                  className="group flex items-center gap-2 text-left text-slate-600 hover:text-brand-green-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-green-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                   <span>Mudanzas {d.name.replace(" de Mendoza", "").replace("Mendoza", "")}</span>
@@ -137,16 +142,16 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         </nav>
       </div>
 
-      <div className="bg-[var(--miranda-background)]/80 border-t border-[var(--miranda-border)] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--miranda-text-subtle)]">
+      <div className="bg-slate-50 border-t border-slate-200 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p className="text-center sm:text-left">
             © 2026 Mudanzas en Mendoza · Powered by <a href="https://wa.me/5492616706710">SmartWeb</a>
           </p>
           <nav aria-label="Redes sociales" className="flex items-center gap-4">
-            <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Instagram de Mudanzas en Mendoza">
+            <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-slate-800 hover:bg-slate-100 transition-all" aria-label="Instagram de Mudanzas en Mendoza">
               <Instagram className="w-5 h-5 text-brand-green-500" aria-hidden="true" />
             </a>
-            <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-[var(--miranda-text)] hover:bg-[var(--miranda-background-soft)] transition-all" aria-label="Facebook de Mudanzas en Mendoza">
+            <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-slate-800 hover:bg-slate-100 transition-all" aria-label="Facebook de Mudanzas en Mendoza">
               <Facebook className="w-5 h-5 text-brand-green-500" aria-hidden="true" />
             </a>
           </nav>
@@ -158,6 +163,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
 
 function serviceLinks() {
   return [
+    { slug: "servicios", label: "Todos los servicios" },
     { slug: "mudanzas-urgentes", label: "Mudanzas Urgentes" },
     { slug: "mudanzas-24-horas", label: "Mudanzas 24 Horas" },
     { slug: "mudanzas-residenciales", label: "Mudanzas Residenciales" },
