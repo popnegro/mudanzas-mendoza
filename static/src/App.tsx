@@ -65,6 +65,23 @@ export default function App() {
         return;
       }
 
+      // Legacy sitemap URLs remain resolvable while canonical pages use the current routes.
+      if (path === "/mudanzas-en-mendoza.html" || path === "/mudanzas-en-mendoza.html/") {
+        setActivePage("");
+        return;
+      }
+
+      const legacyDestinationMatch = path.match(
+        /^\/mudanzas-locales\/(mudanzas-[a-z0-9-]+)\.html\/?$/,
+      );
+      if (legacyDestinationMatch) {
+        const legacySlug = legacyDestinationMatch[1];
+        if (destinations.some((d) => d.slug === legacySlug)) {
+          setActivePage(legacySlug);
+          return;
+        }
+      }
+
       const blogPostMatch = path.match(/^\/blog\/([a-z0-9-]+)\/?$/);
       if (blogPostMatch) {
         setActivePage(`blog/${blogPostMatch[1]}`);
