@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-green-50: #f4faf6;
-  --color-brand-green-100: #e3f2e8;
-  --color-brand-green-200: #c2e3ce;
-  --color-brand-green-300: #93cca7;
-  --color-brand-green-400: #12823b;
-  --color-brand-green-500: #0d602b;
-  --color-brand-green-600: #0a4f23;
-  --color-brand-green-700: #073b1a;
-  --color-brand-green-800: #052e14;
-  --color-brand-green-900: #021a0b;
+  --color-brand-green-50: #F3F7F5;
+  --color-brand-green-100: #EAF7F2;
+  --color-brand-green-200: #CFEFE3;
+  --color-brand-green-300: #9EDCC5;
+  --color-brand-green-400: #07BE8A;
+  --color-brand-green-500: #06434A;
+  --color-brand-green-600: #05373D;
+  --color-brand-green-700: #05373D;
+  --color-brand-green-800: #12383A;
+  --color-brand-green-900: #12383A;
 }
 
 /* Custom Scrollbar Styling for a premium feel */
