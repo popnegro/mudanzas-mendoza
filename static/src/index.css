@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
 @theme {
+  --color-brand: #06434A;
+  --color-brand-dark: #05373D;
+  --color-accent: #07BE8A;
+  --color-surface: #FFFFFF;
+  --color-background: #FAF9F5;
+  --color-background-soft: #F3F7F5;
+  --color-ink: #12383A;
+  --color-ink-secondary: #5F6B73;
+  --color-ink-tertiary: #5F6B73;
+  --color-ink-subtle: #718096;
+  --color-line: #E2E8F0;
   --color-brand-green-50: #F3F7F5;
   --color-brand-green-100: #EAF7F2;
   --color-brand-green-200: #CFEFE3;
@@ -449,7 +460,7 @@ html {
   }
 
   .destination-search-result-card {
-    @apply text-left text-sm py-2.5 px-3.5 rounded-xl bg-slate-50 text-slate-700 hover:text-amber-600 hover:bg-amber-500/10 border border-slate-100 font-medium transition-all flex items-center justify-between cursor-pointer;
+    @apply text-left text-sm py-2.5 px-3.5 rounded-xl bg-slate-50 text-slate-700 hover:text-brand-green-600 hover:bg-brand-green-500/10 border border-slate-100 font-medium transition-all flex items-center justify-between cursor-pointer;
   }
 
   .destination-region-card {
