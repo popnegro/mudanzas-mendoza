@@ -120,7 +120,7 @@ jobs:
           npx --yes agent-browser@0.37.1 eval '(() => {
             const width=window.innerWidth;
             if (!window.matchMedia("(max-width: 1023px)").matches) throw new Error(`Mobile viewport not active: ${width}px`);
-            if (!document.querySelector("[aria-label=\"Toggle Menu\"]")) throw new Error("Mobile menu toggle not found");
+            if (!document.querySelector("[aria-label=\"Abrir menú\"]")) throw new Error("Mobile menu toggle not found");
             return JSON.stringify({width,height:window.innerHeight});
           })()'
           npx --yes agent-browser@0.37.1 find role button click --name "Abrir menú"
@@ -128,7 +128,7 @@ jobs:
           npx --yes agent-browser@0.37.1 eval '(() => {
             const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position==="fixed" && getComputedStyle(el).overflowY==="auto");
             const bodyLocked=getComputedStyle(document.body).overflow==="hidden";
-            const menuButtons=[...document.querySelectorAll("div[role=\"dialog\"], div.fixed")].flatMap(el => [...el.querySelectorAll("button")]).filter(b => (b.innerText || "").trim().length > 0);
+            const menuActions=[...document.querySelectorAll("div[role=\\"dialog\\"], div.fixed")].flatMap(el => [...el.querySelectorAll("a[href],button")]).filter(el => (el.innerText || el.getAttribute("aria-label") || "").trim().length > 0);
             const visibleFixedPanel=[...document.querySelectorAll("div")].find(el => {
               const style=getComputedStyle(el);
               return style.position==="fixed" && style.overflowY==="auto" && el.getBoundingClientRect().height > 0;
