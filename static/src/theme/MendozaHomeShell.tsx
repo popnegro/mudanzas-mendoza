@@ -10,9 +10,11 @@ export default function MendozaHomeShell() {
     let next = '/';
     if (slug === 'blog') next = '/blog';
     else if (slug === 'destinos') next = '/destinos';
+    else if (slug === 'servicios') next = '/servicios';
     else if (slug.startsWith('blog/')) next = `/${slug}`;
-    else next = `/servicios/${slug}.html`;
+    else if (slug) next = `/servicios/${slug}.html`;
     window.history.pushState({}, '', next);
+    window.dispatchEvent(new PopStateEvent('popstate'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
