@@ -123,7 +123,7 @@ jobs:
             if (!document.querySelector("[aria-label=\"Toggle Menu\"]")) throw new Error("Mobile menu toggle not found");
             return JSON.stringify({width,height:window.innerHeight});
           })()'
-          npx --yes agent-browser@0.37.1 find role button click --name "Toggle Menu"
+          npx --yes agent-browser@0.37.1 find role button click --name "Abrir menú"
           npx --yes agent-browser@0.37.1 wait 1000
           npx --yes agent-browser@0.37.1 eval '(() => {
             const panel=[...document.querySelectorAll("div")].find(el => getComputedStyle(el).position==="fixed" && getComputedStyle(el).overflowY==="auto");
@@ -135,9 +135,9 @@ jobs:
             });
             if (!panel || !visibleFixedPanel) throw new Error("Mobile menu panel not found");
             if (!bodyLocked) throw new Error("Body scroll is not locked while mobile menu is open");
-            if (menuButtons.length === 0) throw new Error("Mobile menu has no actionable buttons");
+            if (menuActions.length === 0) throw new Error("Mobile menu has no actionable links or buttons");
             if (panel.clientHeight >= panel.scrollHeight && panel.scrollHeight > window.innerHeight) throw new Error("Mobile menu overflow model is invalid");
-            return JSON.stringify({panelFound:true,bodyLocked,actionableButtons:menuButtons.length,panelScrollHeight:panel.scrollHeight,panelClientHeight:panel.clientHeight});
+            return JSON.stringify({panelFound:true,bodyLocked,actionableItems:menuActions.length,panelScrollHeight:panel.scrollHeight,panelClientHeight:panel.clientHeight});
           })()'
           npx --yes agent-browser@0.37.1 screenshot "$RUNNER_TEMP/mobile-menu.png"
           npx --yes agent-browser@0.37.1 press Escape
