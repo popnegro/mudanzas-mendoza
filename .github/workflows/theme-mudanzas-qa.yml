@@ -24,3 +24,16 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run build
+
+  browser:
+    name: Browser visual and interaction QA
+    needs: qa
+    uses: ./.github/workflows/reusable-browser-qa.yml
+    secrets: inherit
+    with:
+      preview_url: https://mudanzas-mendoza-git-theme-mudanzas-popnegros-projects.vercel.app
+      node_version: '22'
+      desktop_width: 1440
+      desktop_height: 900
+      mobile_width: 390
+      mobile_height: 844
