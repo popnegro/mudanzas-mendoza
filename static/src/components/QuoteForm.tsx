@@ -394,7 +394,7 @@ export default function QuoteForm({
                   {step > s.number ? <Check className="w-5 h-5" /> : s.number}
                 </div>
                 <span
-                  className={`text-xs mt-2 font-medium ${step === s.number ? "text-slate-800 font-semibold" : "text-slate-400"}`}
+                  className={`text-xs mt-2 font-medium ${step === s.number ? "text-slate-800 font-semibold" : "text-slate-600"}`}
                 >
                   {s.label}
                 </span>
