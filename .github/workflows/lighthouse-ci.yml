@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'Vercel Preview URL to audit'
+        description: 'Vercel branch Preview URL to audit'
         required: true
-        default: 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app'
+        default: 'https://mudanzas-mendoza-git-theme-mudanzas-popnegros-projects.vercel.app'
         type: string
 
 concurrency:
@@ -23,7 +23,7 @@ jobs:
   lighthouse:
     uses: ./.github/workflows/reusable-lighthouse.yml
     with:
-      preview_url: ${{ inputs.url || 'https://mudanzas-mendoza-oqdxsc3cy-popnegros-projects.vercel.app' }}
+      preview_url: ${{ inputs.url || 'https://mudanzas-mendoza-git-theme-mudanzas-popnegros-projects.vercel.app' }}
       runs: 3
       performance_min: 0.70
       accessibility_min: 0.90
